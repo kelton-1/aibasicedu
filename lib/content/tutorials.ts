@@ -2,7 +2,7 @@ export type TutorialCategory = "prompt-engineering" | "ai-concepts" | "generativ
 export type TutorialLevel = "beginner" | "intermediate" | "advanced"
 
 export interface Tutorial {
-  id: number
+  id: string
   title: string
   description: string
   category: TutorialCategory
@@ -16,7 +16,7 @@ export interface Tutorial {
 
 export const tutorials: Tutorial[] = [
   {
-    id: 1,
+    id: "prompt-engineering-basics",
     title: "Prompt Engineering Basics",
     description: "Learn the fundamentals of crafting effective prompts for AI language models.",
     category: "prompt-engineering",
@@ -28,7 +28,7 @@ export const tutorials: Tutorial[] = [
     publishedAt: "2024-04-15",
   },
   {
-    id: 2,
+    id: "understanding-llms",
     title: "Understanding Large Language Models",
     description: "Explore how LLMs work, their capabilities, and limitations.",
     category: "ai-concepts",
@@ -40,7 +40,7 @@ export const tutorials: Tutorial[] = [
     publishedAt: "2024-05-10",
   },
   {
-    id: 3,
+    id: "image-generation-playground",
     title: "AI Image Generation Playground",
     description: "Hands-on tutorial for creating and refining AI-generated images.",
     category: "generative-ai",
@@ -52,7 +52,7 @@ export const tutorials: Tutorial[] = [
     publishedAt: "2024-05-20",
   },
   {
-    id: 4,
+    id: "chain-of-thought-prompting",
     title: "Chain-of-Thought Prompting",
     description: "Advanced techniques for improving reasoning in AI responses.",
     category: "prompt-engineering",
@@ -64,7 +64,7 @@ export const tutorials: Tutorial[] = [
     publishedAt: "2024-06-02",
   },
   {
-    id: 5,
+    id: "ai-ethics-interactive-scenarios",
     title: "AI Ethics Interactive Scenarios",
     description: "Navigate ethical dilemmas in AI development through case studies.",
     category: "ai-ethics",
@@ -76,7 +76,7 @@ export const tutorials: Tutorial[] = [
     publishedAt: "2024-06-16",
   },
   {
-    id: 6,
+    id: "build-a-simple-text-classifier",
     title: "Build a Simple Text Classifier",
     description: "Create a practical AI application using modern machine learning tools.",
     category: "practical-ai",
