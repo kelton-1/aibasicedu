@@ -8,9 +8,8 @@ import { ErrorBoundary } from "@/app/components/error-boundary"
 import "./globals.css"
 
 export const metadata = {
-  title: "AI Learning Hub",
-  description: "Personalized AI education for everyone",
-    generator: 'v0.dev'
+  title: "AI Basic EDU",
+  description: "Practical AI learning paths, explainers, and tutorials for modern teams.",
 }
 
 export default function RootLayout({
@@ -29,7 +28,6 @@ export default function RootLayout({
               <main className="flex-1">{children}</main>
               <SiteFooter />
             </div>
-            {/* Only include in development */}
             {process.env.NODE_ENV === "development" && <LinkChecker />}
           </ErrorBoundary>
         </ThemeProvider>
@@ -37,7 +35,3 @@ export default function RootLayout({
     </html>
   )
 }
-
-
-
-import './globals.css'
