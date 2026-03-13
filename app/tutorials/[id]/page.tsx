@@ -14,6 +14,8 @@ type TutorialRouteParams = {
   id: string
 }
 
+export const dynamicParams = false
+
 export function generateStaticParams() {
   return Object.keys(tutorialPages).map((id) => ({ id }))
 }
