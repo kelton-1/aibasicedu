@@ -7,6 +7,8 @@ import { SectionHeading } from "@/app/components/section-heading"
 import { FeatureCard } from "@/app/components/feature-card"
 import { NewsletterSubscription } from "@/app/components/newsletter-subscription"
 import { CompanyLogo } from "@/app/components/company-logo"
+import { getLatestNews } from "@/lib/content/news"
+import { getLatestTutorials } from "@/lib/content/tutorials"
 
 // Company data for the landing page
 const featuredCompanies = [
@@ -43,6 +45,9 @@ const featuredCompanies = [
 ]
 
 export default function Home() {
+  const latestNews = getLatestNews(3)
+  const latestTutorials = getLatestTutorials(3)
+
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
@@ -93,13 +98,60 @@ export default function Home() {
               <div className="relative w-full max-w-4xl">
                 <div className="absolute -inset-1 rounded-lg bg-gradient-to-r from-purple-400 via-indigo-400 to-blue-400 opacity-30 blur"></div>
                 <img
-                  src="/placeholder.svg?height=600&width=1200"
+                  src="/assets/media/hero-ai-learning.svg"
                   alt="AI Learning Platform"
                   className="relative rounded-lg shadow-2xl w-full"
                 />
               </div>
             </div>
           </FadeIn>
+        </div>
+      </section>
+
+      <section className="w-full py-12 md:py-20 bg-white">
+        <div className="container px-4 md:px-6">
+          <SectionHeading
+            title="Latest From AI Basic EDU"
+            description="News and tutorials are powered by a shared content module so updates appear automatically."
+          />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
+            <Card>
+              <CardHeader>
+                <CardTitle>Latest News</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                {latestNews.map((item) => (
+                  <div key={item.id} className="flex items-start justify-between gap-3 border-b pb-3 last:border-0">
+                    <div>
+                      <p className="font-medium leading-snug">{item.title}</p>
+                      <p className="text-sm text-gray-500">{item.date}</p>
+                    </div>
+                    <Button variant="ghost" size="sm" asChild>
+                      <Link href="/news">View</Link>
+                    </Button>
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle>Latest Tutorials</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                {latestTutorials.map((item) => (
+                  <div key={item.id} className="flex items-start justify-between gap-3 border-b pb-3 last:border-0">
+                    <div>
+                      <p className="font-medium leading-snug">{item.title}</p>
+                      <p className="text-sm text-gray-500">{item.duration}</p>
+                    </div>
+                    <Button variant="ghost" size="sm" asChild>
+                      <Link href="/tutorials">View</Link>
+                    </Button>
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </section>
 
@@ -386,4 +438,3 @@ export default function Home() {
     </div>
   )
 }
-
