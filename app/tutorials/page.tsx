@@ -18,10 +18,13 @@ export const metadata: Metadata = {
     description:
       "Explore guided AI tutorials covering prompt engineering, model fundamentals, and practical workflows.",
     url: "/tutorials",
+    images: ["/opengraph-image"],
   },
   twitter: {
+    card: "summary_large_image",
     title: "AI Tutorials | AI Learning Hub",
     description: "Explore guided AI tutorials for beginners and advanced learners.",
+    images: ["/twitter-image"],
   },
 }
 

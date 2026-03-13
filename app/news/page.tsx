@@ -15,10 +15,13 @@ export const metadata: Metadata = {
     description:
       "Stay current with AI breakthroughs, policy updates, product launches, and research highlights from across the industry.",
     url: "/news",
+    images: ["/opengraph-image"],
   },
   twitter: {
+    card: "summary_large_image",
     title: "AI News & Trends | AI Learning Hub",
     description: "Read the latest AI news, trends, and research highlights.",
+    images: ["/twitter-image"],
   },
 }
 
