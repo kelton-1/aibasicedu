@@ -1,28 +1,54 @@
-import type { Metadata } from "next"
-import Link from "next/link"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { BookOpen, Code, Brain, Lightbulb, ArrowRight, Clock, BarChart3 } from "lucide-react"
-import { FadeIn } from "@/app/components/fade-in"
-import { SectionHeading } from "@/app/components/section-heading"
-import { ContentCard } from "@/app/components/content-card"
+import type { Metadata, ResolvingMetadata } from "next";
+import Link from "next/link";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  BookOpen,
+  Code,
+  Brain,
+  Lightbulb,
+  ArrowRight,
+  Clock,
+  BarChart3,
+} from "lucide-react";
+import { FadeIn } from "@/app/components/fade-in";
+import { SectionHeading } from "@/app/components/section-heading";
+import { ContentCard } from "@/app/components/content-card";
 
-export const metadata: Metadata = {
-  title: "Tutorials",
-  description:
-    "Explore guided AI tutorials covering prompt engineering, model fundamentals, and practical workflows.",
-  openGraph: {
-    title: "AI Tutorials | AI Learning Hub",
+export async function generateMetadata(
+  _: unknown,
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
+  const parentMetadata = await parent;
+  const parentTwitter = parentMetadata.twitter;
+
+  return {
+    title: "Tutorials",
     description:
       "Explore guided AI tutorials covering prompt engineering, model fundamentals, and practical workflows.",
-    url: "/tutorials",
-  },
-  twitter: {
-    title: "AI Tutorials | AI Learning Hub",
-    description: "Explore guided AI tutorials for beginners and advanced learners.",
-  },
+    openGraph: {
+      ...parentMetadata.openGraph,
+      title: "AI Tutorials | AI Learning Hub",
+      description:
+        "Explore guided AI tutorials covering prompt engineering, model fundamentals, and practical workflows.",
+      url: "/tutorials",
+    },
+    twitter: {
+      card: parentTwitter?.card ?? "summary_large_image",
+      images: parentTwitter?.images,
+      title: "AI Tutorials | AI Learning Hub",
+      description:
+        "Explore guided AI tutorials for beginners and advanced learners.",
+    },
+  };
 }
 
 export default function TutorialsPage() {
@@ -31,7 +57,8 @@ export default function TutorialsPage() {
     {
       id: "prompt-engineering-basics",
       title: "Prompt Engineering Basics",
-      description: "Learn the fundamentals of crafting effective prompts for AI systems.",
+      description:
+        "Learn the fundamentals of crafting effective prompts for AI systems.",
       category: "prompt-engineering",
       level: "beginner",
       duration: "20 min",
@@ -42,7 +69,8 @@ export default function TutorialsPage() {
     {
       id: "understanding-llms",
       title: "Understanding Large Language Models",
-      description: "Interactive exploration of how LLMs work and generate text.",
+      description:
+        "Interactive exploration of how LLMs work and generate text.",
       category: "ai-concepts",
       level: "intermediate",
       duration: "30 min",
@@ -53,7 +81,8 @@ export default function TutorialsPage() {
     {
       id: "image-generation-playground",
       title: "AI Image Generation Playground",
-      description: "Experiment with prompts and parameters to generate AI images.",
+      description:
+        "Experiment with prompts and parameters to generate AI images.",
       category: "generative-ai",
       level: "beginner",
       duration: "25 min",
@@ -64,7 +93,8 @@ export default function TutorialsPage() {
     {
       id: "chain-of-thought-prompting",
       title: "Chain-of-Thought Prompting",
-      description: "Master advanced prompting techniques for complex reasoning tasks.",
+      description:
+        "Master advanced prompting techniques for complex reasoning tasks.",
       category: "prompt-engineering",
       level: "advanced",
       duration: "45 min",
@@ -75,7 +105,8 @@ export default function TutorialsPage() {
     {
       id: "ai-ethics-scenarios",
       title: "AI Ethics Interactive Scenarios",
-      description: "Navigate ethical dilemmas and decision-making in AI development.",
+      description:
+        "Navigate ethical dilemmas and decision-making in AI development.",
       category: "ai-ethics",
       level: "intermediate",
       duration: "35 min",
@@ -94,7 +125,7 @@ export default function TutorialsPage() {
       modules: 9,
       exercises: 7,
     },
-  ]
+  ];
 
   return (
     <div className="container mx-auto px-4 py-12">
@@ -112,11 +143,16 @@ export default function TutorialsPage() {
               </div>
               <div>
                 <CardTitle>Learn by Doing</CardTitle>
-                <CardDescription>Interactive exercises reinforce concepts</CardDescription>
+                <CardDescription>
+                  Interactive exercises reinforce concepts
+                </CardDescription>
               </div>
             </CardHeader>
             <CardContent>
-              <p>Hands-on practice with immediate feedback helps solidify your understanding of AI concepts.</p>
+              <p>
+                Hands-on practice with immediate feedback helps solidify your
+                understanding of AI concepts.
+              </p>
             </CardContent>
           </Card>
         </FadeIn>
@@ -129,11 +165,16 @@ export default function TutorialsPage() {
               </div>
               <div>
                 <CardTitle>Real-world Examples</CardTitle>
-                <CardDescription>Apply concepts to practical scenarios</CardDescription>
+                <CardDescription>
+                  Apply concepts to practical scenarios
+                </CardDescription>
               </div>
             </CardHeader>
             <CardContent>
-              <p>See how AI concepts are applied in real-world situations with interactive demonstrations.</p>
+              <p>
+                See how AI concepts are applied in real-world situations with
+                interactive demonstrations.
+              </p>
             </CardContent>
           </Card>
         </FadeIn>
@@ -150,7 +191,10 @@ export default function TutorialsPage() {
               </div>
             </CardHeader>
             <CardContent>
-              <p>Complete exercises and quizzes to track your understanding and mastery of AI concepts.</p>
+              <p>
+                Complete exercises and quizzes to track your understanding and
+                mastery of AI concepts.
+              </p>
             </CardContent>
           </Card>
         </FadeIn>
@@ -159,7 +203,10 @@ export default function TutorialsPage() {
       <Tabs defaultValue="all" className="w-full">
         <div className="flex justify-center mb-8 overflow-x-auto">
           <TabsList className="bg-gray-100/80 p-1">
-            <TabsTrigger value="all" className="data-[state=active]:bg-white data-[state=active]:shadow-sm">
+            <TabsTrigger
+              value="all"
+              className="data-[state=active]:bg-white data-[state=active]:shadow-sm"
+            >
               All Tutorials
             </TabsTrigger>
             <TabsTrigger
@@ -168,16 +215,28 @@ export default function TutorialsPage() {
             >
               Prompt Engineering
             </TabsTrigger>
-            <TabsTrigger value="ai-concepts" className="data-[state=active]:bg-white data-[state=active]:shadow-sm">
+            <TabsTrigger
+              value="ai-concepts"
+              className="data-[state=active]:bg-white data-[state=active]:shadow-sm"
+            >
               AI Concepts
             </TabsTrigger>
-            <TabsTrigger value="generative-ai" className="data-[state=active]:bg-white data-[state=active]:shadow-sm">
+            <TabsTrigger
+              value="generative-ai"
+              className="data-[state=active]:bg-white data-[state=active]:shadow-sm"
+            >
               Generative AI
             </TabsTrigger>
-            <TabsTrigger value="ai-ethics" className="data-[state=active]:bg-white data-[state=active]:shadow-sm">
+            <TabsTrigger
+              value="ai-ethics"
+              className="data-[state=active]:bg-white data-[state=active]:shadow-sm"
+            >
               AI Ethics
             </TabsTrigger>
-            <TabsTrigger value="practical-ai" className="data-[state=active]:bg-white data-[state=active]:shadow-sm">
+            <TabsTrigger
+              value="practical-ai"
+              className="data-[state=active]:bg-white data-[state=active]:shadow-sm"
+            >
               Practical AI
             </TabsTrigger>
           </TabsList>
@@ -231,7 +290,8 @@ export default function TutorialsPage() {
                           : "destructive"
                     }
                   >
-                    {tutorial.level.charAt(0).toUpperCase() + tutorial.level.slice(1)}
+                    {tutorial.level.charAt(0).toUpperCase() +
+                      tutorial.level.slice(1)}
                   </Badge>
                 </div>
               </ContentCard>
@@ -239,7 +299,13 @@ export default function TutorialsPage() {
           </div>
         </TabsContent>
 
-        {["prompt-engineering", "ai-concepts", "generative-ai", "ai-ethics", "practical-ai"].map((category) => (
+        {[
+          "prompt-engineering",
+          "ai-concepts",
+          "generative-ai",
+          "ai-ethics",
+          "practical-ai",
+        ].map((category) => (
           <TabsContent key={category} value={category} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {tutorials
@@ -252,7 +318,9 @@ export default function TutorialsPage() {
                     image={tutorial.image}
                     badge={tutorial.category
                       .split("-")
-                      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                      .map(
+                        (word) => word.charAt(0).toUpperCase() + word.slice(1),
+                      )
                       .join(" ")}
                     delay={100 + index * 50}
                     footer={
@@ -290,7 +358,8 @@ export default function TutorialsPage() {
                               : "destructive"
                         }
                       >
-                        {tutorial.level.charAt(0).toUpperCase() + tutorial.level.slice(1)}
+                        {tutorial.level.charAt(0).toUpperCase() +
+                          tutorial.level.slice(1)}
                       </Badge>
                     </div>
                   </ContentCard>
@@ -304,13 +373,19 @@ export default function TutorialsPage() {
         <div className="mt-16 p-8 bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg shadow-sm">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="mb-6 md:mb-0 md:mr-6">
-              <h2 className="text-2xl font-bold mb-2">Can't find what you're looking for?</h2>
+              <h2 className="text-2xl font-bold mb-2">
+                Can't find what you're looking for?
+              </h2>
               <p className="text-gray-600 max-w-md">
-                We're constantly adding new tutorials based on user feedback and the latest AI developments.
+                We're constantly adding new tutorials based on user feedback and
+                the latest AI developments.
               </p>
             </div>
             <div className="flex flex-col space-y-4">
-              <Button variant="outline" className="w-full md:w-auto border-purple-200 hover:bg-purple-50">
+              <Button
+                variant="outline"
+                className="w-full md:w-auto border-purple-200 hover:bg-purple-50"
+              >
                 Request a Tutorial
               </Button>
               <Button className="w-full md:w-auto bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700">
@@ -321,5 +396,5 @@ export default function TutorialsPage() {
         </div>
       </FadeIn>
     </div>
-  )
+  );
 }

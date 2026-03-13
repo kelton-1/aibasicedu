@@ -1,28 +1,57 @@
-import type { Metadata } from "next"
-import Link from "next/link"
-import { ArrowRight, BookOpen, Newspaper, Lightbulb, Compass, Brain, Code, Sparkles, Zap } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { FadeIn } from "@/app/components/fade-in"
-import { SectionHeading } from "@/app/components/section-heading"
-import { FeatureCard } from "@/app/components/feature-card"
-import { NewsletterSubscription } from "@/app/components/newsletter-subscription"
-import { CompanyLogo } from "@/app/components/company-logo"
+import type { Metadata, ResolvingMetadata } from "next";
+import Link from "next/link";
+import {
+  ArrowRight,
+  BookOpen,
+  Newspaper,
+  Lightbulb,
+  Compass,
+  Brain,
+  Code,
+  Sparkles,
+  Zap,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { FadeIn } from "@/app/components/fade-in";
+import { SectionHeading } from "@/app/components/section-heading";
+import { FeatureCard } from "@/app/components/feature-card";
+import { NewsletterSubscription } from "@/app/components/newsletter-subscription";
+import { CompanyLogo } from "@/app/components/company-logo";
 
-export const metadata: Metadata = {
-  title: "Home",
-  description:
-    "Start your AI journey with curated learning paths, interactive resources, and practical guidance for every skill level.",
-  openGraph: {
-    title: "AI Learning Hub | Home",
+export async function generateMetadata(
+  _: unknown,
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
+  const parentMetadata = await parent;
+  const parentTwitter = parentMetadata.twitter;
+
+  return {
+    title: "Home",
     description:
       "Start your AI journey with curated learning paths, interactive resources, and practical guidance for every skill level.",
-    url: "/",
-  },
-  twitter: {
-    title: "AI Learning Hub | Home",
-    description: "Start your AI journey with curated learning paths and practical AI resources.",
-  },
+    openGraph: {
+      ...parentMetadata.openGraph,
+      title: "AI Learning Hub | Home",
+      description:
+        "Start your AI journey with curated learning paths, interactive resources, and practical guidance for every skill level.",
+      url: "/",
+    },
+    twitter: {
+      card: parentTwitter?.card ?? "summary_large_image",
+      images: parentTwitter?.images,
+      title: "AI Learning Hub | Home",
+      description:
+        "Start your AI journey with curated learning paths and practical AI resources.",
+    },
+  };
 }
 
 // Company data for the landing page
@@ -57,7 +86,7 @@ const featuredCompanies = [
     logo: "https://huggingface.co/datasets/huggingface/brand-assets/resolve/main/hf-logo.svg",
     slug: "hugging-face",
   },
-]
+];
 
 export default function Home() {
   return (
@@ -74,12 +103,15 @@ export default function Home() {
             </FadeIn>
             <FadeIn direction="up" delay={200}>
               <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl">
-                Master <span className="gradient-text">Artificial Intelligence</span> at Your Own Pace
+                Master{" "}
+                <span className="gradient-text">Artificial Intelligence</span>{" "}
+                at Your Own Pace
               </h1>
             </FadeIn>
             <FadeIn direction="up" delay={300}>
               <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl">
-                Personalized AI education for everyone - from complete beginners to seasoned experts.
+                Personalized AI education for everyone - from complete beginners
+                to seasoned experts.
               </p>
             </FadeIn>
             <FadeIn direction="up" delay={400}>
@@ -141,7 +173,11 @@ export default function Home() {
           </div>
 
           <div className="flex justify-center mt-8">
-            <Button asChild variant="outline" className="border-purple-200 hover:bg-purple-50">
+            <Button
+              asChild
+              variant="outline"
+              className="border-purple-200 hover:bg-purple-50"
+            >
               <Link href="/companies">
                 View All Companies <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
@@ -215,12 +251,14 @@ export default function Home() {
                 </div>
                 <CardHeader>
                   <CardTitle>Interactive Tutorials</CardTitle>
-                  <CardDescription>Learn through guided, hands-on experiences</CardDescription>
+                  <CardDescription>
+                    Learn through guided, hands-on experiences
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <p className="text-gray-600">
-                    Our interactive tutorials guide you through AI concepts with practical exercises and real-time
-                    feedback.
+                    Our interactive tutorials guide you through AI concepts with
+                    practical exercises and real-time feedback.
                   </p>
                 </CardContent>
                 <CardFooter>
@@ -243,12 +281,14 @@ export default function Home() {
                 </div>
                 <CardHeader>
                   <CardTitle>Hands-on Projects</CardTitle>
-                  <CardDescription>Apply your knowledge with real projects</CardDescription>
+                  <CardDescription>
+                    Apply your knowledge with real projects
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <p className="text-gray-600">
-                    Build practical AI applications with step-by-step guidance, from simple chatbots to image
-                    recognition systems.
+                    Build practical AI applications with step-by-step guidance,
+                    from simple chatbots to image recognition systems.
                   </p>
                 </CardContent>
                 <CardFooter>
@@ -271,12 +311,14 @@ export default function Home() {
                 </div>
                 <CardHeader>
                   <CardTitle>AI Playgrounds</CardTitle>
-                  <CardDescription>Experiment with AI models in real-time</CardDescription>
+                  <CardDescription>
+                    Experiment with AI models in real-time
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <p className="text-gray-600">
-                    Test different prompts, parameters, and techniques with our interactive AI playgrounds to see
-                    immediate results.
+                    Test different prompts, parameters, and techniques with our
+                    interactive AI playgrounds to see immediate results.
                   </p>
                 </CardContent>
                 <CardFooter>
@@ -383,7 +425,8 @@ export default function Home() {
             </FadeIn>
             <FadeIn direction="up" delay={300}>
               <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl">
-                Join thousands of learners who are discovering the potential of AI.
+                Join thousands of learners who are discovering the potential of
+                AI.
               </p>
             </FadeIn>
             <FadeIn direction="up" delay={400}>
@@ -393,7 +436,8 @@ export default function Home() {
                 className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 transition-all duration-300 shadow-md hover:shadow-lg"
               >
                 <Link href="/get-started">
-                  Begin Your Personalized Learning Path <ArrowRight className="ml-2 h-4 w-4" />
+                  Begin Your Personalized Learning Path{" "}
+                  <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
             </FadeIn>
@@ -401,5 +445,5 @@ export default function Home() {
         </div>
       </section>
     </div>
-  )
+  );
 }

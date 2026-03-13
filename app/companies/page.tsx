@@ -1,23 +1,34 @@
-import type { Metadata } from "next"
-import { FadeIn } from "@/app/components/fade-in"
-import { SectionHeading } from "@/app/components/section-heading"
-import { CompanyLogo } from "@/app/components/company-logo"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import type { Metadata, ResolvingMetadata } from "next";
+import { FadeIn } from "@/app/components/fade-in";
+import { SectionHeading } from "@/app/components/section-heading";
+import { CompanyLogo } from "@/app/components/company-logo";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-export const metadata: Metadata = {
-  title: "AI Companies",
-  description:
-    "Discover leading AI companies, research labs, and platforms shaping the future of artificial intelligence.",
-  openGraph: {
-    title: "AI Companies | AI Learning Hub",
+export async function generateMetadata(
+  _: unknown,
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
+  const parentMetadata = await parent;
+  const parentTwitter = parentMetadata.twitter;
+
+  return {
+    title: "AI Companies",
     description:
       "Discover leading AI companies, research labs, and platforms shaping the future of artificial intelligence.",
-    url: "/companies",
-  },
-  twitter: {
-    title: "AI Companies | AI Learning Hub",
-    description: "Discover top AI companies and research organizations.",
-  },
+    openGraph: {
+      ...parentMetadata.openGraph,
+      title: "AI Companies | AI Learning Hub",
+      description:
+        "Discover leading AI companies, research labs, and platforms shaping the future of artificial intelligence.",
+      url: "/companies",
+    },
+    twitter: {
+      card: parentTwitter?.card ?? "summary_large_image",
+      images: parentTwitter?.images,
+      title: "AI Companies | AI Learning Hub",
+      description: "Discover top AI companies and research organizations.",
+    },
+  };
 }
 
 // Company data
@@ -94,15 +105,25 @@ const companies = [
     slug: "runway",
     category: "generative",
   },
-]
+];
 
 export default function CompaniesPage() {
   // Group companies by category
-  const researchCompanies = companies.filter((company) => company.category === "research")
-  const enterpriseCompanies = companies.filter((company) => company.category === "enterprise")
-  const generativeCompanies = companies.filter((company) => company.category === "generative")
-  const platformCompanies = companies.filter((company) => company.category === "platform")
-  const hardwareCompanies = companies.filter((company) => company.category === "hardware")
+  const researchCompanies = companies.filter(
+    (company) => company.category === "research",
+  );
+  const enterpriseCompanies = companies.filter(
+    (company) => company.category === "enterprise",
+  );
+  const generativeCompanies = companies.filter(
+    (company) => company.category === "generative",
+  );
+  const platformCompanies = companies.filter(
+    (company) => company.category === "platform",
+  );
+  const hardwareCompanies = companies.filter(
+    (company) => company.category === "hardware",
+  );
 
   return (
     <div className="container mx-auto px-4 py-12">
@@ -114,22 +135,40 @@ export default function CompaniesPage() {
       <Tabs defaultValue="all" className="w-full mt-8">
         <div className="flex justify-center mb-8">
           <TabsList className="bg-gray-100/80 p-1">
-            <TabsTrigger value="all" className="data-[state=active]:bg-white data-[state=active]:shadow-sm">
+            <TabsTrigger
+              value="all"
+              className="data-[state=active]:bg-white data-[state=active]:shadow-sm"
+            >
               All Companies
             </TabsTrigger>
-            <TabsTrigger value="research" className="data-[state=active]:bg-white data-[state=active]:shadow-sm">
+            <TabsTrigger
+              value="research"
+              className="data-[state=active]:bg-white data-[state=active]:shadow-sm"
+            >
               Research Labs
             </TabsTrigger>
-            <TabsTrigger value="enterprise" className="data-[state=active]:bg-white data-[state=active]:shadow-sm">
+            <TabsTrigger
+              value="enterprise"
+              className="data-[state=active]:bg-white data-[state=active]:shadow-sm"
+            >
               Enterprise AI
             </TabsTrigger>
-            <TabsTrigger value="generative" className="data-[state=active]:bg-white data-[state=active]:shadow-sm">
+            <TabsTrigger
+              value="generative"
+              className="data-[state=active]:bg-white data-[state=active]:shadow-sm"
+            >
               Generative AI
             </TabsTrigger>
-            <TabsTrigger value="platform" className="data-[state=active]:bg-white data-[state=active]:shadow-sm">
+            <TabsTrigger
+              value="platform"
+              className="data-[state=active]:bg-white data-[state=active]:shadow-sm"
+            >
               AI Platforms
             </TabsTrigger>
-            <TabsTrigger value="hardware" className="data-[state=active]:bg-white data-[state=active]:shadow-sm">
+            <TabsTrigger
+              value="hardware"
+              className="data-[state=active]:bg-white data-[state=active]:shadow-sm"
+            >
               AI Hardware
             </TabsTrigger>
           </TabsList>
@@ -224,10 +263,12 @@ export default function CompaniesPage() {
         <div className="mt-16 p-8 bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg shadow-sm">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="mb-6 md:mb-0 md:mr-6">
-              <h2 className="text-2xl font-bold mb-2">Interested in AI Industry Insights?</h2>
+              <h2 className="text-2xl font-bold mb-2">
+                Interested in AI Industry Insights?
+              </h2>
               <p className="text-gray-600 max-w-md">
-                Explore our detailed company profiles to learn about their AI technologies, research focus, and impact
-                on the industry.
+                Explore our detailed company profiles to learn about their AI
+                technologies, research focus, and impact on the industry.
               </p>
             </div>
             <div className="flex flex-col space-y-4">
@@ -242,5 +283,5 @@ export default function CompaniesPage() {
         </div>
       </FadeIn>
     </div>
-  )
+  );
 }
