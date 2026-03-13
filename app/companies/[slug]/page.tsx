@@ -327,8 +327,9 @@ const companies = {
   // Additional companies would be defined here
 }
 
-export default function CompanyPage({ params }: { params: { slug: string } }) {
-  const company = companies[params.slug as keyof typeof companies]
+export default async function CompanyPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const company = companies[slug as keyof typeof companies]
 
   if (!company) {
     notFound()

@@ -12,10 +12,13 @@ export function AnimatedBackground() {
     const ctx = canvas.getContext("2d")
     if (!ctx) return
 
+    const canvasElement: HTMLCanvasElement = canvas
+    const context: CanvasRenderingContext2D = ctx
+
     // Set canvas dimensions
     const setCanvasDimensions = () => {
-      canvas.width = window.innerWidth
-      canvas.height = window.innerHeight
+      canvasElement.width = window.innerWidth
+      canvasElement.height = window.innerHeight
     }
 
     setCanvasDimensions()
@@ -34,8 +37,8 @@ export function AnimatedBackground() {
       color: string
 
       constructor() {
-        this.x = Math.random() * canvas.width
-        this.y = Math.random() * canvas.height
+        this.x = Math.random() * canvasElement.width
+        this.y = Math.random() * canvasElement.height
         this.size = Math.random() * 5 + 1
         this.speedX = Math.random() * 0.5 - 0.25
         this.speedY = Math.random() * 0.5 - 0.25
@@ -46,17 +49,17 @@ export function AnimatedBackground() {
         this.x += this.speedX
         this.y += this.speedY
 
-        if (this.x > canvas.width) this.x = 0
-        else if (this.x < 0) this.x = canvas.width
-        if (this.y > canvas.height) this.y = 0
-        else if (this.y < 0) this.y = canvas.height
+        if (this.x > canvasElement.width) this.x = 0
+        else if (this.x < 0) this.x = canvasElement.width
+        if (this.y > canvasElement.height) this.y = 0
+        else if (this.y < 0) this.y = canvasElement.height
       }
 
       draw() {
-        ctx.fillStyle = this.color
-        ctx.beginPath()
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2)
-        ctx.fill()
+        context.fillStyle = this.color
+        context.beginPath()
+        context.arc(this.x, this.y, this.size, 0, Math.PI * 2)
+        context.fill()
       }
     }
 
@@ -76,12 +79,12 @@ export function AnimatedBackground() {
 
           if (distance < maxDistance) {
             const opacity = 1 - distance / maxDistance
-            ctx.strokeStyle = `rgba(100, 100, 255, ${opacity * 0.2})`
-            ctx.lineWidth = 1
-            ctx.beginPath()
-            ctx.moveTo(particlesArray[a].x, particlesArray[a].y)
-            ctx.lineTo(particlesArray[b].x, particlesArray[b].y)
-            ctx.stroke()
+            context.strokeStyle = `rgba(100, 100, 255, ${opacity * 0.2})`
+            context.lineWidth = 1
+            context.beginPath()
+            context.moveTo(particlesArray[a].x, particlesArray[a].y)
+            context.lineTo(particlesArray[b].x, particlesArray[b].y)
+            context.stroke()
           }
         }
       }
@@ -89,7 +92,7 @@ export function AnimatedBackground() {
 
     function animate() {
       requestAnimationFrame(animate)
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
+      context.clearRect(0, 0, canvasElement.width, canvasElement.height)
 
       for (let i = 0; i < particlesArray.length; i++) {
         particlesArray[i].update()
@@ -108,4 +111,3 @@ export function AnimatedBackground() {
 
   return <canvas ref={canvasRef} className="fixed top-0 left-0 w-full h-full -z-10 opacity-30" aria-hidden="true" />
 }
-
