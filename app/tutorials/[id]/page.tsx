@@ -18,6 +18,8 @@ export function generateStaticParams() {
   return Object.keys(tutorialPages).map((id) => ({ id }))
 }
 
+export const dynamicParams = false
+
 export default async function TutorialDetailPage({ params }: { params: Promise<TutorialRouteParams> }) {
   const { id } = await params
 
