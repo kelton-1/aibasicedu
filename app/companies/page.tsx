@@ -1,7 +1,24 @@
+import type { Metadata } from "next"
 import { FadeIn } from "@/app/components/fade-in"
 import { SectionHeading } from "@/app/components/section-heading"
 import { CompanyLogo } from "@/app/components/company-logo"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+
+export const metadata: Metadata = {
+  title: "AI Companies",
+  description:
+    "Discover leading AI companies, research labs, and platforms shaping the future of artificial intelligence.",
+  openGraph: {
+    title: "AI Companies | AI Learning Hub",
+    description:
+      "Discover leading AI companies, research labs, and platforms shaping the future of artificial intelligence.",
+    url: "/companies",
+  },
+  twitter: {
+    title: "AI Companies | AI Learning Hub",
+    description: "Discover top AI companies and research organizations.",
+  },
+}
 
 // Company data
 const companies = [
@@ -227,4 +244,3 @@ export default function CompaniesPage() {
     </div>
   )
 }
-

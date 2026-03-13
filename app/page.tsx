@@ -1,3 +1,4 @@
+import type { Metadata } from "next"
 import Link from "next/link"
 import { ArrowRight, BookOpen, Newspaper, Lightbulb, Compass, Brain, Code, Sparkles, Zap } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -7,6 +8,22 @@ import { SectionHeading } from "@/app/components/section-heading"
 import { FeatureCard } from "@/app/components/feature-card"
 import { NewsletterSubscription } from "@/app/components/newsletter-subscription"
 import { CompanyLogo } from "@/app/components/company-logo"
+
+export const metadata: Metadata = {
+  title: "Home",
+  description:
+    "Start your AI journey with curated learning paths, interactive resources, and practical guidance for every skill level.",
+  openGraph: {
+    title: "AI Learning Hub | Home",
+    description:
+      "Start your AI journey with curated learning paths, interactive resources, and practical guidance for every skill level.",
+    url: "/",
+  },
+  twitter: {
+    title: "AI Learning Hub | Home",
+    description: "Start your AI journey with curated learning paths and practical AI resources.",
+  },
+}
 
 // Company data for the landing page
 const featuredCompanies = [
@@ -386,4 +403,3 @@ export default function Home() {
     </div>
   )
 }
-

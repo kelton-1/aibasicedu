@@ -1,9 +1,26 @@
+import type { Metadata } from "next"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Clock, ArrowUpRight, BookmarkPlus } from "lucide-react"
 import Link from "next/link"
+
+export const metadata: Metadata = {
+  title: "AI News",
+  description:
+    "Stay current with AI breakthroughs, policy updates, product launches, and research highlights from across the industry.",
+  openGraph: {
+    title: "AI News & Trends | AI Learning Hub",
+    description:
+      "Stay current with AI breakthroughs, policy updates, product launches, and research highlights from across the industry.",
+    url: "/news",
+  },
+  twitter: {
+    title: "AI News & Trends | AI Learning Hub",
+    description: "Read the latest AI news, trends, and research highlights.",
+  },
+}
 
 export default function NewsPage() {
   // This would typically come from an API or database
@@ -202,4 +219,3 @@ export default function NewsPage() {
     </div>
   )
 }
-
