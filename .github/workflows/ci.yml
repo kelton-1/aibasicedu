@@ -27,6 +27,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Install lint tooling
+        run: pnpm add -D eslint eslint-config-next
+
       - name: Lint
         run: pnpm lint
 
