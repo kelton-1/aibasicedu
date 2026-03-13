@@ -7,6 +7,7 @@ import { SectionHeading } from "@/app/components/section-heading"
 import { FeatureCard } from "@/app/components/feature-card"
 import { NewsletterSubscription } from "@/app/components/newsletter-subscription"
 import { CompanyLogo } from "@/app/components/company-logo"
+import { ROUTE_MAP } from "@/app/lib/route-map"
 
 // Company data for the landing page
 const featuredCompanies = [
@@ -72,7 +73,7 @@ export default function Home() {
                   size="lg"
                   className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 transition-all duration-300 shadow-md hover:shadow-lg"
                 >
-                  <Link href="/get-started">
+                  <Link href={ROUTE_MAP.getStarted}>
                     Get Started <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
@@ -82,7 +83,7 @@ export default function Home() {
                   size="lg"
                   className="border-purple-200 hover:bg-purple-50 transition-all duration-300"
                 >
-                  <Link href="/browse">Browse Resources</Link>
+                  <Link href={ROUTE_MAP.browse}>Browse Resources</Link>
                 </Button>
               </div>
             </FadeIn>
@@ -125,7 +126,7 @@ export default function Home() {
 
           <div className="flex justify-center mt-8">
             <Button asChild variant="outline" className="border-purple-200 hover:bg-purple-50">
-              <Link href="/companies">
+              <Link href={ROUTE_MAP.companies}>
                 View All Companies <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
@@ -146,7 +147,7 @@ export default function Home() {
               icon={BookOpen}
               title="AI Glossary"
               description="Comprehensive dictionary of AI terms and concepts explained in plain language."
-              href="/glossary"
+              href={ROUTE_MAP.glossary}
               linkText="Explore Glossary"
               iconColor="bg-purple-500"
               delay={100}
@@ -155,7 +156,7 @@ export default function Home() {
               icon={Lightbulb}
               title="Prompt Engineering"
               description="Learn how to craft effective prompts to get the best results from AI systems."
-              href="/prompts"
+              href={ROUTE_MAP.prompts}
               linkText="Learn Prompting"
               iconColor="bg-yellow-500"
               delay={200}
@@ -164,7 +165,7 @@ export default function Home() {
               icon={Newspaper}
               title="AI News"
               description="Stay updated with the latest developments, breakthroughs, and trends in AI."
-              href="/news"
+              href={ROUTE_MAP.news}
               linkText="Read News"
               iconColor="bg-blue-500"
               delay={300}
@@ -173,7 +174,7 @@ export default function Home() {
               icon={Compass}
               title="Personalized Path"
               description="Custom learning journeys based on your interests and experience level."
-              href="/personalize"
+              href={ROUTE_MAP.personalize}
               linkText="Get Started"
               iconColor="bg-green-500"
               delay={400}
@@ -211,7 +212,7 @@ export default function Home() {
                     asChild
                     className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700"
                   >
-                    <Link href="/tutorials">
+                    <Link href={ROUTE_MAP.tutorials}>
                       Explore Tutorials <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
                   </Button>
@@ -239,7 +240,7 @@ export default function Home() {
                     asChild
                     className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700"
                   >
-                    <Link href="/projects">
+                    <Link href={ROUTE_MAP.projects}>
                       Start Building <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
                   </Button>
@@ -267,7 +268,7 @@ export default function Home() {
                     asChild
                     className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700"
                   >
-                    <Link href="/playgrounds">
+                    <Link href={ROUTE_MAP.playgrounds}>
                       Try Playgrounds <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
                   </Button>
@@ -375,7 +376,7 @@ export default function Home() {
                 asChild
                 className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 transition-all duration-300 shadow-md hover:shadow-lg"
               >
-                <Link href="/get-started">
+                <Link href={ROUTE_MAP.getStarted}>
                   Begin Your Personalized Learning Path <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
