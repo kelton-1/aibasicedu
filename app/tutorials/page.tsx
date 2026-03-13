@@ -1,3 +1,4 @@
+import type { Metadata } from "next"
 import Link from "next/link"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -8,6 +9,22 @@ import { FadeIn } from "@/app/components/fade-in"
 import { SectionHeading } from "@/app/components/section-heading"
 import { ContentCard } from "@/app/components/content-card"
 import { tutorialCategories, tutorials } from "./tutorial-data"
+
+export const metadata: Metadata = {
+  title: "Tutorials",
+  description:
+    "Explore guided AI tutorials covering prompt engineering, model fundamentals, and practical workflows.",
+  openGraph: {
+    title: "AI Tutorials | AI Learning Hub",
+    description:
+      "Explore guided AI tutorials covering prompt engineering, model fundamentals, and practical workflows.",
+    url: "/tutorials",
+  },
+  twitter: {
+    title: "AI Tutorials | AI Learning Hub",
+    description: "Explore guided AI tutorials for beginners and advanced learners.",
+  },
+}
 
 export default function TutorialsPage() {
   const renderTutorialCards = (filteredTutorials = tutorials) =>
