@@ -19,15 +19,25 @@ import {
   MessageSquare,
 } from "lucide-react"
 
+type ExerciseKey = "exercise1" | "exercise2" | "exercise3"
+
+type ExerciseFeedback = {
+  correct: boolean
+  message: string
+}
+
+type ExerciseAnswers = Record<ExerciseKey, string>
+type FeedbackState = Record<ExerciseKey, ExerciseFeedback | null>
+
 export default function PromptEngineeringBasicsTutorial() {
   const [currentModule, setCurrentModule] = useState(1)
   const [progress, setProgress] = useState(20)
-  const [exerciseAnswers, setExerciseAnswers] = useState({
+  const [exerciseAnswers, setExerciseAnswers] = useState<ExerciseAnswers>({
     exercise1: "",
     exercise2: "",
     exercise3: "",
   })
-  const [feedback, setFeedback] = useState({
+  const [feedback, setFeedback] = useState<FeedbackState>({
     exercise1: null,
     exercise2: null,
     exercise3: null,
@@ -49,7 +59,7 @@ export default function PromptEngineeringBasicsTutorial() {
     }
   }
 
-  const handleAnswerChange = (exercise, value) => {
+  const handleAnswerChange = (exercise: ExerciseKey, value: string) => {
     setExerciseAnswers({
       ...exerciseAnswers,
       [exercise]: value,
@@ -61,7 +71,7 @@ export default function PromptEngineeringBasicsTutorial() {
     })
   }
 
-  const checkAnswer = (exercise) => {
+  const checkAnswer = (exercise: ExerciseKey) => {
     const answer = exerciseAnswers[exercise].toLowerCase().trim()
 
     // Simple answer checking logic - in a real app, this would be more sophisticated
@@ -798,4 +808,3 @@ export default function PromptEngineeringBasicsTutorial() {
     </div>
   )
 }
-
