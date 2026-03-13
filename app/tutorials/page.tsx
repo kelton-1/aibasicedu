@@ -7,77 +7,68 @@ import { BookOpen, Code, Brain, Lightbulb, ArrowRight, Clock, BarChart3 } from "
 import { FadeIn } from "@/app/components/fade-in"
 import { SectionHeading } from "@/app/components/section-heading"
 import { ContentCard } from "@/app/components/content-card"
+import { tutorialCategories, tutorials } from "./tutorial-data"
 
 export default function TutorialsPage() {
-  // This would typically come from a database or API
-  const tutorials = [
-    {
-      id: "prompt-engineering-basics",
-      title: "Prompt Engineering Basics",
-      description: "Learn the fundamentals of crafting effective prompts for AI systems.",
-      category: "prompt-engineering",
-      level: "beginner",
-      duration: "20 min",
-      image: "/placeholder.svg?height=200&width=400",
-      modules: 5,
-      exercises: 3,
-    },
-    {
-      id: "understanding-llms",
-      title: "Understanding Large Language Models",
-      description: "Interactive exploration of how LLMs work and generate text.",
-      category: "ai-concepts",
-      level: "intermediate",
-      duration: "30 min",
-      image: "/placeholder.svg?height=200&width=400",
-      modules: 7,
-      exercises: 4,
-    },
-    {
-      id: "image-generation-playground",
-      title: "AI Image Generation Playground",
-      description: "Experiment with prompts and parameters to generate AI images.",
-      category: "generative-ai",
-      level: "beginner",
-      duration: "25 min",
-      image: "/placeholder.svg?height=200&width=400",
-      modules: 4,
-      exercises: 5,
-    },
-    {
-      id: "chain-of-thought-prompting",
-      title: "Chain-of-Thought Prompting",
-      description: "Master advanced prompting techniques for complex reasoning tasks.",
-      category: "prompt-engineering",
-      level: "advanced",
-      duration: "45 min",
-      image: "/placeholder.svg?height=200&width=400",
-      modules: 8,
-      exercises: 6,
-    },
-    {
-      id: "ai-ethics-scenarios",
-      title: "AI Ethics Interactive Scenarios",
-      description: "Navigate ethical dilemmas and decision-making in AI development.",
-      category: "ai-ethics",
-      level: "intermediate",
-      duration: "35 min",
-      image: "/placeholder.svg?height=200&width=400",
-      modules: 6,
-      exercises: 4,
-    },
-    {
-      id: "build-simple-classifier",
-      title: "Build a Simple Text Classifier",
-      description: "Create and train a basic AI model to classify text.",
-      category: "practical-ai",
-      level: "intermediate",
-      duration: "50 min",
-      image: "/placeholder.svg?height=200&width=400",
-      modules: 9,
-      exercises: 7,
-    },
-  ]
+  const renderTutorialCards = (filteredTutorials = tutorials) =>
+    filteredTutorials.map((tutorial, index) => (
+      <ContentCard
+        key={tutorial.id}
+        title={tutorial.title}
+        description={tutorial.description}
+        image={tutorial.image}
+        badge={tutorial.category
+          .split("-")
+          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(" ")}
+        delay={100 + index * 50}
+        footer={
+          tutorial.available ? (
+            <Button
+              className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700"
+              asChild
+            >
+              <Link href={`/tutorials/${tutorial.id}`}>
+                Start Tutorial <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+          ) : (
+            <Button disabled className="w-full" variant="secondary">
+              Coming soon
+            </Button>
+          )
+        }
+      >
+        <div className="flex justify-between text-sm text-gray-500 mb-4">
+          <div className="flex items-center">
+            <Clock className="h-4 w-4 mr-1" />
+            <span>{tutorial.duration}</span>
+          </div>
+          <div className="flex items-center">
+            <BookOpen className="h-4 w-4 mr-1" />
+            <span>{tutorial.modules} modules</span>
+          </div>
+          <div className="flex items-center">
+            <Lightbulb className="h-4 w-4 mr-1" />
+            <span>{tutorial.exercises} exercises</span>
+          </div>
+        </div>
+        <div className="absolute top-3 left-3 flex gap-2">
+          <Badge
+            variant={
+              tutorial.level === "beginner"
+                ? "secondary"
+                : tutorial.level === "intermediate"
+                  ? "outline"
+                  : "destructive"
+            }
+          >
+            {tutorial.level.charAt(0).toUpperCase() + tutorial.level.slice(1)}
+          </Badge>
+          {!tutorial.available ? <Badge variant="outline">Coming soon</Badge> : null}
+        </div>
+      </ContentCard>
+    ))
 
   return (
     <div className="container mx-auto px-4 py-12">
@@ -167,117 +158,13 @@ export default function TutorialsPage() {
         </div>
 
         <TabsContent value="all" className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {tutorials.map((tutorial, index) => (
-              <ContentCard
-                key={tutorial.id}
-                title={tutorial.title}
-                description={tutorial.description}
-                image={tutorial.image}
-                badge={tutorial.category
-                  .split("-")
-                  .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-                  .join(" ")}
-                delay={100 + index * 50}
-                footer={
-                  <Button
-                    className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700"
-                    asChild
-                  >
-                    <Link href={`/tutorials/${tutorial.id}`}>
-                      Start Tutorial <ArrowRight className="ml-2 h-4 w-4" />
-                    </Link>
-                  </Button>
-                }
-              >
-                <div className="flex justify-between text-sm text-gray-500 mb-4">
-                  <div className="flex items-center">
-                    <Clock className="h-4 w-4 mr-1" />
-                    <span>{tutorial.duration}</span>
-                  </div>
-                  <div className="flex items-center">
-                    <BookOpen className="h-4 w-4 mr-1" />
-                    <span>{tutorial.modules} modules</span>
-                  </div>
-                  <div className="flex items-center">
-                    <Lightbulb className="h-4 w-4 mr-1" />
-                    <span>{tutorial.exercises} exercises</span>
-                  </div>
-                </div>
-                <div className="absolute top-3 left-3">
-                  <Badge
-                    variant={
-                      tutorial.level === "beginner"
-                        ? "secondary"
-                        : tutorial.level === "intermediate"
-                          ? "outline"
-                          : "destructive"
-                    }
-                  >
-                    {tutorial.level.charAt(0).toUpperCase() + tutorial.level.slice(1)}
-                  </Badge>
-                </div>
-              </ContentCard>
-            ))}
-          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">{renderTutorialCards()}</div>
         </TabsContent>
 
-        {["prompt-engineering", "ai-concepts", "generative-ai", "ai-ethics", "practical-ai"].map((category) => (
+        {tutorialCategories.map((category) => (
           <TabsContent key={category} value={category} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {tutorials
-                .filter((tutorial) => tutorial.category === category)
-                .map((tutorial, index) => (
-                  <ContentCard
-                    key={tutorial.id}
-                    title={tutorial.title}
-                    description={tutorial.description}
-                    image={tutorial.image}
-                    badge={tutorial.category
-                      .split("-")
-                      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-                      .join(" ")}
-                    delay={100 + index * 50}
-                    footer={
-                      <Button
-                        className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700"
-                        asChild
-                      >
-                        <Link href={`/tutorials/${tutorial.id}`}>
-                          Start Tutorial <ArrowRight className="ml-2 h-4 w-4" />
-                        </Link>
-                      </Button>
-                    }
-                  >
-                    <div className="flex justify-between text-sm text-gray-500 mb-4">
-                      <div className="flex items-center">
-                        <Clock className="h-4 w-4 mr-1" />
-                        <span>{tutorial.duration}</span>
-                      </div>
-                      <div className="flex items-center">
-                        <BookOpen className="h-4 w-4 mr-1" />
-                        <span>{tutorial.modules} modules</span>
-                      </div>
-                      <div className="flex items-center">
-                        <Lightbulb className="h-4 w-4 mr-1" />
-                        <span>{tutorial.exercises} exercises</span>
-                      </div>
-                    </div>
-                    <div className="absolute top-3 left-3">
-                      <Badge
-                        variant={
-                          tutorial.level === "beginner"
-                            ? "secondary"
-                            : tutorial.level === "intermediate"
-                              ? "outline"
-                              : "destructive"
-                        }
-                      >
-                        {tutorial.level.charAt(0).toUpperCase() + tutorial.level.slice(1)}
-                      </Badge>
-                    </div>
-                  </ContentCard>
-                ))}
+              {renderTutorialCards(tutorials.filter((tutorial) => tutorial.category === category))}
             </div>
           </TabsContent>
         ))}
@@ -306,4 +193,3 @@ export default function TutorialsPage() {
     </div>
   )
 }
-
