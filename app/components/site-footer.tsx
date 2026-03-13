@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { ROUTE_MAP } from "@/app/lib/route-map"
 
 export function SiteFooter() {
   return (
@@ -10,16 +11,16 @@ export function SiteFooter() {
         </p>
         <div className="flex items-center gap-4">
           <Button variant="ghost" size="sm" asChild>
-            <Link href="/about">About</Link>
+            <Link href={ROUTE_MAP.about}>About</Link>
           </Button>
           <Button variant="ghost" size="sm" asChild>
-            <Link href="/privacy">Privacy</Link>
+            <Link href={ROUTE_MAP.privacy}>Privacy</Link>
           </Button>
           <Button variant="ghost" size="sm" asChild>
-            <Link href="/terms">Terms</Link>
+            <Link href={ROUTE_MAP.terms}>Terms</Link>
           </Button>
           <Button variant="ghost" size="sm" asChild>
-            <Link href="/contact">Contact</Link>
+            <Link href={ROUTE_MAP.contact}>Contact</Link>
           </Button>
         </div>
       </div>

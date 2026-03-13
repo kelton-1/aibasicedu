@@ -2,6 +2,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { ArrowRight, BookOpen, Lightbulb, Users, Compass } from "lucide-react"
+import { ROUTE_MAP } from "@/app/lib/route-map"
 
 export default function GetStartedPage() {
   return (
@@ -44,7 +45,7 @@ export default function GetStartedPage() {
           </CardContent>
           <CardFooter>
             <Button className="w-full" asChild>
-              <Link href="/personalize">
+              <Link href={ROUTE_MAP.personalize}>
                 Start Assessment <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
@@ -79,7 +80,7 @@ export default function GetStartedPage() {
           </CardContent>
           <CardFooter>
             <Button variant="outline" className="w-full" asChild>
-              <Link href="/browse">
+              <Link href={ROUTE_MAP.browse}>
                 Browse Resources <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
@@ -104,7 +105,7 @@ export default function GetStartedPage() {
             </CardContent>
             <CardFooter>
               <Button variant="ghost" className="w-full" asChild>
-                <Link href="/quick-guides">View Guides</Link>
+                <Link href={ROUTE_MAP.quickGuides}>View Guides</Link>
               </Button>
             </CardFooter>
           </Card>
@@ -122,7 +123,7 @@ export default function GetStartedPage() {
             </CardContent>
             <CardFooter>
               <Button variant="ghost" className="w-full" asChild>
-                <Link href="/community">Join Now</Link>
+                <Link href={ROUTE_MAP.community}>Join Now</Link>
               </Button>
             </CardFooter>
           </Card>
@@ -140,7 +141,7 @@ export default function GetStartedPage() {
             </CardContent>
             <CardFooter>
               <Button variant="ghost" className="w-full" asChild>
-                <Link href="/glossary">Explore Glossary</Link>
+                <Link href={ROUTE_MAP.glossary}>Explore Glossary</Link>
               </Button>
             </CardFooter>
           </Card>
@@ -154,7 +155,7 @@ export default function GetStartedPage() {
           takes 2 minutes and will help us guide you on the perfect learning path.
         </p>
         <Button size="lg" asChild>
-          <Link href="/personalize">
+          <Link href={ROUTE_MAP.personalize}>
             Take the 2-Minute Assessment <ArrowRight className="ml-2 h-4 w-4" />
           </Link>
         </Button>
