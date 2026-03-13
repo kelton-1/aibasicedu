@@ -13,10 +13,13 @@ export const metadata: Metadata = {
     description:
       "Discover leading AI companies, research labs, and platforms shaping the future of artificial intelligence.",
     url: "/companies",
+    images: ["/opengraph-image"],
   },
   twitter: {
+    card: "summary_large_image",
     title: "AI Companies | AI Learning Hub",
     description: "Discover top AI companies and research organizations.",
+    images: ["/twitter-image"],
   },
 }
 

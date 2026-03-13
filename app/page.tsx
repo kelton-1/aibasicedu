@@ -18,10 +18,13 @@ export const metadata: Metadata = {
     description:
       "Start your AI journey with curated learning paths, interactive resources, and practical guidance for every skill level.",
     url: "/",
+    images: ["/opengraph-image"],
   },
   twitter: {
+    card: "summary_large_image",
     title: "AI Learning Hub | Home",
     description: "Start your AI journey with curated learning paths and practical AI resources.",
+    images: ["/twitter-image"],
   },
 }
 
