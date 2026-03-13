@@ -328,6 +328,10 @@ const companies = {
 }
 
 export default function CompanyPage({ params }: { params: { slug: string } }) {
+  if (params.slug === "__error__") {
+    throw new Error("Intentional companies route render exception")
+  }
+
   const company = companies[params.slug as keyof typeof companies]
 
   if (!company) {
