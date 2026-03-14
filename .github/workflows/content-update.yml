@@ -1,0 +1,45 @@
+name: Update AI Content
+
+on:
+  schedule:
+    # Run daily at 8am UTC (3am CT)
+    - cron: "0 8 * * *"
+  workflow_dispatch: # Allow manual triggers
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate content
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: pnpm generate-content
+
+      - name: Trigger Vercel revalidation
+        if: success()
+        env:
+          REVALIDATION_URL: ${{ secrets.REVALIDATION_URL }}
+        run: |
+          if [ -n "$REVALIDATION_URL" ]; then
+            curl -s -X POST "$REVALIDATION_URL" || true
+          fi

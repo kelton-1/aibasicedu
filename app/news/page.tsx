@@ -5,6 +5,9 @@ import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Clock, ArrowUpRight, BookmarkPlus } from "lucide-react"
 import Link from "next/link"
+import { createServerClient } from "@/lib/supabase/server"
+
+export const revalidate = 3600
 
 export const metadata: Metadata = {
   title: "AI News",
@@ -22,78 +25,15 @@ export const metadata: Metadata = {
   },
 }
 
-export default function NewsPage() {
-  // This would typically come from an API or database
-  const newsArticles = [
-    {
-      id: 1,
-      title: "OpenAI Announces GPT-5 with Enhanced Reasoning Capabilities",
-      summary: "The latest model shows significant improvements in logical reasoning and problem-solving abilities.",
-      date: "2025-04-03",
-      readTime: "5 min read",
-      source: "AI Insider",
-      sourceUrl: "#",
-      category: "models",
-      image: "/placeholder.svg?height=200&width=400",
-    },
-    {
-      id: 2,
-      title: "New Research Shows AI Can Predict Protein Structures with 99% Accuracy",
-      summary: "Breakthrough in computational biology could accelerate drug discovery and medical research.",
-      date: "2025-04-02",
-      readTime: "8 min read",
-      source: "Science Daily",
-      sourceUrl: "#",
-      category: "research",
-      image: "/placeholder.svg?height=200&width=400",
-    },
-    {
-      id: 3,
-      title: "EU Passes Comprehensive AI Regulation Framework",
-      summary:
-        "New legislation sets standards for transparency, accountability, and safety in artificial intelligence systems.",
-      date: "2025-04-01",
-      readTime: "6 min read",
-      source: "Tech Policy Journal",
-      sourceUrl: "#",
-      category: "policy",
-      image: "/placeholder.svg?height=200&width=400",
-    },
-    {
-      id: 4,
-      title: "AI-Generated Art Wins Major International Competition",
-      summary:
-        "Controversy erupts as AI-created piece takes first prize in prestigious art contest, raising questions about creativity and authorship.",
-      date: "2025-03-30",
-      readTime: "4 min read",
-      source: "Arts Today",
-      sourceUrl: "#",
-      category: "applications",
-      image: "/placeholder.svg?height=200&width=400",
-    },
-    {
-      id: 5,
-      title: "Small Businesses Adopting AI at Record Rates, Survey Finds",
-      summary: "New report shows 78% of small businesses now use some form of AI, up from 45% last year.",
-      date: "2025-03-29",
-      readTime: "7 min read",
-      source: "Business Insider",
-      sourceUrl: "#",
-      category: "business",
-      image: "/placeholder.svg?height=200&width=400",
-    },
-    {
-      id: 6,
-      title: "Researchers Develop New Method to Reduce AI Hallucinations",
-      summary: "Novel approach significantly decreases false or misleading outputs from large language models.",
-      date: "2025-03-28",
-      readTime: "9 min read",
-      source: "AI Research Weekly",
-      sourceUrl: "#",
-      category: "research",
-      image: "/placeholder.svg?height=200&width=400",
-    },
-  ]
+export default async function NewsPage() {
+  const supabase = createServerClient()
+  const { data: newsArticles } = await supabase
+    .from("news_articles")
+    .select("*")
+    .eq("status", "published")
+    .order("published_at", { ascending: false })
+    .limit(50)
+  const articles = newsArticles ?? []
 
   return (
     <div className="container mx-auto px-4 py-12">
@@ -118,10 +58,10 @@ export default function NewsPage() {
 
         <TabsContent value="all" className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {newsArticles.map((article) => (
+            {articles.map((article) => (
               <Card key={article.id} className="overflow-hidden flex flex-col">
                 <img
-                  src={article.image || "/placeholder.svg"}
+                  src={article.image_url || "/placeholder.svg"}
                   alt={article.title}
                   className="w-full h-48 object-cover"
                 />
@@ -130,12 +70,12 @@ export default function NewsPage() {
                     <Badge variant="outline">{article.category}</Badge>
                     <div className="flex items-center text-gray-500 text-sm">
                       <Clock className="h-3 w-3 mr-1" />
-                      {article.readTime}
+                      {article.read_time}
                     </div>
                   </div>
                   <CardTitle className="text-xl mt-2">{article.title}</CardTitle>
                   <CardDescription className="text-sm text-gray-500">
-                    {article.date} • {article.source}
+                    {article.published_at} • {article.source}
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="flex-grow">
@@ -143,7 +83,7 @@ export default function NewsPage() {
                 </CardContent>
                 <CardFooter className="flex justify-between">
                   <Button variant="outline" size="sm" asChild>
-                    <Link href={article.sourceUrl}>
+                    <Link href={article.source_url ?? "#"}>
                       Read Full Article <ArrowUpRight className="ml-1 h-3 w-3" />
                     </Link>
                   </Button>
@@ -159,12 +99,12 @@ export default function NewsPage() {
         {["models", "research", "applications", "policy", "business"].map((category) => (
           <TabsContent key={category} value={category} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {newsArticles
+              {articles
                 .filter((article) => article.category === category)
                 .map((article) => (
                   <Card key={article.id} className="overflow-hidden flex flex-col">
                     <img
-                      src={article.image || "/placeholder.svg"}
+                      src={article.image_url || "/placeholder.svg"}
                       alt={article.title}
                       className="w-full h-48 object-cover"
                     />
@@ -173,12 +113,12 @@ export default function NewsPage() {
                         <Badge variant="outline">{article.category}</Badge>
                         <div className="flex items-center text-gray-500 text-sm">
                           <Clock className="h-3 w-3 mr-1" />
-                          {article.readTime}
+                          {article.read_time}
                         </div>
                       </div>
                       <CardTitle className="text-xl mt-2">{article.title}</CardTitle>
                       <CardDescription className="text-sm text-gray-500">
-                        {article.date} • {article.source}
+                        {article.published_at} • {article.source}
                       </CardDescription>
                     </CardHeader>
                     <CardContent className="flex-grow">
@@ -186,7 +126,7 @@ export default function NewsPage() {
                     </CardContent>
                     <CardFooter className="flex justify-between">
                       <Button variant="outline" size="sm" asChild>
-                        <Link href={article.sourceUrl}>
+                        <Link href={article.source_url ?? "#"}>
                           Read Full Article <ArrowUpRight className="ml-1 h-3 w-3" />
                         </Link>
                       </Button>

@@ -8,7 +8,10 @@ import { BookOpen, Code, Brain, Lightbulb, ArrowRight, Clock, BarChart3 } from "
 import { FadeIn } from "@/app/components/fade-in"
 import { SectionHeading } from "@/app/components/section-heading"
 import { ContentCard } from "@/app/components/content-card"
-import { tutorialCategories, tutorials } from "./tutorial-data"
+import { tutorialCategories } from "./tutorial-data"
+import { createServerClient } from "@/lib/supabase/server"
+
+export const revalidate = 3600
 
 export const metadata: Metadata = {
   title: "Tutorials",
@@ -26,14 +29,21 @@ export const metadata: Metadata = {
   },
 }
 
-export default function TutorialsPage() {
+export default async function TutorialsPage() {
+  const supabase = createServerClient()
+  const { data: tutorialsData } = await supabase
+    .from("tutorials")
+    .select("*")
+    .order("created_at", { ascending: true })
+  const tutorials = tutorialsData ?? []
+
   const renderTutorialCards = (filteredTutorials = tutorials) =>
     filteredTutorials.map((tutorial, index) => (
       <ContentCard
         key={tutorial.id}
         title={tutorial.title}
         description={tutorial.description}
-        image={tutorial.image}
+        image={tutorial.image_url ?? undefined}
         badge={tutorial.category
           .split("-")
           .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
