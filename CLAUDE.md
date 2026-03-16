@@ -169,3 +169,38 @@ npm run seed         # Seed database
 - 3 interactive tutorials fully functional with gold-accented styling
 - Database-connected pages (glossary, news, tutorials) need Supabase env vars
 - Light/dark mode supported via next-themes (dark is default)
+
+## Monetization
+
+### Revenue Channels
+
+- **Affiliate links** — `/tools` and `/compare` pages feature affiliate tool cards (data in `tools-data.ts`). Add new affiliate tools by adding entries to `tools-data.ts`.
+- **Display ads** — `AdSlot` component (`app/components/ad-slot.tsx`) renders real AdSense units when `NEXT_PUBLIC_ADSENSE_ID` is set, otherwise shows a placeholder. Use the `variant` prop (`banner`, `sidebar`, `inline`, `footer`) to control sizing/format and pass `adSlotId` for live ad units.
+- **Newsletter** — Email subscription form (`newsletter-subscription.tsx`) for audience building.
+
+### Environment Variables
+
+| Variable | Purpose |
+|---|---|
+| `NEXT_PUBLIC_GA_ID` | Google Analytics measurement ID (e.g. `G-XXXXXXXXXX`) |
+| `NEXT_PUBLIC_ADSENSE_ID` | Google AdSense publisher ID (e.g. `ca-pub-XXXXXXXXXX`) |
+
+Both are optional. When unset, the analytics/adsense scripts are not injected and ad slots render as placeholders.
+
+### Adding Affiliate Tools
+
+Add a new entry to `tools-data.ts` with the tool name, description, category, and affiliate URL. The `/tools` and `/compare` pages automatically pick up new entries.
+
+### Placing Ad Slots
+
+```tsx
+import { AdSlot } from "@/app/components/ad-slot"
+
+// Placeholder (no adSlotId)
+<AdSlot variant="banner" />
+
+// Live AdSense unit
+<AdSlot variant="sidebar" adSlotId="1234567890" />
+```
+
+Variants: `banner` (horizontal, 24-28px), `sidebar` (vertical, 64px), `inline` (horizontal, 20px), `footer` (horizontal, 24px).

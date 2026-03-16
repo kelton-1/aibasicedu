@@ -8,6 +8,8 @@ import { AnimatedBackground } from "@/app/components/animated-background"
 import { LinkChecker } from "@/app/components/link-checker"
 import { ErrorBoundary } from "@/app/components/error-boundary"
 import { OrganizationJsonLd, WebsiteJsonLd } from "@/app/components/json-ld"
+import { GoogleAnalytics } from "@/app/components/analytics"
+import { GoogleAdSense } from "@/app/components/adsense"
 import "./globals.css"
 
 const inter = Inter({
@@ -66,6 +68,8 @@ export default function RootLayout({
       <body className="font-sans">
         <OrganizationJsonLd />
         <WebsiteJsonLd />
+        <GoogleAnalytics />
+        <GoogleAdSense />
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <ErrorBoundary>
             <div className="relative flex min-h-screen flex-col">

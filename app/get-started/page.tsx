@@ -1,7 +1,39 @@
 import Link from "next/link"
-import { ArrowRight, BookOpen, Lightbulb, Users, Compass } from "lucide-react"
+import { ArrowRight, BookOpen, Lightbulb, Users, Compass, ClipboardCheck, Route, GraduationCap } from "lucide-react"
 import { ROUTE_MAP } from "@/app/lib/route-map"
 import { FadeIn } from "@/app/components/fade-in"
+import { generatePageMetadata } from "@/app/lib/seo"
+
+export const metadata = generatePageMetadata({
+  title: "Get Started with AI Learning",
+  description: "Choose your personalized AI learning path. Take a quick assessment or explore resources at your own pace — designed for beginners and experts alike.",
+  path: "/get-started",
+  keywords: ["get started with AI", "AI learning path", "AI for beginners", "personalized AI education"],
+})
+
+const steps = [
+  {
+    number: "01",
+    icon: ClipboardCheck,
+    title: "Take Assessment",
+    description:
+      "Answer a few quick questions about your experience level, goals, and interests. It only takes 2 minutes.",
+  },
+  {
+    number: "02",
+    icon: Route,
+    title: "Get Your Path",
+    description:
+      "Receive a personalized learning path tailored to your needs, with curated tutorials and resources in the right order.",
+  },
+  {
+    number: "03",
+    icon: GraduationCap,
+    title: "Start Learning",
+    description:
+      "Dive into interactive tutorials, hands-on projects, and expert guides. Track your progress as you build real AI skills.",
+  },
+]
 
 export default function GetStartedPage() {
   return (
@@ -21,6 +53,50 @@ export default function GetStartedPage() {
             <p className="mt-6 mx-auto max-w-[560px] text-muted-foreground md:text-lg leading-relaxed">
               Choose the path that best fits your goals and experience level.
             </p>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* How It Works */}
+      <section className="pb-24 md:pb-32">
+        <div className="section-container">
+          <FadeIn direction="up" delay={50}>
+            <div className="text-center mb-16">
+              <p className="label-text mb-4">How It Works</p>
+              <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-foreground">
+                Three simple steps
+              </h2>
+            </div>
+          </FadeIn>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
+            {/* Connecting line (desktop only) */}
+            <div className="hidden md:block absolute top-[72px] left-[calc(16.67%+24px)] right-[calc(16.67%+24px)] h-px bg-border" />
+
+            {steps.map((step, index) => (
+              <FadeIn key={step.number} direction="up" delay={100 + index * 100}>
+                <div className="relative rounded-2xl border border-border bg-card p-8 text-center transition-all duration-300 hover:border-gold/20">
+                  {/* Step number */}
+                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gold/10 border border-gold/20 mb-6">
+                    <span className="text-xl font-bold text-gold">{step.number}</span>
+                  </div>
+                  <step.icon className="h-6 w-6 text-gold mx-auto mb-4" />
+                  <h3 className="text-lg font-semibold text-foreground mb-3">{step.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{step.description}</p>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+
+          <FadeIn direction="up" delay={400}>
+            <div className="flex justify-center mt-10">
+              <Link
+                href={ROUTE_MAP.personalize}
+                className="inline-flex items-center bg-gold hover:bg-gold-light text-black font-medium rounded-xl px-8 py-3 text-sm transition-colors"
+              >
+                Take the Assessment <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </div>
           </FadeIn>
         </div>
       </section>

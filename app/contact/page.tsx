@@ -5,7 +5,62 @@ import Link from "next/link"
 import { ROUTE_MAP } from "@/app/lib/route-map"
 import { SectionHeading } from "@/app/components/section-heading"
 import { FadeIn } from "@/app/components/fade-in"
-import { ArrowRight, CheckCircle } from "lucide-react"
+import { ArrowRight, CheckCircle, ChevronDown } from "lucide-react"
+
+const faqs = [
+  {
+    question: "Is the platform free?",
+    answer:
+      "Yes. AI Learning Hub is completely free to use. All tutorials, glossary entries, news, and learning paths are available at no cost. We believe AI education should be accessible to everyone, regardless of budget.",
+  },
+  {
+    question: "How do I get started?",
+    answer:
+      "Head to our Get Started page and take the 2-minute assessment. It will recommend a personalized learning path based on your experience level and goals. Alternatively, you can browse our full resource library and dive into any topic that interests you.",
+  },
+  {
+    question: "Can I use this for my team?",
+    answer:
+      "Absolutely. Many teams use AI Learning Hub as a shared learning resource. You can share specific tutorials, learning paths, or glossary entries with your colleagues. If you need a custom solution for your organization, reach out to us through the contact form above.",
+  },
+  {
+    question: "How often is content updated?",
+    answer:
+      "We update our content continuously. New tutorials, glossary terms, and news articles are added weekly. Existing content is reviewed and refreshed regularly to ensure accuracy as the AI landscape evolves.",
+  },
+  {
+    question: "How can I contribute?",
+    answer:
+      "We welcome contributions from the AI community. Whether you want to write a tutorial, suggest a glossary term, or share feedback on existing content, use the contact form above or reach out directly. We are always looking for practitioners who want to help make AI education more accessible.",
+  },
+]
+
+function FaqItem({ question, answer }: { question: string; answer: string }) {
+  const [isOpen, setIsOpen] = useState(false)
+
+  return (
+    <div className="border-b border-border last:border-b-0">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex w-full items-center justify-between py-5 text-left transition-colors hover:text-gold"
+      >
+        <span className="text-base font-medium text-foreground pr-4">{question}</span>
+        <ChevronDown
+          className={`h-5 w-5 text-muted-foreground flex-shrink-0 transition-transform duration-300 ${
+            isOpen ? "rotate-180 text-gold" : ""
+          }`}
+        />
+      </button>
+      <div
+        className={`overflow-hidden transition-all duration-300 ${
+          isOpen ? "max-h-96 pb-5" : "max-h-0"
+        }`}
+      >
+        <p className="text-sm text-muted-foreground leading-relaxed">{answer}</p>
+      </div>
+    </div>
+  )
+}
 
 export default function ContactPage() {
   const [name, setName] = useState("")
@@ -109,6 +164,27 @@ export default function ContactPage() {
                   </Link>
                 </div>
               )}
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="pb-24 md:pb-32">
+        <div className="section-container max-w-2xl mx-auto">
+          <FadeIn direction="up" delay={100}>
+            <div className="text-center mb-12">
+              <p className="label-text mb-4">FAQ</p>
+              <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl text-foreground">
+                Common questions
+              </h2>
+            </div>
+          </FadeIn>
+          <FadeIn direction="up" delay={200}>
+            <div className="rounded-2xl border border-border bg-card p-8 md:p-10">
+              {faqs.map((faq) => (
+                <FaqItem key={faq.question} question={faq.question} answer={faq.answer} />
+              ))}
             </div>
           </FadeIn>
         </div>

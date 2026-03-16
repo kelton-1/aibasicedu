@@ -12,6 +12,7 @@ const footerLinks = {
     { label: "AI Companies", href: ROUTE_MAP.companies },
     { label: "AI News", href: ROUTE_MAP.news },
     { label: "AI Tools", href: ROUTE_MAP.tools },
+    { label: "Compare AI", href: ROUTE_MAP.compare },
     { label: "Projects", href: "/projects" },
     { label: "Playgrounds", href: "/playgrounds" },
   ],

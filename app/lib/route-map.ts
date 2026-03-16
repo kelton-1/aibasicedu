@@ -4,6 +4,7 @@ export const ROUTE_MAP = {
   browse: "/browse",
   companies: "/companies",
   community: "/community",
+  compare: "/compare",
   contact: "/contact",
   dashboard: "/dashboard",
   getStarted: "/get-started",

@@ -1,4 +1,3 @@
-import type { Metadata } from "next"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -7,24 +6,18 @@ import { FadeIn } from "@/app/components/fade-in"
 import { SectionHeading } from "@/app/components/section-heading"
 import { tutorialCategories } from "./tutorial-data"
 import { createServerClient } from "@/lib/supabase/server"
+import { staticTutorials } from "@/app/lib/data/tutorials-data-static"
+import { generatePageMetadata } from "@/app/lib/seo"
+import { CourseJsonLd } from "@/app/components/json-ld"
 
 export const revalidate = 3600
 
-export const metadata: Metadata = {
+export const metadata = generatePageMetadata({
   title: "Tutorials",
-  description:
-    "Explore guided AI tutorials covering prompt engineering, model fundamentals, and practical workflows.",
-  openGraph: {
-    title: "AI Tutorials | AI Learning Hub",
-    description:
-      "Explore guided AI tutorials covering prompt engineering, model fundamentals, and practical workflows.",
-    url: "/tutorials",
-  },
-  twitter: {
-    title: "AI Tutorials | AI Learning Hub",
-    description: "Explore guided AI tutorials for beginners and advanced learners.",
-  },
-}
+  description: "Explore guided AI tutorials covering prompt engineering, model fundamentals, and practical workflows.",
+  path: "/tutorials",
+  keywords: ["AI tutorials", "prompt engineering", "machine learning tutorials", "AI courses", "learn AI"],
+})
 
 export default async function TutorialsPage() {
   const supabase = createServerClient()
@@ -32,7 +25,25 @@ export default async function TutorialsPage() {
     .from("tutorials")
     .select("*")
     .order("created_at", { ascending: true })
-  const tutorials = tutorialsData ?? []
+  const tutorials = tutorialsData?.length
+    ? tutorialsData
+    : staticTutorials.map((t) => ({
+        id: t.id,
+        slug: t.id,
+        title: t.title,
+        description: t.description,
+        category: t.category,
+        level: t.difficulty,
+        duration: `${t.duration_minutes} min`,
+        image_url: null as string | null,
+        modules: t.modules_count,
+        exercises: t.exercises_count,
+        available: t.status === "published",
+        content: null as string | null,
+        status: t.status,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      }))
 
   const getLevelBadge = (level: string) => {
     if (level === "advanced") {
@@ -112,6 +123,15 @@ export default async function TutorialsPage() {
 
   return (
     <div className="section-container py-24 md:py-32">
+      {staticTutorials.filter(t => t.status === "published").map(t => (
+        <CourseJsonLd
+          key={t.id}
+          title={t.title}
+          description={t.description}
+          url={`https://www.aibasicedu.com/tutorials/${t.id}`}
+        />
+      ))}
+
       {/* Hero */}
       <SectionHeading
         label="Learn"

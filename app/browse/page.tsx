@@ -2,6 +2,14 @@ import Link from "next/link"
 import { ROUTE_MAP } from "@/app/lib/route-map"
 import { FadeIn } from "@/app/components/fade-in"
 import { BookOpen, MessageSquare, Newspaper, Building2, FolderOpen, GraduationCap, ArrowRight } from "lucide-react"
+import { generatePageMetadata } from "@/app/lib/seo"
+
+export const metadata = generatePageMetadata({
+  title: "Browse AI Resources",
+  description: "Discover tutorials, prompts, news, glossary entries, and company insights to support your AI learning journey.",
+  path: "/browse",
+  keywords: ["AI resources", "AI tutorials", "AI glossary", "AI news", "learn artificial intelligence"],
+})
 
 const resources = [
   {
