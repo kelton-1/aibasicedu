@@ -7,6 +7,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { AnimatedBackground } from "@/app/components/animated-background"
 import { LinkChecker } from "@/app/components/link-checker"
 import { ErrorBoundary } from "@/app/components/error-boundary"
+import { OrganizationJsonLd, WebsiteJsonLd } from "@/app/components/json-ld"
 import "./globals.css"
 
 const inter = Inter({
@@ -63,6 +64,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable} suppressHydrationWarning>
       <body className="font-sans">
+        <OrganizationJsonLd />
+        <WebsiteJsonLd />
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <ErrorBoundary>
             <div className="relative flex min-h-screen flex-col">

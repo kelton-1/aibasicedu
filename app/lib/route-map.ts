@@ -16,6 +16,7 @@ export const ROUTE_MAP = {
   prompts: "/prompts",
   quickGuides: "/quick-guides",
   terms: "/terms",
+  tools: "/tools",
   tutorials: "/tutorials",
 } as const
 

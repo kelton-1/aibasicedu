@@ -1,14 +1,14 @@
 import type { MetadataRoute } from "next"
 
-const baseUrl = "https://www.aibasicedu.com"
-
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: {
-      userAgent: "*",
-      allow: "/",
-    },
-    host: baseUrl,
-    sitemap: `${baseUrl}/sitemap.xml`,
+    rules: [
+      {
+        userAgent: "*",
+        allow: "/",
+        disallow: ["/api/", "/dashboard"],
+      },
+    ],
+    sitemap: "https://www.aibasicedu.com/sitemap.xml",
   }
 }

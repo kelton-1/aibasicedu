@@ -4,6 +4,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Search } from "lucide-react"
 import { createServerClient } from "@/lib/supabase/server"
 import { FadeIn } from "@/app/components/fade-in"
+import { AdSlot } from "@/app/components/ad-slot"
+import { glossaryTerms as staticGlossaryTerms } from "@/app/lib/data/glossary-data"
 
 export const revalidate = 3600
 
@@ -27,7 +29,7 @@ export default async function GlossaryPage() {
     .from("glossary_terms")
     .select("*")
     .order("term", { ascending: true })
-  const glossaryTerms = glossaryData ?? []
+  const glossaryTerms = glossaryData?.length ? glossaryData : staticGlossaryTerms
 
   const renderGlossaryCard = (item: (typeof glossaryTerms)[number], index: number) => (
     <FadeIn key={index} direction="up" delay={50 + index * 30}>
@@ -111,6 +113,8 @@ export default async function GlossaryPage() {
             </div>
           </div>
         </FadeIn>
+
+        <AdSlot variant="inline" className="mb-8" />
 
         <TabsContent value="all" className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

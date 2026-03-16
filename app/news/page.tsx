@@ -5,6 +5,8 @@ import { Clock, ArrowUpRight, BookmarkPlus } from "lucide-react"
 import Link from "next/link"
 import { createServerClient } from "@/lib/supabase/server"
 import { FadeIn } from "@/app/components/fade-in"
+import { AdSlot } from "@/app/components/ad-slot"
+import { newsArticles as staticNewsArticles } from "@/app/lib/data/news-data"
 
 export const revalidate = 3600
 
@@ -32,7 +34,7 @@ export default async function NewsPage() {
     .eq("status", "published")
     .order("published_at", { ascending: false })
     .limit(50)
-  const articles = newsArticles ?? []
+  const articles = newsArticles?.length ? newsArticles : staticNewsArticles
 
   const renderArticleCard = (article: (typeof articles)[number], index: number) => (
     <FadeIn key={article.id} direction="up" delay={50 + index * 30}>
@@ -144,6 +146,8 @@ export default async function NewsPage() {
             </div>
           </div>
         </FadeIn>
+
+        <AdSlot variant="inline" className="mb-8" />
 
         <TabsContent value="all" className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
