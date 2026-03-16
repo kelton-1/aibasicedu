@@ -2,11 +2,10 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Textarea } from "@/components/ui/textarea"
-import { Badge } from "@/components/ui/badge"
 import { Lightbulb, Copy, CheckCircle, BookOpen, Code, Palette } from "lucide-react"
+import { FadeIn } from "@/app/components/fade-in"
 
 export default function PromptsPage() {
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null)
@@ -74,125 +73,184 @@ export default function PromptsPage() {
     },
   ]
 
-  return (
-    <div className="container mx-auto px-4 py-12">
-      <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
-        <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Prompt Engineering</h1>
-        <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl">
-          Learn how to craft effective prompts to get the best results from AI systems.
-        </p>
-      </div>
+  const renderPromptCard = (prompt: (typeof promptTemplates)[number], index: number) => (
+    <FadeIn key={index} direction="up" delay={50 + index * 40}>
+      <div className="rounded-2xl border border-border bg-card p-6 hover:border-gold/20 transition-all duration-300 flex flex-col h-full">
+        <div className="flex justify-between items-start mb-3">
+          <div className="flex items-center gap-2">
+            <Lightbulb className="h-4 w-4 text-gold" />
+            <h3 className="font-semibold text-foreground">{prompt.title}</h3>
+          </div>
+          <span className={`inline-flex items-center text-xs px-2.5 py-0.5 rounded-full font-medium ${
+            prompt.category === "advanced"
+              ? "border border-gold/20 text-gold"
+              : "border border-border text-muted-foreground"
+          }`}>
+            {prompt.category.charAt(0).toUpperCase() + prompt.category.slice(1)}
+          </span>
+        </div>
+        <p className="text-sm text-muted-foreground mb-4">{prompt.description}</p>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-        <Card>
-          <CardHeader className="flex flex-row items-center gap-4">
-            <BookOpen className="h-8 w-8 text-blue-500" />
-            <div>
-              <CardTitle>Learn the Basics</CardTitle>
-              <CardDescription>Understand prompt fundamentals</CardDescription>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <p>Master the core principles of effective prompting to get better results from AI systems.</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center gap-4">
-            <Code className="h-8 w-8 text-purple-500" />
-            <div>
-              <CardTitle>Practice Templates</CardTitle>
-              <CardDescription>Use proven prompt patterns</CardDescription>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <p>Browse our library of prompt templates for different use cases and experience levels.</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center gap-4">
-            <Palette className="h-8 w-8 text-green-500" />
-            <div>
-              <CardTitle>Workshop Your Prompts</CardTitle>
-              <CardDescription>Refine and improve</CardDescription>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <p>Test and iterate on your prompts with our interactive workshop tools.</p>
-          </CardContent>
-        </Card>
-      </div>
-
-      <div className="space-y-8">
-        <div>
-          <h2 className="text-2xl font-bold mb-4">Prompt Templates Library</h2>
-          <p className="text-gray-500 mb-6">
-            Browse our collection of prompt templates for different use cases. Click on any template to copy it and use
-            with your favorite AI tool.
-          </p>
+        {/* Template */}
+        <div className="font-mono text-sm bg-background p-4 rounded-lg border border-border mb-4">
+          {prompt.template}
         </div>
 
-        <Tabs defaultValue="all" className="w-full">
-          <div className="flex justify-center mb-8">
-            <TabsList>
-              <TabsTrigger value="all">All Templates</TabsTrigger>
-              <TabsTrigger value="beginner">Beginner</TabsTrigger>
-              <TabsTrigger value="intermediate">Intermediate</TabsTrigger>
-              <TabsTrigger value="advanced">Advanced</TabsTrigger>
-            </TabsList>
+        {/* Example */}
+        <div className="mb-4">
+          <p className="text-xs font-semibold text-foreground mb-1.5 uppercase tracking-wider">Example</p>
+          <p className="text-sm text-muted-foreground leading-relaxed">{prompt.example}</p>
+        </div>
+
+        {/* Tips */}
+        <div className="mb-5 flex-grow">
+          <p className="text-xs font-semibold text-foreground mb-1.5 uppercase tracking-wider">Tips</p>
+          <ul className="text-sm text-muted-foreground space-y-1">
+            {prompt.tips.map((tip, tipIndex) => (
+              <li key={tipIndex} className="flex items-start gap-2">
+                <span className="text-gold mt-1.5 text-[6px]">&#9679;</span>
+                {tip}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Copy Button */}
+        <Button
+          variant="outline"
+          className={`w-full rounded-xl border-border transition-all duration-300 ${
+            copiedIndex === index
+              ? "border-gold/40 text-gold bg-gold/5"
+              : "hover:border-gold/20 hover:text-foreground"
+          }`}
+          onClick={() => copyToClipboard(prompt.template, index)}
+        >
+          {copiedIndex === index ? (
+            <>
+              <CheckCircle className="h-4 w-4 mr-2 text-gold" />
+              Copied!
+            </>
+          ) : (
+            <>
+              <Copy className="h-4 w-4 mr-2" />
+              Copy Template
+            </>
+          )}
+        </Button>
+      </div>
+    </FadeIn>
+  )
+
+  return (
+    <div className="section-container py-24 md:py-32">
+      {/* Hero */}
+      <div className="text-center mb-16 space-y-4">
+        <FadeIn direction="up" delay={50}>
+          <p className="label-text">Master the Craft</p>
+        </FadeIn>
+        <FadeIn direction="up" delay={100}>
+          <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-foreground">
+            Prompt <span className="gold-text">Engineering</span>
+          </h1>
+        </FadeIn>
+        <FadeIn direction="up" delay={200}>
+          <p className="mx-auto max-w-[560px] text-muted-foreground md:text-lg leading-relaxed">
+            Learn how to craft effective prompts to get the best results from AI systems.
+          </p>
+        </FadeIn>
+      </div>
+
+      {/* Info Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-20">
+        <FadeIn direction="up" delay={100}>
+          <div className="rounded-2xl border border-border bg-card p-8 hover:border-gold/20 transition-all duration-300">
+            <div className="w-10 h-10 rounded-xl bg-gold/10 flex items-center justify-center mb-4">
+              <BookOpen className="h-5 w-5 text-gold" />
+            </div>
+            <h3 className="font-semibold text-foreground mb-1">Learn the Basics</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Master the core principles of effective prompting to get better results from AI systems.
+            </p>
           </div>
+        </FadeIn>
+
+        <FadeIn direction="up" delay={200}>
+          <div className="rounded-2xl border border-border bg-card p-8 hover:border-gold/20 transition-all duration-300">
+            <div className="w-10 h-10 rounded-xl bg-gold/10 flex items-center justify-center mb-4">
+              <Code className="h-5 w-5 text-gold" />
+            </div>
+            <h3 className="font-semibold text-foreground mb-1">Practice Templates</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Browse our library of prompt templates for different use cases and experience levels.
+            </p>
+          </div>
+        </FadeIn>
+
+        <FadeIn direction="up" delay={300}>
+          <div className="rounded-2xl border border-border bg-card p-8 hover:border-gold/20 transition-all duration-300">
+            <div className="w-10 h-10 rounded-xl bg-gold/10 flex items-center justify-center mb-4">
+              <Palette className="h-5 w-5 text-gold" />
+            </div>
+            <h3 className="font-semibold text-foreground mb-1">Workshop Your Prompts</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Test and iterate on your prompts with our interactive workshop tools.
+            </p>
+          </div>
+        </FadeIn>
+      </div>
+
+      {/* Templates Section */}
+      <div className="space-y-8">
+        <FadeIn direction="up" delay={100}>
+          <div className="text-center mb-4">
+            <p className="label-text mb-4">Templates</p>
+            <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-foreground mb-3">
+              Prompt Templates Library
+            </h2>
+            <p className="text-muted-foreground max-w-[560px] mx-auto leading-relaxed">
+              Browse our collection of prompt templates for different use cases. Click on any template to copy it and use
+              with your favorite AI tool.
+            </p>
+          </div>
+        </FadeIn>
+
+        <Tabs defaultValue="all" className="w-full">
+          <FadeIn direction="up" delay={200}>
+            <div className="flex justify-center mb-12">
+              <div className="bg-card border border-border rounded-xl p-1.5 inline-flex gap-1">
+                <TabsList className="bg-transparent p-0 h-auto gap-1">
+                  <TabsTrigger
+                    value="all"
+                    className="rounded-lg px-4 py-2 text-sm font-medium text-muted-foreground data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm transition-all"
+                  >
+                    All Templates
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="beginner"
+                    className="rounded-lg px-4 py-2 text-sm font-medium text-muted-foreground data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm transition-all"
+                  >
+                    Beginner
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="intermediate"
+                    className="rounded-lg px-4 py-2 text-sm font-medium text-muted-foreground data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm transition-all"
+                  >
+                    Intermediate
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="advanced"
+                    className="rounded-lg px-4 py-2 text-sm font-medium text-muted-foreground data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm transition-all"
+                  >
+                    Advanced
+                  </TabsTrigger>
+                </TabsList>
+              </div>
+            </div>
+          </FadeIn>
 
           <TabsContent value="all" className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {promptTemplates.map((prompt, index) => (
-                <Card key={index} className="overflow-hidden">
-                  <CardHeader>
-                    <div className="flex justify-between items-start">
-                      <CardTitle className="flex items-center">
-                        <Lightbulb className="h-5 w-5 text-yellow-500 mr-2" />
-                        {prompt.title}
-                      </CardTitle>
-                      <Badge variant="outline">{prompt.category}</Badge>
-                    </div>
-                    <CardDescription>{prompt.description}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="bg-gray-50 p-3 rounded-md mb-4">
-                      <p className="font-mono text-sm">{prompt.template}</p>
-                    </div>
-                    <div>
-                      <p className="text-sm font-semibold mb-1">Example:</p>
-                      <p className="text-sm text-gray-600">{prompt.example}</p>
-                    </div>
-                    <div className="mt-4">
-                      <p className="text-sm font-semibold mb-1">Tips:</p>
-                      <ul className="text-sm text-gray-600 list-disc pl-5">
-                        {prompt.tips.map((tip, tipIndex) => (
-                          <li key={tipIndex}>{tip}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  </CardContent>
-                  <CardFooter>
-                    <Button
-                      variant="outline"
-                      className="w-full"
-                      onClick={() => copyToClipboard(prompt.template, index)}
-                    >
-                      {copiedIndex === index ? (
-                        <>
-                          <CheckCircle className="h-4 w-4 mr-2" />
-                          Copied!
-                        </>
-                      ) : (
-                        <>
-                          <Copy className="h-4 w-4 mr-2" />
-                          Copy Template
-                        </>
-                      )}
-                    </Button>
-                  </CardFooter>
-                </Card>
-              ))}
+              {promptTemplates.map((prompt, index) => renderPromptCard(prompt, index))}
             </div>
           </TabsContent>
 
@@ -201,74 +259,37 @@ export default function PromptsPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {promptTemplates
                   .filter((prompt) => prompt.category === level)
-                  .map((prompt, index) => (
-                    <Card key={index} className="overflow-hidden">
-                      <CardHeader>
-                        <div className="flex justify-between items-start">
-                          <CardTitle className="flex items-center">
-                            <Lightbulb className="h-5 w-5 text-yellow-500 mr-2" />
-                            {prompt.title}
-                          </CardTitle>
-                          <Badge variant="outline">{prompt.category}</Badge>
-                        </div>
-                        <CardDescription>{prompt.description}</CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="bg-gray-50 p-3 rounded-md mb-4">
-                          <p className="font-mono text-sm">{prompt.template}</p>
-                        </div>
-                        <div>
-                          <p className="text-sm font-semibold mb-1">Example:</p>
-                          <p className="text-sm text-gray-600">{prompt.example}</p>
-                        </div>
-                        <div className="mt-4">
-                          <p className="text-sm font-semibold mb-1">Tips:</p>
-                          <ul className="text-sm text-gray-600 list-disc pl-5">
-                            {prompt.tips.map((tip, tipIndex) => (
-                              <li key={tipIndex}>{tip}</li>
-                            ))}
-                          </ul>
-                        </div>
-                      </CardContent>
-                      <CardFooter>
-                        <Button
-                          variant="outline"
-                          className="w-full"
-                          onClick={() => copyToClipboard(prompt.template, index)}
-                        >
-                          {copiedIndex === index ? (
-                            <>
-                              <CheckCircle className="h-4 w-4 mr-2" />
-                              Copied!
-                            </>
-                          ) : (
-                            <>
-                              <Copy className="h-4 w-4 mr-2" />
-                              Copy Template
-                            </>
-                          )}
-                        </Button>
-                      </CardFooter>
-                    </Card>
-                  ))}
+                  .map((prompt, index) => renderPromptCard(prompt, index))}
               </div>
             </TabsContent>
           ))}
         </Tabs>
 
-        <div className="mt-12 p-6 bg-gray-50 rounded-lg">
-          <h2 className="text-2xl font-bold mb-4">Prompt Workshop</h2>
-          <p className="text-gray-500 mb-6">
-            Practice crafting your own prompts. Enter a prompt below, and we'll provide feedback and suggestions for
-            improvement.
-          </p>
-          <div className="space-y-4">
-            <Textarea placeholder="Enter your prompt here..." className="min-h-[150px]" />
-            <Button className="w-full md:w-auto">Analyze Prompt</Button>
+        {/* Prompt Workshop */}
+        <FadeIn direction="up" delay={300}>
+          <div className="mt-16 rounded-2xl border border-border bg-card p-8 md:p-12">
+            <div className="text-center mb-8">
+              <p className="label-text mb-4">Workshop</p>
+              <h2 className="text-2xl font-semibold tracking-tight text-foreground mb-2">Prompt Workshop</h2>
+              <p className="text-muted-foreground max-w-md mx-auto leading-relaxed">
+                Practice crafting your own prompts. Enter a prompt below, and we'll provide feedback and suggestions for
+                improvement.
+              </p>
+            </div>
+            <div className="space-y-4 max-w-2xl mx-auto">
+              <Textarea
+                placeholder="Enter your prompt here..."
+                className="min-h-[150px] bg-background border-border rounded-xl text-foreground placeholder:text-muted-foreground resize-none focus-visible:ring-1 focus-visible:ring-gold/40"
+              />
+              <div className="flex justify-center">
+                <Button className="bg-gold hover:bg-gold-light text-black font-medium rounded-xl px-8">
+                  Analyze Prompt
+                </Button>
+              </div>
+            </div>
           </div>
-        </div>
+        </FadeIn>
       </div>
     </div>
   )
 }
-

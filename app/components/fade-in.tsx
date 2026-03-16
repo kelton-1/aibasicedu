@@ -20,7 +20,7 @@ export function FadeIn({
   className,
   delay = 0,
   direction = "up",
-  duration = 500,
+  duration = 600,
   once = true,
   threshold = 0.1,
 }: FadeInProps) {

@@ -105,142 +105,186 @@ export default function CompaniesPage() {
   const hardwareCompanies = companies.filter((company) => company.category === "hardware")
 
   return (
-    <div className="container mx-auto px-4 py-12">
-      <SectionHeading
-        title="Leading AI Companies"
-        description="Explore the companies at the forefront of artificial intelligence innovation and development."
-      />
-
-      <Tabs defaultValue="all" className="w-full mt-8">
-        <div className="flex justify-center mb-8">
-          <TabsList className="bg-gray-100/80 p-1">
-            <TabsTrigger value="all" className="data-[state=active]:bg-white data-[state=active]:shadow-sm">
-              All Companies
-            </TabsTrigger>
-            <TabsTrigger value="research" className="data-[state=active]:bg-white data-[state=active]:shadow-sm">
-              Research Labs
-            </TabsTrigger>
-            <TabsTrigger value="enterprise" className="data-[state=active]:bg-white data-[state=active]:shadow-sm">
-              Enterprise AI
-            </TabsTrigger>
-            <TabsTrigger value="generative" className="data-[state=active]:bg-white data-[state=active]:shadow-sm">
-              Generative AI
-            </TabsTrigger>
-            <TabsTrigger value="platform" className="data-[state=active]:bg-white data-[state=active]:shadow-sm">
-              AI Platforms
-            </TabsTrigger>
-            <TabsTrigger value="hardware" className="data-[state=active]:bg-white data-[state=active]:shadow-sm">
-              AI Hardware
-            </TabsTrigger>
-          </TabsList>
+    <div className="bg-background">
+      {/* Hero */}
+      <section className="py-24 md:py-32">
+        <div className="section-container text-center">
+          <FadeIn direction="up" delay={50}>
+            <p className="label-text mb-4">Industry Leaders</p>
+          </FadeIn>
+          <FadeIn direction="up" delay={100}>
+            <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-foreground">
+              <span className="gold-text">AI Companies</span>
+            </h1>
+          </FadeIn>
+          <FadeIn direction="up" delay={200}>
+            <p className="mt-6 mx-auto max-w-[560px] text-muted-foreground md:text-lg leading-relaxed">
+              Explore the companies at the forefront of artificial intelligence innovation and development.
+            </p>
+          </FadeIn>
         </div>
+      </section>
 
-        <TabsContent value="all">
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
-            {companies.map((company, index) => (
-              <CompanyLogo
-                key={company.slug}
-                name={company.name}
-                logo={company.logo}
-                slug={company.slug}
-                delay={index * 50}
-              />
-            ))}
-          </div>
-        </TabsContent>
+      {/* Tabs + Grid */}
+      <section className="pb-24 md:pb-32">
+        <div className="section-container">
+          <Tabs defaultValue="all" className="w-full">
+            <FadeIn direction="up" delay={250}>
+              <div className="flex justify-center mb-12">
+                <TabsList className="bg-card border border-border rounded-xl p-1">
+                  <TabsTrigger
+                    value="all"
+                    className="rounded-lg data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm text-muted-foreground text-sm"
+                  >
+                    All
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="research"
+                    className="rounded-lg data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm text-muted-foreground text-sm"
+                  >
+                    Research
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="enterprise"
+                    className="rounded-lg data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm text-muted-foreground text-sm"
+                  >
+                    Enterprise
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="generative"
+                    className="rounded-lg data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm text-muted-foreground text-sm"
+                  >
+                    Generative
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="platform"
+                    className="rounded-lg data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm text-muted-foreground text-sm"
+                  >
+                    Platforms
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="hardware"
+                    className="rounded-lg data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm text-muted-foreground text-sm"
+                  >
+                    Hardware
+                  </TabsTrigger>
+                </TabsList>
+              </div>
+            </FadeIn>
 
-        <TabsContent value="research">
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
-            {researchCompanies.map((company, index) => (
-              <CompanyLogo
-                key={company.slug}
-                name={company.name}
-                logo={company.logo}
-                slug={company.slug}
-                delay={index * 50}
-              />
-            ))}
-          </div>
-        </TabsContent>
+            <TabsContent value="all">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                {companies.map((company, index) => (
+                  <CompanyLogo
+                    key={company.slug}
+                    name={company.name}
+                    logo={company.logo}
+                    slug={company.slug}
+                    delay={index * 50}
+                  />
+                ))}
+              </div>
+            </TabsContent>
 
-        <TabsContent value="enterprise">
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
-            {enterpriseCompanies.map((company, index) => (
-              <CompanyLogo
-                key={company.slug}
-                name={company.name}
-                logo={company.logo}
-                slug={company.slug}
-                delay={index * 50}
-              />
-            ))}
-          </div>
-        </TabsContent>
+            <TabsContent value="research">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                {researchCompanies.map((company, index) => (
+                  <CompanyLogo
+                    key={company.slug}
+                    name={company.name}
+                    logo={company.logo}
+                    slug={company.slug}
+                    delay={index * 50}
+                  />
+                ))}
+              </div>
+            </TabsContent>
 
-        <TabsContent value="generative">
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
-            {generativeCompanies.map((company, index) => (
-              <CompanyLogo
-                key={company.slug}
-                name={company.name}
-                logo={company.logo}
-                slug={company.slug}
-                delay={index * 50}
-              />
-            ))}
-          </div>
-        </TabsContent>
+            <TabsContent value="enterprise">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                {enterpriseCompanies.map((company, index) => (
+                  <CompanyLogo
+                    key={company.slug}
+                    name={company.name}
+                    logo={company.logo}
+                    slug={company.slug}
+                    delay={index * 50}
+                  />
+                ))}
+              </div>
+            </TabsContent>
 
-        <TabsContent value="platform">
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
-            {platformCompanies.map((company, index) => (
-              <CompanyLogo
-                key={company.slug}
-                name={company.name}
-                logo={company.logo}
-                slug={company.slug}
-                delay={index * 50}
-              />
-            ))}
-          </div>
-        </TabsContent>
+            <TabsContent value="generative">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                {generativeCompanies.map((company, index) => (
+                  <CompanyLogo
+                    key={company.slug}
+                    name={company.name}
+                    logo={company.logo}
+                    slug={company.slug}
+                    delay={index * 50}
+                  />
+                ))}
+              </div>
+            </TabsContent>
 
-        <TabsContent value="hardware">
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
-            {hardwareCompanies.map((company, index) => (
-              <CompanyLogo
-                key={company.slug}
-                name={company.name}
-                logo={company.logo}
-                slug={company.slug}
-                delay={index * 50}
-              />
-            ))}
-          </div>
-        </TabsContent>
-      </Tabs>
+            <TabsContent value="platform">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                {platformCompanies.map((company, index) => (
+                  <CompanyLogo
+                    key={company.slug}
+                    name={company.name}
+                    logo={company.logo}
+                    slug={company.slug}
+                    delay={index * 50}
+                  />
+                ))}
+              </div>
+            </TabsContent>
 
-      <FadeIn direction="up" delay={300}>
-        <div className="mt-16 p-8 bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg shadow-sm">
-          <div className="flex flex-col md:flex-row items-center justify-between">
-            <div className="mb-6 md:mb-0 md:mr-6">
-              <h2 className="text-2xl font-bold mb-2">Interested in AI Industry Insights?</h2>
-              <p className="text-gray-600 max-w-md">
-                Explore our detailed company profiles to learn about their AI technologies, research focus, and impact
-                on the industry.
-              </p>
-            </div>
-            <div className="flex flex-col space-y-4">
-              <a
-                href="/news"
-                className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white h-10 px-4 py-2"
-              >
-                Read AI Industry News
-              </a>
-            </div>
-          </div>
+            <TabsContent value="hardware">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                {hardwareCompanies.map((company, index) => (
+                  <CompanyLogo
+                    key={company.slug}
+                    name={company.name}
+                    logo={company.logo}
+                    slug={company.slug}
+                    delay={index * 50}
+                  />
+                ))}
+              </div>
+            </TabsContent>
+          </Tabs>
         </div>
-      </FadeIn>
+      </section>
+
+      {/* CTA */}
+      <section className="pb-24 md:pb-32">
+        <div className="section-container">
+          <FadeIn direction="up" delay={300}>
+            <div className="rounded-2xl border border-border bg-card p-10 md:p-14">
+              <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+                <div>
+                  <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-3">
+                    AI Industry Insights
+                  </h2>
+                  <p className="text-muted-foreground max-w-md leading-relaxed">
+                    Explore our detailed company profiles to learn about their AI technologies, research focus, and impact
+                    on the industry.
+                  </p>
+                </div>
+                <a
+                  href="/news"
+                  className="inline-flex items-center justify-center bg-gold hover:bg-gold-light text-black font-medium rounded-xl px-8 py-3 text-sm transition-colors whitespace-nowrap"
+                >
+                  Read AI Industry News
+                </a>
+              </div>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
     </div>
   )
 }

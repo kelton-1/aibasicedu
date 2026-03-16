@@ -1,8 +1,7 @@
 import type { LucideIcon } from "lucide-react"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
 import { FadeIn } from "@/app/components/fade-in"
 import Link from "next/link"
+import { ArrowRight } from "lucide-react"
 
 interface FeatureCardProps {
   icon: LucideIcon
@@ -10,7 +9,7 @@ interface FeatureCardProps {
   description: string
   href: string
   linkText: string
-  iconColor: string
+  iconColor?: string
   delay?: number
 }
 
@@ -20,32 +19,21 @@ export function FeatureCard({
   description,
   href,
   linkText,
-  iconColor,
   delay = 0,
 }: FeatureCardProps) {
   return (
     <FadeIn delay={delay} direction="up">
-      <Card className="h-full transition-all duration-300 hover:shadow-md hover:border-gray-300 overflow-hidden group">
-        <div className="absolute inset-0 bg-gradient-to-r from-gray-50/0 via-gray-50/0 to-gray-50/0 group-hover:via-gray-50/30 transition-all duration-700"></div>
-        <CardHeader>
-          <div
-            className={`h-12 w-12 rounded-lg ${iconColor} flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110`}
-          >
-            <Icon className="h-6 w-6 text-white" />
-          </div>
-          <CardTitle className="group-hover:text-purple-700 transition-colors duration-300">{title}</CardTitle>
-          <CardDescription>{description}</CardDescription>
-        </CardHeader>
-        <CardContent className="flex-grow">
-          <p className="text-sm text-gray-500">{description}</p>
-        </CardContent>
-        <CardFooter>
-          <Button variant="ghost" asChild className="group-hover:bg-gray-100 transition-colors duration-300">
-            <Link href={href}>{linkText}</Link>
-          </Button>
-        </CardFooter>
-      </Card>
+      <Link href={href} className="block h-full group">
+        <div className="h-full rounded-2xl border border-border bg-card p-8 transition-all duration-300 hover:border-gold/20 group-hover:bg-accent/50">
+          <Icon className="h-6 w-6 text-gold-mid mb-6 transition-colors duration-300 group-hover:text-gold-light" />
+          <h3 className="text-lg font-semibold text-foreground mb-2">{title}</h3>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-6">{description}</p>
+          <span className="inline-flex items-center text-sm font-medium text-gold transition-colors duration-300 group-hover:text-gold-light">
+            {linkText}
+            <ArrowRight className="ml-1.5 h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+          </span>
+        </div>
+      </Link>
     </FadeIn>
   )
 }
-

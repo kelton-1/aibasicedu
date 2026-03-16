@@ -2,50 +2,55 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ================================================================
+   AI LEARNING HUB — PREMIUM DESIGN SYSTEM
+   Aesthetic: Apple / xAI / Black + Gold
+   ================================================================ */
+
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --foreground: 0 0% 4%;
+    --card: 0 0% 98%;
+    --card-foreground: 0 0% 4%;
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 262.1 83.3% 57.8%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 262.1 83.3% 57.8%;
-    --radius: 0.5rem;
+    --popover-foreground: 0 0% 4%;
+    --primary: 43 72% 42%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 10%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
+    --accent: 0 0% 96%;
+    --accent-foreground: 0 0% 10%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 43 72% 42%;
+    --radius: 0.75rem;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 262.1 83.3% 57.8%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 262.1 83.3% 57.8%;
+    --background: 0 0% 0%;
+    --foreground: 0 0% 95%;
+    --card: 0 0% 5%;
+    --card-foreground: 0 0% 95%;
+    --popover: 0 0% 4%;
+    --popover-foreground: 0 0% 95%;
+    --primary: 43 72% 42%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 0 0% 10%;
+    --secondary-foreground: 0 0% 95%;
+    --muted: 0 0% 10%;
+    --muted-foreground: 0 0% 45%;
+    --accent: 0 0% 10%;
+    --accent-foreground: 0 0% 95%;
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 95%;
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 43 72% 42%;
   }
 }
 
@@ -53,114 +58,216 @@
   * {
     @apply border-border;
   }
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
   }
 }
 
-/* Custom Animations */
-@keyframes float {
+/* ================================================================
+   GOLD — THE SIGNATURE ELEMENT
+   Realistic metallic gold bar gradient with light bands
+   ================================================================ */
+
+/* Static gold — for headings and key accents */
+.gold-text {
+  background: linear-gradient(
+    135deg,
+    #BF953F 0%,
+    #FCF6BA 25%,
+    #B38728 50%,
+    #FBF5B7 75%,
+    #AA771C 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Animated gold shimmer — for hero text and special moments */
+.gold-shimmer {
+  background: linear-gradient(
+    110deg,
+    #AA771C 0%,
+    #BF953F 15%,
+    #FCF6BA 30%,
+    #B38728 45%,
+    #FBF5B7 55%,
+    #BF953F 70%,
+    #FCF6BA 85%,
+    #AA771C 100%
+  );
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer-gold 8s ease-in-out infinite;
+}
+
+/* Subtle gold — for secondary text accents, lighter effect */
+.gold-subtle {
+  background: linear-gradient(
+    135deg,
+    #C8A84E 0%,
+    #D4AF37 50%,
+    #C8A84E 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Gold line divider */
+.gold-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #B38728, #FCF6BA, #B38728, transparent);
+  border: none;
+}
+
+/* Gold border gradient */
+.gold-border {
+  position: relative;
+}
+.gold-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+/* Gold glow effect */
+.gold-glow {
+  box-shadow: 0 0 30px rgba(191, 149, 63, 0.08), 0 0 60px rgba(191, 149, 63, 0.04);
+}
+
+.gold-glow-strong {
+  box-shadow: 0 0 40px rgba(191, 149, 63, 0.15), 0 0 80px rgba(191, 149, 63, 0.06);
+}
+
+/* ================================================================
+   ANIMATIONS — SLOW, SUBTLE, PREMIUM
+   ================================================================ */
+
+@keyframes shimmer-gold {
+  0% { background-position: 100% 50%; }
+  50% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+@keyframes fade-up {
   0% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
+    opacity: 0;
+    transform: translateY(16px);
   }
   100% {
-    transform: translateY(0px);
+    opacity: 1;
+    transform: translateY(0);
   }
+}
+
+@keyframes fade-in {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes subtle-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes breathe {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.02);
+  }
+}
+
+@keyframes pulse-gold {
+  0%, 100% { box-shadow: 0 0 20px rgba(191, 149, 63, 0.05); }
+  50% { box-shadow: 0 0 40px rgba(191, 149, 63, 0.12); }
 }
 
 .animate-float {
-  animation: float 6s ease-in-out infinite;
+  animation: subtle-float 6s ease-in-out infinite;
 }
 
-@keyframes pulse-subtle {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.8;
-  }
+.animate-breathe {
+  animation: breathe 8s ease-in-out infinite;
 }
 
-.animate-pulse-subtle {
-  animation: pulse-subtle 4s ease-in-out infinite;
+.animate-pulse-gold {
+  animation: pulse-gold 4s ease-in-out infinite;
 }
 
-/* Gradient Text */
-.gradient-text {
-  @apply bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-indigo-600;
+/* ================================================================
+   PREMIUM CARD SYSTEM
+   ================================================================ */
+
+.premium-card {
+  @apply rounded-2xl border border-border bg-card p-8 transition-all duration-300;
 }
 
-/* Scrollbar Styling */
+.premium-card:hover {
+  @apply border-neutral-700;
+}
+
+:root .premium-card:hover {
+  @apply border-neutral-300;
+}
+
+/* ================================================================
+   SCROLLBAR — MINIMAL
+   ================================================================ */
+
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 4px;
+  height: 4px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 4px;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #c5c5c5;
-  border-radius: 4px;
+  background: hsl(var(--border));
+  border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #a0a0a0;
+  background: hsl(var(--muted-foreground));
 }
 
-/* Page Transitions */
-.page-enter {
-  opacity: 0;
-  transform: translateY(10px);
+/* ================================================================
+   UTILITY CLASSES
+   ================================================================ */
+
+/* Label style — Apple-like uppercase micro labels */
+.label-text {
+  @apply text-xs uppercase tracking-[0.2em] font-medium text-muted-foreground;
 }
 
-.page-enter-active {
-  opacity: 1;
-  transform: translateY(0);
-  transition: opacity 300ms, transform 300ms;
+/* Section container — constrained width for readability */
+.section-container {
+  @apply max-w-6xl mx-auto px-4 md:px-6;
 }
 
-.page-exit {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.page-exit-active {
-  opacity: 0;
-  transform: translateY(-10px);
-  transition: opacity 300ms, transform 300ms;
-}
-
-/* Hover Effects */
-.hover-lift {
-  transition: transform 0.3s ease;
-}
-
-.hover-lift:hover {
-  transform: translateY(-5px);
-}
-
-/* Glass Effect */
-.glass-effect {
-  background: rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-}
-
-/* Responsive Typography */
+/* Responsive typography overrides */
 @media (max-width: 640px) {
-  h1 {
-    font-size: 2rem !important;
-  }
-  h2 {
-    font-size: 1.5rem !important;
-  }
+  h1 { font-size: 2.25rem !important; }
+  h2 { font-size: 1.75rem !important; }
 }
-

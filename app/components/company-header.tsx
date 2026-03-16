@@ -1,6 +1,5 @@
 import Image from "next/image"
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
 import { ArrowLeft, ExternalLink } from "lucide-react"
 import { FadeIn } from "@/app/components/fade-in"
 
@@ -24,55 +23,61 @@ export function CompanyHeader({
   coverImage,
 }: CompanyHeaderProps) {
   return (
-    <div className="relative mb-12">
+    <div className="relative mb-16">
       {/* Cover Image */}
-      <div className="h-48 md:h-64 bg-gradient-to-r from-purple-500 to-indigo-600 relative overflow-hidden">
+      <div className="h-56 md:h-72 bg-background relative overflow-hidden">
         {coverImage && (
           <Image
             src={coverImage || "/placeholder.svg"}
             alt={`${name} cover`}
             fill
-            className="object-cover opacity-20"
+            className="object-cover opacity-10"
           />
         )}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background" />
       </div>
 
       {/* Company Info Card */}
-      <div className="container px-4 md:px-6">
-        <div className="relative -mt-24">
+      <div className="section-container">
+        <div className="relative -mt-28">
           <FadeIn direction="up">
-            <div className="bg-white rounded-lg shadow-lg p-6">
+            <div className="rounded-2xl border border-border bg-card p-8">
               <div className="flex flex-col md:flex-row">
                 {/* Logo */}
-                <div className="flex-shrink-0 flex items-center justify-center bg-white rounded-lg shadow-sm p-4 w-24 h-24 md:w-32 md:h-32 mb-4 md:mb-0 md:mr-6">
+                <div className="flex-shrink-0 flex items-center justify-center rounded-2xl border border-border bg-card p-6 w-24 h-24 md:w-32 md:h-32 mb-6 md:mb-0 md:mr-8">
                   <Image
                     src={logo || "/placeholder.svg"}
                     alt={`${name} logo`}
                     width={100}
                     height={100}
-                    className="max-w-full max-h-full object-contain"
+                    className="max-w-full max-h-full object-contain dark:invert"
                   />
                 </div>
 
                 {/* Company Details */}
                 <div className="flex-grow">
                   <div className="flex flex-col md:flex-row md:items-center justify-between mb-4">
-                    <h1 className="text-2xl md:text-3xl font-bold">{name}</h1>
-                    <Button variant="outline" size="sm" asChild className="mt-2 md:mt-0">
-                      <a href={website} target="_blank" rel="noopener noreferrer" className="flex items-center">
-                        Visit Website <ExternalLink className="ml-1 h-3 w-3" />
-                      </a>
-                    </Button>
+                    <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">{name}</h1>
+                    <a
+                      href={website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center mt-3 md:mt-0 bg-gold hover:bg-gold-light text-black font-medium rounded-xl px-5 py-2.5 text-sm transition-colors"
+                    >
+                      Visit Website <ExternalLink className="ml-2 h-3.5 w-3.5" />
+                    </a>
                   </div>
 
-                  <p className="text-gray-600 mb-4">{description}</p>
+                  <p className="text-muted-foreground mb-6 leading-relaxed">{description}</p>
 
-                  <div className="flex flex-col sm:flex-row sm:items-center text-sm text-gray-500">
-                    <div className="mr-6 mb-2 sm:mb-0">
-                      <span className="font-medium">Founded:</span> {founded}
+                  <div className="flex flex-col sm:flex-row sm:items-center text-sm text-muted-foreground gap-4 sm:gap-8">
+                    <div>
+                      <span className="label-text block mb-1">Founded</span>
+                      <span className="text-foreground font-medium">{founded}</span>
                     </div>
                     <div>
-                      <span className="font-medium">Headquarters:</span> {headquarters}
+                      <span className="label-text block mb-1">Headquarters</span>
+                      <span className="text-foreground font-medium">{headquarters}</span>
                     </div>
                   </div>
                 </div>
@@ -83,14 +88,14 @@ export function CompanyHeader({
 
         {/* Back Button */}
         <div className="mt-6">
-          <Button variant="ghost" size="sm" asChild>
-            <Link href="/companies" className="flex items-center">
-              <ArrowLeft className="mr-1 h-4 w-4" /> Back to Companies
-            </Link>
-          </Button>
+          <Link
+            href="/companies"
+            className="inline-flex items-center text-sm text-muted-foreground hover:text-gold transition-colors"
+          >
+            <ArrowLeft className="mr-1.5 h-4 w-4" /> Back to Companies
+          </Link>
         </div>
       </div>
     </div>
   )
 }
-

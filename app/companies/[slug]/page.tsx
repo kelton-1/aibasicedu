@@ -3,7 +3,6 @@ import { notFound } from "next/navigation"
 import { CompanyHeader } from "@/app/components/company-header"
 import { Timeline } from "@/app/components/timeline"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { FadeIn } from "@/app/components/fade-in"
 import { Brain, Code, Lightbulb, Newspaper, Users } from "lucide-react"
 
@@ -336,7 +335,7 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
   }
 
   return (
-    <div>
+    <div className="bg-background">
       <CompanyHeader
         name={company.name}
         logo={company.logo}
@@ -347,22 +346,34 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
         coverImage={company.coverImage}
       />
 
-      <div className="container px-4 md:px-6 mb-16">
+      <div className="section-container pb-24 md:pb-32">
         <Tabs defaultValue="timeline" className="w-full">
-          <TabsList className="w-full justify-start mb-8 bg-gray-100/80 p-1">
-            <TabsTrigger value="timeline" className="data-[state=active]:bg-white data-[state=active]:shadow-sm">
+          <TabsList className="w-full justify-start mb-10 bg-card border border-border rounded-xl p-1">
+            <TabsTrigger
+              value="timeline"
+              className="rounded-lg data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm text-muted-foreground text-sm"
+            >
               <Clock className="h-4 w-4 mr-2" />
               Timeline
             </TabsTrigger>
-            <TabsTrigger value="products" className="data-[state=active]:bg-white data-[state=active]:shadow-sm">
+            <TabsTrigger
+              value="products"
+              className="rounded-lg data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm text-muted-foreground text-sm"
+            >
               <Zap className="h-4 w-4 mr-2" />
               Products
             </TabsTrigger>
-            <TabsTrigger value="research" className="data-[state=active]:bg-white data-[state=active]:shadow-sm">
+            <TabsTrigger
+              value="research"
+              className="rounded-lg data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm text-muted-foreground text-sm"
+            >
               <Brain className="h-4 w-4 mr-2" />
               Research
             </TabsTrigger>
-            <TabsTrigger value="impact" className="data-[state=active]:bg-white data-[state=active]:shadow-sm">
+            <TabsTrigger
+              value="impact"
+              className="rounded-lg data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm text-muted-foreground text-sm"
+            >
               <Globe className="h-4 w-4 mr-2" />
               Industry Impact
             </TabsTrigger>
@@ -370,10 +381,13 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
 
           <TabsContent value="timeline">
             <FadeIn direction="up">
-              <div className="mb-6">
-                <h2 className="text-2xl font-bold mb-2">AI Development Timeline</h2>
-                <p className="text-gray-600">
-                  Track the evolution of {company.name}'s AI technologies and key milestones.
+              <div className="mb-8">
+                <p className="label-text mb-2">History</p>
+                <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground mb-3">
+                  AI Development Timeline
+                </h2>
+                <p className="text-muted-foreground leading-relaxed">
+                  Track the evolution of {company.name}&apos;s AI technologies and key milestones.
                 </p>
               </div>
             </FadeIn>
@@ -383,31 +397,32 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
 
           <TabsContent value="products">
             <FadeIn direction="up">
-              <div className="mb-6">
-                <h2 className="text-2xl font-bold mb-2">AI Products & Technologies</h2>
-                <p className="text-gray-600">Explore {company.name}'s key AI products, services, and technologies.</p>
+              <div className="mb-8">
+                <p className="label-text mb-2">Products</p>
+                <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground mb-3">
+                  AI Products &amp; Technologies
+                </h2>
+                <p className="text-muted-foreground leading-relaxed">
+                  Explore {company.name}&apos;s key AI products, services, and technologies.
+                </p>
               </div>
             </FadeIn>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {company.products.map((product, index) => (
                 <FadeIn key={product.name} direction="up" delay={index * 100}>
-                  <Card className="h-full hover:shadow-md transition-all duration-300">
-                    <CardHeader>
-                      <CardTitle>{product.name}</CardTitle>
-                      <CardDescription>{product.description}</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <a
-                        href={product.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-sm text-indigo-600 hover:text-indigo-800 flex items-center"
-                      >
-                        Learn more <ExternalLink className="h-3 w-3 ml-1" />
-                      </a>
-                    </CardContent>
-                  </Card>
+                  <div className="h-full rounded-2xl border border-border bg-card p-8 transition-all duration-300 hover:border-gold/20">
+                    <h3 className="text-xl font-bold text-foreground mb-2">{product.name}</h3>
+                    <p className="text-muted-foreground mb-6 leading-relaxed">{product.description}</p>
+                    <a
+                      href={product.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-gold hover:text-gold-light flex items-center transition-colors"
+                    >
+                      Learn more <ExternalLink className="h-3 w-3 ml-1.5" />
+                    </a>
+                  </div>
                 </FadeIn>
               ))}
             </div>
@@ -415,23 +430,24 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
 
           <TabsContent value="research">
             <FadeIn direction="up">
-              <div className="mb-6">
-                <h2 className="text-2xl font-bold mb-2">Research Focus Areas</h2>
-                <p className="text-gray-600">Key research directions and focus areas at {company.name}.</p>
+              <div className="mb-8">
+                <p className="label-text mb-2">Research</p>
+                <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground mb-3">
+                  Research Focus Areas
+                </h2>
+                <p className="text-muted-foreground leading-relaxed">
+                  Key research directions and focus areas at {company.name}.
+                </p>
               </div>
             </FadeIn>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {company.research.map((area, index) => (
                 <FadeIn key={area.title} direction="up" delay={index * 100}>
-                  <Card className="h-full hover:shadow-md transition-all duration-300">
-                    <CardHeader>
-                      <CardTitle>{area.title}</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-gray-600">{area.description}</p>
-                    </CardContent>
-                  </Card>
+                  <div className="h-full rounded-2xl border border-border bg-card p-8 transition-all duration-300 hover:border-gold/20">
+                    <h3 className="text-xl font-bold text-foreground mb-3">{area.title}</h3>
+                    <p className="text-muted-foreground leading-relaxed">{area.description}</p>
+                  </div>
                 </FadeIn>
               ))}
             </div>
@@ -439,93 +455,88 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
 
           <TabsContent value="impact">
             <FadeIn direction="up">
-              <div className="mb-6">
-                <h2 className="text-2xl font-bold mb-2">Industry Impact</h2>
-                <p className="text-gray-600">
-                  How {company.name}'s innovations are shaping the AI landscape and impacting various industries.
+              <div className="mb-8">
+                <p className="label-text mb-2">Impact</p>
+                <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground mb-3">
+                  Industry Impact
+                </h2>
+                <p className="text-muted-foreground leading-relaxed">
+                  How {company.name}&apos;s innovations are shaping the AI landscape and impacting various industries.
                 </p>
               </div>
             </FadeIn>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <FadeIn direction="up" delay={100}>
-                <Card className="h-full hover:shadow-md transition-all duration-300">
-                  <CardHeader className="flex flex-row items-start space-x-4">
-                    <div className="bg-blue-100 p-3 rounded-full">
-                      <Lightbulb className="h-6 w-6 text-blue-600" />
+                <div className="h-full rounded-2xl border border-border bg-card p-8 transition-all duration-300 hover:border-gold/20">
+                  <div className="flex items-start gap-5">
+                    <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gold/10 flex items-center justify-center">
+                      <Lightbulb className="h-6 w-6 text-gold" />
                     </div>
                     <div>
-                      <CardTitle>Technological Advancements</CardTitle>
-                      <CardDescription>Pushing the boundaries of what's possible</CardDescription>
+                      <h3 className="text-xl font-bold text-foreground mb-1">Technological Advancements</h3>
+                      <p className="text-sm text-muted-foreground mb-3">Pushing the boundaries of what&apos;s possible</p>
+                      <p className="text-muted-foreground leading-relaxed">
+                        {company.name} has consistently pushed the state-of-the-art in artificial intelligence,
+                        establishing new benchmarks and inspiring further research and development across the industry.
+                      </p>
                     </div>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-gray-600">
-                      {company.name} has consistently pushed the state-of-the-art in artificial intelligence,
-                      establishing new benchmarks and inspiring further research and development across the industry.
-                    </p>
-                  </CardContent>
-                </Card>
+                  </div>
+                </div>
               </FadeIn>
 
               <FadeIn direction="up" delay={200}>
-                <Card className="h-full hover:shadow-md transition-all duration-300">
-                  <CardHeader className="flex flex-row items-start space-x-4">
-                    <div className="bg-green-100 p-3 rounded-full">
-                      <Code className="h-6 w-6 text-green-600" />
+                <div className="h-full rounded-2xl border border-border bg-card p-8 transition-all duration-300 hover:border-gold/20">
+                  <div className="flex items-start gap-5">
+                    <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gold/10 flex items-center justify-center">
+                      <Code className="h-6 w-6 text-gold" />
                     </div>
                     <div>
-                      <CardTitle>Developer Ecosystem</CardTitle>
-                      <CardDescription>Enabling innovation through tools and platforms</CardDescription>
+                      <h3 className="text-xl font-bold text-foreground mb-1">Developer Ecosystem</h3>
+                      <p className="text-sm text-muted-foreground mb-3">Enabling innovation through tools and platforms</p>
+                      <p className="text-muted-foreground leading-relaxed">
+                        By providing developers with powerful AI tools and platforms, {company.name} has fostered a
+                        vibrant ecosystem of applications and services that leverage their technologies.
+                      </p>
                     </div>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-gray-600">
-                      By providing developers with powerful AI tools and platforms, {company.name} has fostered a
-                      vibrant ecosystem of applications and services that leverage their technologies.
-                    </p>
-                  </CardContent>
-                </Card>
+                  </div>
+                </div>
               </FadeIn>
 
               <FadeIn direction="up" delay={300}>
-                <Card className="h-full hover:shadow-md transition-all duration-300">
-                  <CardHeader className="flex flex-row items-start space-x-4">
-                    <div className="bg-purple-100 p-3 rounded-full">
-                      <Users className="h-6 w-6 text-purple-600" />
+                <div className="h-full rounded-2xl border border-border bg-card p-8 transition-all duration-300 hover:border-gold/20">
+                  <div className="flex items-start gap-5">
+                    <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gold/10 flex items-center justify-center">
+                      <Users className="h-6 w-6 text-gold" />
                     </div>
                     <div>
-                      <CardTitle>Societal Impact</CardTitle>
-                      <CardDescription>Changing how we live and work</CardDescription>
+                      <h3 className="text-xl font-bold text-foreground mb-1">Societal Impact</h3>
+                      <p className="text-sm text-muted-foreground mb-3">Changing how we live and work</p>
+                      <p className="text-muted-foreground leading-relaxed">
+                        {company.name}&apos;s AI technologies have transformed numerous aspects of daily life, from how we
+                        search for information to how we create content and interact with digital services.
+                      </p>
                     </div>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-gray-600">
-                      {company.name}'s AI technologies have transformed numerous aspects of daily life, from how we
-                      search for information to how we create content and interact with digital services.
-                    </p>
-                  </CardContent>
-                </Card>
+                  </div>
+                </div>
               </FadeIn>
 
               <FadeIn direction="up" delay={400}>
-                <Card className="h-full hover:shadow-md transition-all duration-300">
-                  <CardHeader className="flex flex-row items-start space-x-4">
-                    <div className="bg-yellow-100 p-3 rounded-full">
-                      <Newspaper className="h-6 w-6 text-yellow-600" />
+                <div className="h-full rounded-2xl border border-border bg-card p-8 transition-all duration-300 hover:border-gold/20">
+                  <div className="flex items-start gap-5">
+                    <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gold/10 flex items-center justify-center">
+                      <Newspaper className="h-6 w-6 text-gold" />
                     </div>
                     <div>
-                      <CardTitle>Industry Standards</CardTitle>
-                      <CardDescription>Setting benchmarks for the field</CardDescription>
+                      <h3 className="text-xl font-bold text-foreground mb-1">Industry Standards</h3>
+                      <p className="text-sm text-muted-foreground mb-3">Setting benchmarks for the field</p>
+                      <p className="text-muted-foreground leading-relaxed">
+                        Through research publications, open-source contributions, and product releases, {company.name} has
+                        helped establish standards and best practices that guide the entire AI industry.
+                      </p>
                     </div>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-gray-600">
-                      Through research publications, open-source contributions, and product releases, {company.name} has
-                      helped establish standards and best practices that guide the entire AI industry.
-                    </p>
-                  </CardContent>
-                </Card>
+                  </div>
+                </div>
               </FadeIn>
             </div>
           </TabsContent>
@@ -615,4 +626,3 @@ function ExternalLink(props: React.SVGProps<SVGSVGElement>) {
     </svg>
   )
 }
-

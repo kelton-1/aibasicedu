@@ -2,13 +2,14 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import { ROUTE_MAP } from "@/app/lib/route-map"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Slider } from "@/components/ui/slider"
-import { ArrowLeft, ArrowRight, Brain, Lightbulb, MessageSquare, BookOpen } from "lucide-react"
+import { Textarea } from "@/components/ui/textarea"
+import { ArrowLeft, ArrowRight, Brain, Lightbulb, MessageSquare, BookOpen, CheckCircle } from "lucide-react"
 
 export default function UnderstandingLLMsTutorial() {
   const [currentModule, setCurrentModule] = useState(1)
@@ -38,9 +39,6 @@ export default function UnderstandingLLMsTutorial() {
 
   // Simulate text generation based on parameters
   const generateText = () => {
-    // In a real application, this would call an API to generate text
-    // Here we're just simulating different outputs based on parameters
-
     let newText = ""
 
     if (temperature[0] < 0.3) {
@@ -55,86 +53,96 @@ export default function UnderstandingLLMsTutorial() {
 
     // Adjust length based on max tokens
     const words = newText.split(" ")
-    const adjustedLength = Math.max(3, Math.floor(maxTokens[0] / 5)) // Rough approximation
+    const adjustedLength = Math.max(3, Math.floor(maxTokens[0] / 5))
     newText = words.slice(0, adjustedLength).join(" ")
 
     setGeneratedText(newText)
   }
 
   return (
-    <div className="container mx-auto px-4 py-12">
+    <div className="section-container py-12">
+      {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
         <div>
           <div className="flex items-center mb-2">
-            <Link href="/tutorials" className="text-gray-500 hover:text-gray-700 mr-2">
+            <Link
+              href={ROUTE_MAP.tutorials}
+              className="text-muted-foreground hover:text-gold transition-colors mr-3"
+            >
               <ArrowLeft className="h-4 w-4 inline" /> Back to Tutorials
             </Link>
-            <Badge variant="outline">AI Concepts</Badge>
-            <Badge variant="outline" className="ml-2">
+            <Badge variant="outline" className="border-border text-muted-foreground">
+              AI Concepts
+            </Badge>
+            <Badge variant="outline" className="ml-2 border-gold/20 text-gold">
               Intermediate
             </Badge>
           </div>
-          <h1 className="text-3xl font-bold tracking-tighter">Understanding Large Language Models</h1>
-          <p className="text-gray-500 mt-2">Interactive exploration of how LLMs work and generate text.</p>
+          <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">
+            Understanding Large Language Models
+          </h1>
+          <p className="text-muted-foreground mt-2">Interactive exploration of how LLMs work and generate text.</p>
         </div>
         <div className="mt-4 md:mt-0 flex items-center">
-          <div className="text-sm text-gray-500 mr-4">Progress: {Math.round(progress)}%</div>
-          <Progress value={progress} className="w-[200px] h-2" />
+          <div className="text-sm text-muted-foreground mr-4">Progress: {Math.round(progress)}%</div>
+          <Progress value={progress} className="w-[200px] h-2 [&>div]:bg-gold" />
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
         {/* Sidebar Navigation */}
         <div className="md:col-span-1">
-          <Card>
-            <CardHeader>
-              <CardTitle>Tutorial Modules</CardTitle>
-            </CardHeader>
-            <CardContent className="p-0">
-              <nav className="flex flex-col">
-                {[
-                  "Introduction to LLMs",
-                  "Transformer Architecture",
-                  "Tokenization",
-                  "Training Process",
-                  "Inference & Generation",
-                  "Parameters & Fine-tuning",
-                  "Limitations & Future",
-                ].map((module, index) => (
-                  <button
-                    key={index}
-                    onClick={() => {
-                      setCurrentModule(index + 1)
-                      setProgress(((index + 1) / totalModules) * 100)
-                    }}
-                    className={`flex items-center p-3 text-left border-b border-gray-100 hover:bg-gray-50 transition-colors ${
-                      currentModule === index + 1 ? "bg-gray-50 font-medium" : ""
+          <div className="rounded-2xl border border-border bg-card overflow-hidden">
+            <div className="p-5 border-b border-border">
+              <h3 className="font-semibold text-foreground">Tutorial Modules</h3>
+            </div>
+            <nav className="flex flex-col">
+              {[
+                "Introduction to LLMs",
+                "Transformer Architecture",
+                "Tokenization",
+                "Training Process",
+                "Inference & Generation",
+                "Parameters & Fine-tuning",
+                "Limitations & Future",
+              ].map((module, index) => (
+                <button
+                  key={index}
+                  onClick={() => {
+                    setCurrentModule(index + 1)
+                    setProgress(((index + 1) / totalModules) * 100)
+                  }}
+                  className={`flex items-center p-3 text-left border-b border-border last:border-b-0 transition-colors ${
+                    currentModule === index + 1
+                      ? "bg-gold/5 border-l-2 border-l-gold"
+                      : "hover:bg-accent/50"
+                  }`}
+                >
+                  <div
+                    className={`w-6 h-6 rounded-full flex items-center justify-center mr-3 text-xs font-medium ${
+                      currentModule > index + 1
+                        ? "bg-gold/10 text-gold"
+                        : currentModule === index + 1
+                          ? "bg-gold text-black"
+                          : "bg-accent text-muted-foreground"
                     }`}
                   >
-                    <div
-                      className={`w-6 h-6 rounded-full flex items-center justify-center mr-3 ${
-                        currentModule > index + 1
-                          ? "bg-green-100 text-green-600"
-                          : currentModule === index + 1
-                            ? "bg-blue-100 text-blue-600"
-                            : "bg-gray-100 text-gray-400"
-                      }`}
-                    >
-                      {index + 1}
-                    </div>
-                    <span className="text-sm">{module}</span>
-                  </button>
-                ))}
-              </nav>
-            </CardContent>
-          </Card>
+                    {currentModule > index + 1 ? <CheckCircle className="h-3.5 w-3.5" /> : index + 1}
+                  </div>
+                  <span className={`text-sm ${currentModule === index + 1 ? "font-medium text-foreground" : "text-muted-foreground"}`}>
+                    {module}
+                  </span>
+                </button>
+              ))}
+            </nav>
+          </div>
         </div>
 
         {/* Main Content */}
         <div className="md:col-span-3">
-          <Card className="mb-6">
-            <CardHeader>
-              <CardTitle>
+          <div className="rounded-2xl border border-border bg-card mb-6">
+            <div className="p-6 border-b border-border">
+              <h2 className="text-xl font-semibold text-foreground">
                 {currentModule === 1 && "Introduction to Large Language Models"}
                 {currentModule === 2 && "Transformer Architecture"}
                 {currentModule === 3 && "Tokenization: How LLMs Process Text"}
@@ -142,8 +150,8 @@ export default function UnderstandingLLMsTutorial() {
                 {currentModule === 5 && "Inference & Text Generation"}
                 {currentModule === 6 && "Parameters & Fine-tuning"}
                 {currentModule === 7 && "Limitations & Future Directions"}
-              </CardTitle>
-              <CardDescription>
+              </h2>
+              <p className="text-sm text-muted-foreground mt-1">
                 {currentModule === 1 && "Understanding what LLMs are and how they're used"}
                 {currentModule === 2 && "Exploring the architecture behind modern language models"}
                 {currentModule === 3 && "How text is converted into tokens for processing"}
@@ -151,62 +159,73 @@ export default function UnderstandingLLMsTutorial() {
                 {currentModule === 5 && "How models generate text responses"}
                 {currentModule === 6 && "Adjusting model behavior with parameters"}
                 {currentModule === 7 && "Current limitations and future developments"}
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
+              </p>
+            </div>
+            <div className="p-6 space-y-6">
               {/* Module 5: Inference & Text Generation */}
               {currentModule === 5 && (
                 <div className="space-y-6">
                   <div>
-                    <h3 className="text-lg font-medium mb-2">How LLMs Generate Text</h3>
-                    <p className="text-gray-600 mb-4">
+                    <h3 className="text-lg font-medium text-foreground mb-2">How LLMs Generate Text</h3>
+                    <p className="text-muted-foreground leading-relaxed mb-4">
                       During inference (text generation), an LLM predicts the next token based on the tokens it has seen
                       so far. This process happens one token at a time, with each new token being influenced by all
                       previous tokens.
                     </p>
                   </div>
 
-                  <div className="bg-blue-50 p-4 rounded-lg mb-6">
-                    <h3 className="text-lg font-medium flex items-center mb-2">
-                      <Lightbulb className="h-5 w-5 text-blue-500 mr-2" />
+                  <div className="rounded-xl border border-gold/20 bg-gold/5 p-5 mb-6">
+                    <h3 className="text-lg font-medium flex items-center mb-2 text-foreground">
+                      <Lightbulb className="h-5 w-5 text-gold mr-2" />
                       Key Concepts in Text Generation
                     </h3>
-                    <ul className="list-disc pl-5 space-y-2 text-gray-600">
+                    <ul className="list-disc pl-5 space-y-2 text-muted-foreground">
                       <li>
-                        <span className="font-medium">Temperature:</span> Controls randomness in generation
+                        <span className="font-medium text-foreground">Temperature:</span> Controls randomness in generation
                       </li>
                       <li>
-                        <span className="font-medium">Top-p (nucleus sampling):</span> Controls diversity of outputs
+                        <span className="font-medium text-foreground">Top-p (nucleus sampling):</span> Controls diversity of outputs
                       </li>
                       <li>
-                        <span className="font-medium">Max tokens:</span> Limits the length of generated text
+                        <span className="font-medium text-foreground">Max tokens:</span> Limits the length of generated text
                       </li>
                       <li>
-                        <span className="font-medium">Repetition penalty:</span> Discourages repeating the same phrases
+                        <span className="font-medium text-foreground">Repetition penalty:</span> Discourages repeating the same phrases
                       </li>
                     </ul>
                   </div>
 
                   <div>
-                    <h3 className="text-lg font-medium mb-4">Interactive Text Generation Simulator</h3>
-                    <p className="text-gray-600 mb-6">
+                    <h3 className="text-lg font-medium text-foreground mb-4">Interactive Text Generation Simulator</h3>
+                    <p className="text-muted-foreground leading-relaxed mb-6">
                       Adjust the parameters below to see how they affect text generation. In a real LLM, these
                       parameters would influence the model's outputs in similar ways.
                     </p>
 
                     <Tabs defaultValue="parameters" className="w-full">
-                      <TabsList className="grid w-full grid-cols-2">
-                        <TabsTrigger value="parameters">Parameters</TabsTrigger>
-                        <TabsTrigger value="explanation">Explanation</TabsTrigger>
+                      <TabsList className="grid w-full grid-cols-2 bg-accent/50 rounded-xl p-1">
+                        <TabsTrigger value="parameters" className="rounded-lg data-[state=active]:bg-card data-[state=active]:text-foreground">
+                          Parameters
+                        </TabsTrigger>
+                        <TabsTrigger value="explanation" className="rounded-lg data-[state=active]:bg-card data-[state=active]:text-foreground">
+                          Explanation
+                        </TabsTrigger>
                       </TabsList>
                       <TabsContent value="parameters" className="space-y-6 pt-4">
                         <div>
                           <div className="flex justify-between mb-2">
-                            <label className="text-sm font-medium">Temperature: {temperature[0].toFixed(1)}</label>
-                            <span className="text-xs text-gray-500">Controls randomness</span>
+                            <label className="text-sm font-medium text-foreground">Temperature: {temperature[0].toFixed(1)}</label>
+                            <span className="text-xs text-muted-foreground">Controls randomness</span>
                           </div>
-                          <Slider value={temperature} min={0.1} max={1.5} step={0.1} onValueChange={setTemperature} />
-                          <div className="flex justify-between text-xs text-gray-500 mt-1">
+                          <Slider
+                            value={temperature}
+                            min={0.1}
+                            max={1.5}
+                            step={0.1}
+                            onValueChange={setTemperature}
+                            className="[&>span>span]:bg-gold"
+                          />
+                          <div className="flex justify-between text-xs text-muted-foreground mt-1">
                             <span>More deterministic</span>
                             <span>More random</span>
                           </div>
@@ -214,11 +233,18 @@ export default function UnderstandingLLMsTutorial() {
 
                         <div>
                           <div className="flex justify-between mb-2">
-                            <label className="text-sm font-medium">Top-p: {topP[0].toFixed(1)}</label>
-                            <span className="text-xs text-gray-500">Controls diversity</span>
+                            <label className="text-sm font-medium text-foreground">Top-p: {topP[0].toFixed(1)}</label>
+                            <span className="text-xs text-muted-foreground">Controls diversity</span>
                           </div>
-                          <Slider value={topP} min={0.1} max={1.0} step={0.1} onValueChange={setTopP} />
-                          <div className="flex justify-between text-xs text-gray-500 mt-1">
+                          <Slider
+                            value={topP}
+                            min={0.1}
+                            max={1.0}
+                            step={0.1}
+                            onValueChange={setTopP}
+                            className="[&>span>span]:bg-gold"
+                          />
+                          <div className="flex justify-between text-xs text-muted-foreground mt-1">
                             <span>More focused</span>
                             <span>More diverse</span>
                           </div>
@@ -226,71 +252,83 @@ export default function UnderstandingLLMsTutorial() {
 
                         <div>
                           <div className="flex justify-between mb-2">
-                            <label className="text-sm font-medium">Max Tokens: {maxTokens[0]}</label>
-                            <span className="text-xs text-gray-500">Controls length</span>
+                            <label className="text-sm font-medium text-foreground">Max Tokens: {maxTokens[0]}</label>
+                            <span className="text-xs text-muted-foreground">Controls length</span>
                           </div>
-                          <Slider value={maxTokens} min={10} max={100} step={5} onValueChange={setMaxTokens} />
-                          <div className="flex justify-between text-xs text-gray-500 mt-1">
+                          <Slider
+                            value={maxTokens}
+                            min={10}
+                            max={100}
+                            step={5}
+                            onValueChange={setMaxTokens}
+                            className="[&>span>span]:bg-gold"
+                          />
+                          <div className="flex justify-between text-xs text-muted-foreground mt-1">
                             <span>Shorter</span>
                             <span>Longer</span>
                           </div>
                         </div>
 
-                        <Button onClick={generateText}>Generate Text</Button>
+                        <Button
+                          onClick={generateText}
+                          className="bg-gold hover:bg-gold-light text-black font-medium rounded-xl"
+                        >
+                          Generate Text
+                        </Button>
 
-                        <div className="p-4 bg-gray-50 rounded-lg border">
-                          <h4 className="font-medium mb-2">Generated Text:</h4>
-                          <p className="text-gray-600">{generatedText}</p>
+                        <div className="p-4 rounded-xl border border-border bg-accent/30">
+                          <h4 className="font-medium text-foreground mb-2">Generated Text:</h4>
+                          <p className="text-muted-foreground leading-relaxed">{generatedText}</p>
                         </div>
                       </TabsContent>
 
                       <TabsContent value="explanation" className="space-y-4 pt-4">
                         <div>
-                          <h4 className="font-medium mb-2">Temperature</h4>
-                          <p className="text-gray-600 mb-2">
+                          <h4 className="font-medium text-foreground mb-2">Temperature</h4>
+                          <p className="text-muted-foreground leading-relaxed mb-2">
                             Temperature controls the randomness of the model's outputs:
                           </p>
-                          <ul className="list-disc pl-5 space-y-1 text-gray-600">
+                          <ul className="list-disc pl-5 space-y-1 text-muted-foreground">
                             <li>
-                              <span className="font-medium">Low temperature (0.1-0.4):</span> More deterministic,
+                              <span className="font-medium text-foreground">Low temperature (0.1-0.4):</span> More deterministic,
                               predictable responses
                             </li>
                             <li>
-                              <span className="font-medium">Medium temperature (0.5-0.8):</span> Balanced creativity and
+                              <span className="font-medium text-foreground">Medium temperature (0.5-0.8):</span> Balanced creativity and
                               coherence
                             </li>
                             <li>
-                              <span className="font-medium">High temperature (0.9+):</span> More random, creative, and
+                              <span className="font-medium text-foreground">High temperature (0.9+):</span> More random, creative, and
                               sometimes incoherent responses
                             </li>
                           </ul>
                         </div>
 
                         <div>
-                          <h4 className="font-medium mb-2">Top-p (Nucleus Sampling)</h4>
-                          <p className="text-gray-600 mb-2">
+                          <h4 className="font-medium text-foreground mb-2">Top-p (Nucleus Sampling)</h4>
+                          <p className="text-muted-foreground leading-relaxed mb-2">
                             Top-p sampling considers only the tokens whose cumulative probability exceeds the specified
                             value:
                           </p>
-                          <ul className="list-disc pl-5 space-y-1 text-gray-600">
+                          <ul className="list-disc pl-5 space-y-1 text-muted-foreground">
                             <li>
-                              <span className="font-medium">Low top-p (0.1-0.4):</span> Considers only the most likely
+                              <span className="font-medium text-foreground">Low top-p (0.1-0.4):</span> Considers only the most likely
                               tokens
                             </li>
                             <li>
-                              <span className="font-medium">Medium top-p (0.5-0.8):</span> Balanced between likely and
+                              <span className="font-medium text-foreground">Medium top-p (0.5-0.8):</span> Balanced between likely and
                               diverse tokens
                             </li>
                             <li>
-                              <span className="font-medium">High top-p (0.9+):</span> Considers a wider range of
+                              <span className="font-medium text-foreground">High top-p (0.9+):</span> Considers a wider range of
                               possible tokens
                             </li>
                           </ul>
                         </div>
 
                         <div>
-                          <h4 className="font-medium mb-2">Max Tokens</h4>
-                          <p className="text-gray-600">
+                          <h4 className="font-medium text-foreground mb-2">Max Tokens</h4>
+                          <p className="text-muted-foreground leading-relaxed">
                             This simply limits the length of the generated text. Each token is roughly equivalent to 4
                             characters or 3/4 of a word in English.
                           </p>
@@ -299,15 +337,15 @@ export default function UnderstandingLLMsTutorial() {
                     </Tabs>
                   </div>
 
-                  <div className="bg-purple-50 p-4 rounded-lg">
-                    <h3 className="text-lg font-medium flex items-center mb-2">
-                      <Brain className="h-5 w-5 text-purple-500 mr-2" />
+                  <div className="rounded-xl border border-gold/20 bg-gold/5 p-5">
+                    <h3 className="text-lg font-medium flex items-center mb-2 text-foreground">
+                      <Brain className="h-5 w-5 text-gold mr-2" />
                       How This Relates to Prompt Engineering
                     </h3>
-                    <p className="text-gray-600 mb-2">
+                    <p className="text-muted-foreground leading-relaxed mb-2">
                       Understanding how LLMs generate text helps you craft more effective prompts:
                     </p>
-                    <ul className="list-disc pl-5 space-y-1 text-gray-600">
+                    <ul className="list-disc pl-5 space-y-1 text-muted-foreground">
                       <li>For factual or coding tasks, use lower temperature for more deterministic outputs</li>
                       <li>For creative writing or brainstorming, use higher temperature</li>
                       <li>Provide clear context at the beginning of your prompt to guide the generation process</li>
@@ -317,90 +355,96 @@ export default function UnderstandingLLMsTutorial() {
                 </div>
               )}
 
-              {/* Other modules would be implemented similarly */}
+              {/* Other modules placeholder */}
               {currentModule !== 5 && (
                 <div className="flex items-center justify-center p-8">
                   <div className="text-center">
-                    <BookOpen className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-                    <h3 className="text-lg font-medium mb-2">Module Content</h3>
-                    <p className="text-gray-500">
+                    <BookOpen className="h-12 w-12 text-muted-foreground/30 mx-auto mb-4" />
+                    <h3 className="text-lg font-medium text-foreground mb-2">Module Content</h3>
+                    <p className="text-muted-foreground">
                       This module's content would be implemented similarly to Module 5, with interactive elements and
                       explanations relevant to the topic.
                     </p>
                   </div>
                 </div>
               )}
-            </CardContent>
-            <CardFooter className="flex justify-between">
-              <Button variant="outline" onClick={handlePrevious} disabled={currentModule === 1}>
+            </div>
+            <div className="flex justify-between p-6 border-t border-border">
+              <Button
+                variant="outline"
+                onClick={handlePrevious}
+                disabled={currentModule === 1}
+                className="border-border hover:bg-accent/50"
+              >
                 <ArrowLeft className="mr-2 h-4 w-4" /> Previous
               </Button>
               {currentModule < totalModules ? (
-                <Button onClick={handleNext}>
+                <Button onClick={handleNext} className="bg-gold hover:bg-gold-light text-black font-medium rounded-xl">
                   Next <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               ) : (
-                <Button asChild>
-                  <Link href="/tutorials">Complete Tutorial</Link>
+                <Button asChild className="bg-gold hover:bg-gold-light text-black font-medium rounded-xl">
+                  <Link href={ROUTE_MAP.tutorials}>Complete Tutorial</Link>
                 </Button>
               )}
-            </CardFooter>
-          </Card>
+            </div>
+          </div>
 
           {/* Discussion Section */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center">
-                <MessageSquare className="h-5 w-5 mr-2" />
+          <div className="rounded-2xl border border-border bg-card">
+            <div className="p-6 border-b border-border">
+              <h3 className="font-semibold text-foreground flex items-center">
+                <MessageSquare className="h-5 w-5 mr-2 text-gold" />
                 Discussion
-              </CardTitle>
-              <CardDescription>Ask questions or share your thoughts about this tutorial</CardDescription>
-            </CardHeader>
-            <CardContent>
+              </h3>
+              <p className="text-sm text-muted-foreground mt-1">Ask questions or share your thoughts about this tutorial</p>
+            </div>
+            <div className="p-6">
               <div className="space-y-4">
-                <div className="p-4 bg-gray-50 rounded-lg">
+                <div className="p-4 rounded-xl border border-border bg-accent/30">
                   <div className="flex items-start mb-2">
-                    <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center mr-3">
-                      <span className="text-green-600 font-medium">TK</span>
+                    <div className="w-8 h-8 rounded-full bg-gold/10 flex items-center justify-center mr-3">
+                      <span className="text-gold text-sm font-medium">TK</span>
                     </div>
                     <div>
-                      <p className="font-medium">Tom Kim</p>
-                      <p className="text-sm text-gray-500">3 days ago</p>
+                      <p className="font-medium text-foreground text-sm">Tom Kim</p>
+                      <p className="text-xs text-muted-foreground">3 days ago</p>
                     </div>
                   </div>
-                  <p className="text-gray-600">
+                  <p className="text-sm text-muted-foreground leading-relaxed">
                     The interactive text generation simulator really helped me understand how temperature affects
                     outputs. I've been using ChatGPT for a while but never really understood what those settings meant!
                   </p>
                 </div>
 
-                <div className="p-4 bg-gray-50 rounded-lg">
+                <div className="p-4 rounded-xl border border-border bg-accent/30">
                   <div className="flex items-start mb-2">
-                    <div className="w-8 h-8 rounded-full bg-yellow-100 flex items-center justify-center mr-3">
-                      <span className="text-yellow-600 font-medium">MJ</span>
+                    <div className="w-8 h-8 rounded-full bg-gold/10 flex items-center justify-center mr-3">
+                      <span className="text-gold text-sm font-medium">MJ</span>
                     </div>
                     <div>
-                      <p className="font-medium">Maria Johnson</p>
-                      <p className="text-sm text-gray-500">1 day ago</p>
+                      <p className="font-medium text-foreground text-sm">Maria Johnson</p>
+                      <p className="text-xs text-muted-foreground">1 day ago</p>
                     </div>
                   </div>
-                  <p className="text-gray-600">
+                  <p className="text-sm text-muted-foreground leading-relaxed">
                     Question: Is there a way to visualize how the attention mechanism works in transformers? I'm having
                     trouble understanding that concept.
                   </p>
                 </div>
 
-                <textarea
+                <Textarea
                   placeholder="Add your comment or question..."
-                  className="w-full min-h-[100px] p-3 border rounded-md"
+                  className="min-h-[100px] bg-background border-border"
                 />
-                <Button>Post Comment</Button>
+                <Button className="bg-gold hover:bg-gold-light text-black font-medium rounded-xl">
+                  Post Comment
+                </Button>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   )
 }
-

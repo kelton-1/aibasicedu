@@ -1,11 +1,10 @@
 import type { Metadata } from "next"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Clock, ArrowUpRight, BookmarkPlus } from "lucide-react"
 import Link from "next/link"
 import { createServerClient } from "@/lib/supabase/server"
+import { FadeIn } from "@/app/components/fade-in"
 
 export const revalidate = 3600
 
@@ -35,64 +34,120 @@ export default async function NewsPage() {
     .limit(50)
   const articles = newsArticles ?? []
 
+  const renderArticleCard = (article: (typeof articles)[number], index: number) => (
+    <FadeIn key={article.id} direction="up" delay={50 + index * 30}>
+      <div className="rounded-2xl border border-border bg-card overflow-hidden hover:border-gold/20 transition-all duration-300 flex flex-col h-full group">
+        <div className="relative overflow-hidden h-48">
+          <img
+            src={article.image_url || "/placeholder.svg"}
+            alt={article.title}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+        </div>
+        <div className="p-6 flex flex-col flex-grow">
+          <div className="flex justify-between items-start mb-3">
+            <span className="inline-flex items-center border border-border text-xs px-2.5 py-0.5 rounded-full text-muted-foreground font-medium">
+              {article.category}
+            </span>
+            <div className="flex items-center text-muted-foreground text-xs">
+              <Clock className="h-3 w-3 mr-1" />
+              {article.read_time}
+            </div>
+          </div>
+          <h3 className="font-semibold text-foreground text-lg mb-1 leading-snug">{article.title}</h3>
+          <p className="text-xs text-muted-foreground mb-3">
+            {article.published_at} &middot; {article.source}
+          </p>
+          <p className="text-muted-foreground text-sm leading-relaxed flex-grow">{article.summary}</p>
+          <div className="flex justify-between items-center mt-5 pt-4 border-t border-border">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="text-gold hover:text-gold-light hover:bg-gold/5 px-3 -ml-3"
+              asChild
+            >
+              <Link href={article.source_url ?? "#"}>
+                Read Article <ArrowUpRight className="ml-1.5 h-3.5 w-3.5" />
+              </Link>
+            </Button>
+            <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground px-2">
+              <BookmarkPlus className="h-4 w-4" />
+            </Button>
+          </div>
+        </div>
+      </div>
+    </FadeIn>
+  )
+
   return (
-    <div className="container mx-auto px-4 py-12">
-      <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
-        <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">AI News & Trends</h1>
-        <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl">
-          Stay updated with the latest developments, breakthroughs, and trends in AI.
-        </p>
+    <div className="section-container py-24 md:py-32">
+      {/* Hero */}
+      <div className="text-center mb-16 space-y-4">
+        <FadeIn direction="up" delay={50}>
+          <p className="label-text">Stay Informed</p>
+        </FadeIn>
+        <FadeIn direction="up" delay={100}>
+          <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-foreground">
+            AI <span className="gold-text">News</span>
+          </h1>
+        </FadeIn>
+        <FadeIn direction="up" delay={200}>
+          <p className="mx-auto max-w-[560px] text-muted-foreground md:text-lg leading-relaxed">
+            Stay updated with the latest developments, breakthroughs, and trends in AI.
+          </p>
+        </FadeIn>
       </div>
 
+      {/* Tabs */}
       <Tabs defaultValue="all" className="w-full">
-        <div className="flex justify-center mb-8 overflow-x-auto">
-          <TabsList>
-            <TabsTrigger value="all">All News</TabsTrigger>
-            <TabsTrigger value="models">AI Models</TabsTrigger>
-            <TabsTrigger value="research">Research</TabsTrigger>
-            <TabsTrigger value="applications">Applications</TabsTrigger>
-            <TabsTrigger value="policy">Policy & Ethics</TabsTrigger>
-            <TabsTrigger value="business">Business</TabsTrigger>
-          </TabsList>
-        </div>
+        <FadeIn direction="up" delay={250}>
+          <div className="flex justify-center mb-12 overflow-x-auto">
+            <div className="bg-card border border-border rounded-xl p-1.5 inline-flex gap-1">
+              <TabsList className="bg-transparent p-0 h-auto gap-1">
+                <TabsTrigger
+                  value="all"
+                  className="rounded-lg px-4 py-2 text-sm font-medium text-muted-foreground data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm transition-all"
+                >
+                  All News
+                </TabsTrigger>
+                <TabsTrigger
+                  value="models"
+                  className="rounded-lg px-4 py-2 text-sm font-medium text-muted-foreground data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm transition-all"
+                >
+                  AI Models
+                </TabsTrigger>
+                <TabsTrigger
+                  value="research"
+                  className="rounded-lg px-4 py-2 text-sm font-medium text-muted-foreground data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm transition-all"
+                >
+                  Research
+                </TabsTrigger>
+                <TabsTrigger
+                  value="applications"
+                  className="rounded-lg px-4 py-2 text-sm font-medium text-muted-foreground data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm transition-all"
+                >
+                  Applications
+                </TabsTrigger>
+                <TabsTrigger
+                  value="policy"
+                  className="rounded-lg px-4 py-2 text-sm font-medium text-muted-foreground data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm transition-all"
+                >
+                  Policy & Ethics
+                </TabsTrigger>
+                <TabsTrigger
+                  value="business"
+                  className="rounded-lg px-4 py-2 text-sm font-medium text-muted-foreground data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm transition-all"
+                >
+                  Business
+                </TabsTrigger>
+              </TabsList>
+            </div>
+          </div>
+        </FadeIn>
 
         <TabsContent value="all" className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {articles.map((article) => (
-              <Card key={article.id} className="overflow-hidden flex flex-col">
-                <img
-                  src={article.image_url || "/placeholder.svg"}
-                  alt={article.title}
-                  className="w-full h-48 object-cover"
-                />
-                <CardHeader>
-                  <div className="flex justify-between items-start">
-                    <Badge variant="outline">{article.category}</Badge>
-                    <div className="flex items-center text-gray-500 text-sm">
-                      <Clock className="h-3 w-3 mr-1" />
-                      {article.read_time}
-                    </div>
-                  </div>
-                  <CardTitle className="text-xl mt-2">{article.title}</CardTitle>
-                  <CardDescription className="text-sm text-gray-500">
-                    {article.published_at} • {article.source}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="flex-grow">
-                  <p className="text-gray-600">{article.summary}</p>
-                </CardContent>
-                <CardFooter className="flex justify-between">
-                  <Button variant="outline" size="sm" asChild>
-                    <Link href={article.source_url ?? "#"}>
-                      Read Full Article <ArrowUpRight className="ml-1 h-3 w-3" />
-                    </Link>
-                  </Button>
-                  <Button variant="ghost" size="sm">
-                    <BookmarkPlus className="h-4 w-4" />
-                  </Button>
-                </CardFooter>
-              </Card>
-            ))}
+            {articles.map((article, index) => renderArticleCard(article, index))}
           </div>
         </TabsContent>
 
@@ -101,61 +156,38 @@ export default async function NewsPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {articles
                 .filter((article) => article.category === category)
-                .map((article) => (
-                  <Card key={article.id} className="overflow-hidden flex flex-col">
-                    <img
-                      src={article.image_url || "/placeholder.svg"}
-                      alt={article.title}
-                      className="w-full h-48 object-cover"
-                    />
-                    <CardHeader>
-                      <div className="flex justify-between items-start">
-                        <Badge variant="outline">{article.category}</Badge>
-                        <div className="flex items-center text-gray-500 text-sm">
-                          <Clock className="h-3 w-3 mr-1" />
-                          {article.read_time}
-                        </div>
-                      </div>
-                      <CardTitle className="text-xl mt-2">{article.title}</CardTitle>
-                      <CardDescription className="text-sm text-gray-500">
-                        {article.published_at} • {article.source}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent className="flex-grow">
-                      <p className="text-gray-600">{article.summary}</p>
-                    </CardContent>
-                    <CardFooter className="flex justify-between">
-                      <Button variant="outline" size="sm" asChild>
-                        <Link href={article.source_url ?? "#"}>
-                          Read Full Article <ArrowUpRight className="ml-1 h-3 w-3" />
-                        </Link>
-                      </Button>
-                      <Button variant="ghost" size="sm">
-                        <BookmarkPlus className="h-4 w-4" />
-                      </Button>
-                    </CardFooter>
-                  </Card>
-                ))}
+                .map((article, index) => renderArticleCard(article, index))}
             </div>
           </TabsContent>
         ))}
       </Tabs>
 
-      <div className="mt-12 p-6 bg-gray-50 rounded-lg">
-        <h2 className="text-2xl font-bold mb-4">Subscribe to AI News Updates</h2>
-        <p className="text-gray-500 mb-6">
-          Get the latest AI news and trends delivered straight to your inbox. Choose your interests to receive
-          personalized updates.
-        </p>
-        <div className="flex flex-col md:flex-row gap-4">
-          <input
-            type="email"
-            placeholder="Enter your email"
-            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-          />
-          <Button className="md:w-auto">Subscribe</Button>
+      {/* Newsletter */}
+      <FadeIn direction="up" delay={300}>
+        <div className="mt-24 rounded-2xl border border-border bg-card p-8 md:p-12">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+            <div>
+              <h2 className="text-2xl font-semibold tracking-tight text-foreground mb-2">
+                Subscribe to AI News Updates
+              </h2>
+              <p className="text-muted-foreground max-w-md leading-relaxed">
+                Get the latest AI news and trends delivered straight to your inbox. Choose your interests to receive
+                personalized updates.
+              </p>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto shrink-0">
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="h-11 w-full sm:w-64 rounded-xl border border-border bg-background px-4 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gold/40"
+              />
+              <Button className="bg-gold hover:bg-gold-light text-black font-medium rounded-xl h-11 px-6">
+                Subscribe
+              </Button>
+            </div>
+          </div>
         </div>
-      </div>
+      </FadeIn>
     </div>
   )
 }
