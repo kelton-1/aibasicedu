@@ -7,6 +7,7 @@ import Link from "next/link"
 import { ArrowRight, Check, Minus, Zap, BookOpen, Search } from "lucide-react"
 import { generatePageMetadata } from "@/app/lib/seo"
 import { ROUTE_MAP } from "@/app/lib/route-map"
+import { CollectionPageJsonLd } from "@/app/components/json-ld"
 
 export const metadata: Metadata = generatePageMetadata({
   title: "ChatGPT vs Claude vs Gemini — AI Comparison 2026",
@@ -14,6 +15,27 @@ export const metadata: Metadata = generatePageMetadata({
   path: "/compare",
   keywords: ["ChatGPT vs Claude", "ChatGPT vs Gemini", "best AI chatbot 2026", "AI comparison"],
 })
+
+const pageUrl = "https://www.aibasicedu.com/compare"
+const lastReviewed = "2026-03-18"
+const methodologySections = [
+  {
+    heading: "Who this comparison is for",
+    body: "This comparison is for beginners choosing a first AI assistant, professionals evaluating a paid upgrade, and teams deciding which general-purpose model best fits their workflow.",
+  },
+  {
+    heading: "How we evaluate the models",
+    body: "We compare product positioning, everyday usability, multimodal features, pricing, ecosystem fit, and strengths that matter in real learning and work scenarios rather than repeating vendor marketing claims.",
+  },
+  {
+    heading: "Last reviewed",
+    body: "Last reviewed on March 18, 2026. We update this page when pricing, key capabilities, or recommended use cases materially change.",
+  },
+  {
+    heading: "Comparison criteria",
+    body: "Our side-by-side comparison weighs free access, paid pricing, context window, coding help, writing quality, research utility, speed, multimodal support, web access, image generation, and file handling.",
+  },
+] as const
 
 const tools = [
   {
@@ -90,17 +112,41 @@ function CellValue({ value, isBest }: { value: boolean | string; isBest: boolean
       </div>
     )
   }
-  return (
-    <span className={`text-sm ${isBest ? "text-gold font-medium" : "text-muted-foreground"}`}>
-      {value}
-    </span>
-  )
+  return <span className={`text-sm ${isBest ? "text-gold font-medium" : "text-muted-foreground"}`}>{value}</span>
 }
 
 export default function ComparePage() {
   return (
     <main>
-      {/* Hero */}
+      <CollectionPageJsonLd
+        title="ChatGPT vs Claude vs Gemini — AI Comparison 2026"
+        description="Detailed comparison of ChatGPT, Claude, and Gemini in 2026. Pricing, features, strengths, and which AI assistant is best for you."
+        url={pageUrl}
+        breadcrumbs={[
+          { name: "Home", url: "https://www.aibasicedu.com" },
+          { name: "Compare", url: pageUrl },
+        ]}
+        lastReviewed={lastReviewed}
+        sections={[...methodologySections]}
+        mainEntity={{
+          "@type": "ItemList",
+          name: "AI assistant comparison list",
+          itemListOrder: "https://schema.org/ItemListOrderAscending",
+          numberOfItems: tools.length,
+          itemListElement: tools.map((tool, index) => ({
+            "@type": "ListItem",
+            position: index + 1,
+            item: {
+              "@type": "SoftwareApplication",
+              name: tool.name,
+              description: tool.description,
+              applicationCategory: "AI assistant",
+              creator: tool.maker,
+            },
+          })),
+        }}
+      />
+
       <section className="py-24 md:py-32">
         <div className="section-container text-center">
           <FadeIn direction="up" delay={50}>
@@ -119,26 +165,44 @@ export default function ComparePage() {
         </div>
       </section>
 
-      {/* Ad Banner */}
+      <section className="pb-16 md:pb-20" aria-labelledby="comparison-methodology">
+        <div className="section-container">
+          <div className="rounded-3xl border border-border bg-card p-8 md:p-10">
+            <FadeIn direction="up" delay={50}>
+              <div className="mb-8">
+                <p className="label-text mb-3">Editorial Standards</p>
+                <h2 id="comparison-methodology" className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground">How this comparison is curated</h2>
+              </div>
+            </FadeIn>
+            <div className="grid gap-6 md:grid-cols-2">
+              {methodologySections.map((section, index) => (
+                <FadeIn key={section.heading} direction="up" delay={100 + index * 50}>
+                  <section id={section.heading.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")} className="rounded-2xl border border-border/80 bg-background p-6">
+                    <h3 className="text-xl font-semibold text-foreground mb-3">{section.heading}</h3>
+                    <p className="text-sm leading-7 text-muted-foreground">{section.body}</p>
+                  </section>
+                </FadeIn>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       <div className="section-container pb-12">
         <AdSlot variant="banner" />
       </div>
 
-      {/* Comparison Grid */}
       <section className="pb-24 md:pb-32">
         <div className="section-container">
           <FadeIn direction="up" delay={50}>
             <div className="text-center mb-16">
               <p className="label-text mb-4">Head to Head</p>
-              <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-foreground">
-                Feature comparison
-              </h2>
+              <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-foreground">Feature comparison</h2>
             </div>
           </FadeIn>
 
           <FadeIn direction="up" delay={100}>
             <div className="rounded-2xl border border-border bg-card overflow-hidden">
-              {/* Header row */}
               <div className="grid grid-cols-4 border-b border-border">
                 <div className="p-4 md:p-6">
                   <span className="text-sm font-medium text-muted-foreground">Feature</span>
@@ -156,22 +220,14 @@ export default function ComparePage() {
                   <p className="text-xs text-muted-foreground mt-0.5">Google</p>
                 </div>
               </div>
-
-              {/* Data rows */}
               {comparisonRows.map((row) => (
                 <div key={row.label} className="grid grid-cols-4 border-b border-border last:border-b-0 hover:bg-accent/30 transition-colors">
                   <div className="p-4 md:p-6 flex items-center">
                     <span className="text-sm text-foreground font-medium">{row.label}</span>
                   </div>
-                  <div className="p-4 md:p-6 flex items-center justify-center border-l border-border">
-                    <CellValue value={row.chatgpt} isBest={row.best === "chatgpt"} />
-                  </div>
-                  <div className="p-4 md:p-6 flex items-center justify-center border-l border-border">
-                    <CellValue value={row.claude} isBest={row.best === "claude"} />
-                  </div>
-                  <div className="p-4 md:p-6 flex items-center justify-center border-l border-border">
-                    <CellValue value={row.gemini} isBest={row.best === "gemini"} />
-                  </div>
+                  <div className="p-4 md:p-6 flex items-center justify-center border-l border-border"><CellValue value={row.chatgpt} isBest={row.best === "chatgpt"} /></div>
+                  <div className="p-4 md:p-6 flex items-center justify-center border-l border-border"><CellValue value={row.claude} isBest={row.best === "claude"} /></div>
+                  <div className="p-4 md:p-6 flex items-center justify-center border-l border-border"><CellValue value={row.gemini} isBest={row.best === "gemini"} /></div>
                 </div>
               ))}
             </div>
@@ -179,46 +235,18 @@ export default function ComparePage() {
         </div>
       </section>
 
-      {/* Inline Ad */}
-      <div className="section-container pb-12">
-        <AdSlot variant="inline" />
-      </div>
+      <div className="section-container pb-12"><AdSlot variant="inline" /></div>
 
-      {/* Individual Tool Breakdowns */}
       <section className="pb-24 md:pb-32">
         <div className="section-container">
-          <FadeIn direction="up" delay={50}>
-            <div className="text-center mb-16">
-              <p className="label-text mb-4">Deep Dive</p>
-              <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-foreground">
-                Tool breakdowns
-              </h2>
-            </div>
-          </FadeIn>
-
+          <FadeIn direction="up" delay={50}><div className="text-center mb-16"><p className="label-text mb-4">Deep Dive</p><h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-foreground">Tool breakdowns</h2></div></FadeIn>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {tools.map((tool, index) => (
               <FadeIn key={tool.name} direction="up" delay={100 + index * 100}>
                 <div className="h-full rounded-2xl border border-border bg-card p-8 transition-all duration-300 hover:border-gold/20 flex flex-col">
-                  <div className="mb-6">
-                    <p className="label-text mb-2">{tool.maker}</p>
-                    <h3 className="text-xl font-bold text-foreground mb-1">{tool.name}</h3>
-                    <p className="text-xs text-gold font-medium">Best for {tool.bestFor}</p>
-                  </div>
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                    {tool.description}
-                  </p>
-                  <div className="mt-auto">
-                    <p className="text-xs text-muted-foreground uppercase tracking-[0.15em] mb-3">Key Strengths</p>
-                    <ul className="space-y-2">
-                      {tool.strengths.map((strength) => (
-                        <li key={strength} className="flex items-start text-sm text-muted-foreground">
-                          <Check className="h-4 w-4 text-gold mr-2 mt-0.5 flex-shrink-0" />
-                          <span>{strength}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                  <div className="mb-6"><p className="label-text mb-2">{tool.maker}</p><h3 className="text-xl font-bold text-foreground mb-1">{tool.name}</h3><p className="text-xs text-gold font-medium">Best for {tool.bestFor}</p></div>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-6">{tool.description}</p>
+                  <div className="mt-auto"><p className="text-xs text-muted-foreground uppercase tracking-[0.15em] mb-3">Key Strengths</p><ul className="space-y-2">{tool.strengths.map((strength) => (<li key={strength} className="flex items-start text-sm text-muted-foreground"><Check className="h-4 w-4 text-gold mr-2 mt-0.5 flex-shrink-0" /><span>{strength}</span></li>))}</ul></div>
                 </div>
               </FadeIn>
             ))}
@@ -226,30 +254,17 @@ export default function ComparePage() {
         </div>
       </section>
 
-      {/* Quick Pick Recommendations */}
       <section className="pb-24 md:pb-32">
         <div className="section-container">
-          <FadeIn direction="up" delay={50}>
-            <div className="text-center mb-16">
-              <p className="label-text mb-4">Quick Pick</p>
-              <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-foreground">
-                Our recommendations
-              </h2>
-            </div>
-          </FadeIn>
-
+          <FadeIn direction="up" delay={50}><div className="text-center mb-16"><p className="label-text mb-4">Quick Pick</p><h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-foreground">Our recommendations</h2></div></FadeIn>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {quickPicks.map((pick, index) => (
               <FadeIn key={pick.label} direction="up" delay={100 + index * 100}>
                 <div className="h-full rounded-2xl border border-gold/20 bg-card p-8 transition-all duration-300 hover:border-gold/40">
                   <pick.icon className="h-6 w-6 text-gold mb-5" />
                   <p className="label-text mb-2">{pick.label}</p>
-                  <h3 className="text-2xl font-bold text-foreground mb-3">
-                    <span className="gold-text">{pick.tool}</span>
-                  </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {pick.description}
-                  </p>
+                  <h3 className="text-2xl font-bold text-foreground mb-3"><span className="gold-text">{pick.tool}</span></h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{pick.description}</p>
                 </div>
               </FadeIn>
             ))}
@@ -257,44 +272,9 @@ export default function ComparePage() {
         </div>
       </section>
 
-      {/* CTA to Tools */}
-      <section className="pb-24 md:pb-32">
-        <div className="section-container">
-          <FadeIn direction="up" delay={100}>
-            <div className="rounded-2xl border border-border bg-card p-10 md:p-14 text-center">
-              <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-4">
-                Want the full picture?
-              </h2>
-              <p className="text-muted-foreground max-w-2xl mx-auto mb-8 leading-relaxed">
-                Explore our complete AI tools directory with detailed reviews, pricing breakdowns, and use-case recommendations for every major AI platform.
-              </p>
-              <Button
-                asChild
-                className="bg-gold hover:bg-gold-light text-black font-medium rounded-xl px-8 py-3 transition-colors duration-300"
-              >
-                <Link href={ROUTE_MAP.tools}>
-                  Browse All AI Tools
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-            </div>
-          </FadeIn>
-        </div>
-      </section>
-
-      {/* Newsletter */}
-      <section className="pb-24 md:pb-32">
-        <div className="section-container">
-          <div className="max-w-2xl mx-auto">
-            <NewsletterSubscription />
-          </div>
-        </div>
-      </section>
-
-      {/* Bottom Ad */}
-      <div className="section-container pb-12">
-        <AdSlot variant="footer" />
-      </div>
+      <section className="pb-24 md:pb-32"><div className="section-container"><FadeIn direction="up" delay={100}><div className="rounded-2xl border border-border bg-card p-10 md:p-14 text-center"><h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-4">Want the full picture?</h2><p className="text-muted-foreground max-w-2xl mx-auto mb-8 leading-relaxed">Explore our complete AI tools directory with detailed reviews, pricing breakdowns, and use-case recommendations for every major AI platform.</p><Button asChild className="bg-gold hover:bg-gold-light text-black font-medium rounded-xl px-8 py-3 transition-colors duration-300"><Link href={ROUTE_MAP.tools}>Browse All AI Tools<ArrowRight className="ml-2 h-4 w-4" /></Link></Button></div></FadeIn></div></section>
+      <section className="pb-24 md:pb-32"><div className="section-container"><div className="max-w-2xl mx-auto"><NewsletterSubscription /></div></div></section>
+      <div className="section-container pb-12"><AdSlot variant="footer" /></div>
     </main>
   )
 }
