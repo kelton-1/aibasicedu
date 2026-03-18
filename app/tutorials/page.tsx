@@ -5,6 +5,7 @@ import { BookOpen, Code, Brain, Lightbulb, ArrowRight, Clock, BarChart3 } from "
 import { FadeIn } from "@/app/components/fade-in"
 import { SectionHeading } from "@/app/components/section-heading"
 import { AdSlot } from "@/app/components/ad-slot"
+import { NativeAdCard } from "@/app/components/native-ad-card"
 import { tutorialCategories } from "./tutorial-data"
 import { createServerClient } from "@/lib/supabase/server"
 import { staticTutorials } from "@/app/lib/data/tutorials-data-static"
@@ -229,7 +230,10 @@ export default async function TutorialsPage() {
         </FadeIn>
 
         <TabsContent value="all" className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">{renderTutorialCards()}</div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {renderTutorialCards()}
+            <NativeAdCard />
+          </div>
         </TabsContent>
 
         {tutorialCategories.map((category) => (

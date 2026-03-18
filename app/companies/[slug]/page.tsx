@@ -5,6 +5,7 @@ import { Timeline } from "@/app/components/timeline"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { FadeIn } from "@/app/components/fade-in"
 import { Brain, Code, Lightbulb, Newspaper, Users } from "lucide-react"
+import { AdSlot } from "@/app/components/ad-slot"
 
 // Company data
 const companies = {
@@ -347,6 +348,9 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
       />
 
       <div className="section-container pb-24 md:pb-32">
+        {/* Ad: After company header */}
+        <AdSlot variant="leaderboard" className="mb-10" />
+
         <Tabs defaultValue="timeline" className="w-full">
           <TabsList className="w-full justify-start mb-10 bg-card border border-border rounded-xl p-1">
             <TabsTrigger
@@ -541,6 +545,9 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
             </div>
           </TabsContent>
         </Tabs>
+
+        {/* Ad: After tabs content */}
+        <AdSlot variant="inline" className="mt-10" />
       </div>
     </div>
   )

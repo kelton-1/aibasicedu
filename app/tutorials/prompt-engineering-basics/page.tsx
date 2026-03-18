@@ -19,6 +19,8 @@ import {
   BookOpen,
   MessageSquare,
 } from "lucide-react"
+import { AdSlot } from "@/app/components/ad-slot"
+import { RelatedToolsSidebar } from "@/app/components/related-tools-sidebar"
 
 type ExerciseKey = "exercise1" | "exercise2" | "exercise3"
 
@@ -164,6 +166,9 @@ export default function PromptEngineeringBasicsTutorial() {
           <Progress value={progress} className="w-[200px] h-2 [&>div]:bg-gold" />
         </div>
       </div>
+
+      {/* Ad: Leaderboard after header */}
+      <AdSlot variant="leaderboard" className="mb-8" />
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
         {/* Sidebar Navigation */}
@@ -838,6 +843,20 @@ export default function PromptEngineeringBasicsTutorial() {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Ad: Inline after content */}
+      <AdSlot variant="inline" className="mt-8" />
+
+      {/* Related Tools */}
+      <div className="mt-8">
+        <RelatedToolsSidebar
+          tools={[
+            { name: "ChatGPT", description: "OpenAI's flagship conversational AI for prompt practice.", url: "https://chat.openai.com", price: "Free / $20 mo" },
+            { name: "Claude", description: "Anthropic's AI assistant — great for long-form prompts and analysis.", url: "https://claude.ai", price: "Free / $20 mo" },
+            { name: "Jasper", description: "AI writing assistant built for marketing and content teams.", url: "https://www.jasper.ai", price: "From $49/mo" },
+          ]}
+        />
       </div>
     </div>
   )

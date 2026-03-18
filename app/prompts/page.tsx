@@ -6,6 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Textarea } from "@/components/ui/textarea"
 import { Lightbulb, Copy, CheckCircle, BookOpen, Code, Palette } from "lucide-react"
 import { FadeIn } from "@/app/components/fade-in"
+import { AdSlot } from "@/app/components/ad-slot"
 
 export default function PromptsPage() {
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null)
@@ -199,6 +200,9 @@ export default function PromptsPage() {
         </FadeIn>
       </div>
 
+      {/* Ad: Below hero */}
+      <AdSlot variant="leaderboard" className="mb-16" />
+
       {/* Templates Section */}
       <div className="space-y-8">
         <FadeIn direction="up" delay={100}>
@@ -264,6 +268,9 @@ export default function PromptsPage() {
             </TabsContent>
           ))}
         </Tabs>
+
+        {/* Ad: After template grid */}
+        <AdSlot variant="inline" className="mt-8" />
 
         {/* Prompt Workshop */}
         <FadeIn direction="up" delay={300}>

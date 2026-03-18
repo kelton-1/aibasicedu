@@ -4,27 +4,32 @@ import { useEffect, useRef } from "react"
 import { cn } from "@/lib/utils"
 
 interface AdSlotProps {
-  variant: "banner" | "sidebar" | "inline" | "footer"
+  variant: "banner" | "sidebar" | "inline" | "footer" | "leaderboard" | "medium-rectangle" | "sticky-sidebar"
   className?: string
   adSlotId?: string
 }
 
 export function AdSlot({ variant, className, adSlotId }: AdSlotProps) {
   const adRef = useRef<HTMLDivElement>(null)
-  const adsenseId = typeof window !== "undefined" ? undefined : undefined // client-only check
 
-  const sizes = {
+  const sizes: Record<string, string> = {
     banner: "h-24 md:h-28",
     sidebar: "h-64",
     inline: "h-20",
     footer: "h-24",
+    leaderboard: "h-[90px] max-w-[728px] mx-auto",
+    "medium-rectangle": "h-[250px] w-[300px]",
+    "sticky-sidebar": "h-[600px] w-[300px]",
   }
 
-  const formats = {
+  const formats: Record<string, string> = {
     banner: "horizontal",
     sidebar: "vertical",
     inline: "horizontal",
     footer: "horizontal",
+    leaderboard: "horizontal",
+    "medium-rectangle": "rectangle",
+    "sticky-sidebar": "vertical",
   }
 
   useEffect(() => {

@@ -10,6 +10,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Slider } from "@/components/ui/slider"
 import { Textarea } from "@/components/ui/textarea"
 import { ArrowLeft, ArrowRight, Brain, Lightbulb, MessageSquare, BookOpen, CheckCircle } from "lucide-react"
+import { AdSlot } from "@/app/components/ad-slot"
+import { RelatedToolsSidebar } from "@/app/components/related-tools-sidebar"
 
 export default function UnderstandingLLMsTutorial() {
   const [currentModule, setCurrentModule] = useState(1)
@@ -88,6 +90,9 @@ export default function UnderstandingLLMsTutorial() {
           <Progress value={progress} className="w-[200px] h-2 [&>div]:bg-gold" />
         </div>
       </div>
+
+      {/* Ad: Leaderboard after header */}
+      <AdSlot variant="leaderboard" className="mb-8" />
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
         {/* Sidebar Navigation */}
@@ -444,6 +449,20 @@ export default function UnderstandingLLMsTutorial() {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Ad: Inline after content */}
+      <AdSlot variant="inline" className="mt-8" />
+
+      {/* Related Tools */}
+      <div className="mt-8">
+        <RelatedToolsSidebar
+          tools={[
+            { name: "ChatGPT", description: "OpenAI's GPT-4o — explore LLM capabilities firsthand.", url: "https://chat.openai.com", price: "Free / $20 mo" },
+            { name: "Claude", description: "Anthropic's Claude — 200K context window for deep analysis.", url: "https://claude.ai", price: "Free / $20 mo" },
+            { name: "Perplexity", description: "AI-powered search with sourced answers for research.", url: "https://perplexity.ai", price: "Free / $20 mo" },
+          ]}
+        />
       </div>
     </div>
   )

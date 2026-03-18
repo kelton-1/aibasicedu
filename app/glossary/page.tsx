@@ -5,6 +5,7 @@ import { Search } from "lucide-react"
 import { createServerClient } from "@/lib/supabase/server"
 import { FadeIn } from "@/app/components/fade-in"
 import { AdSlot } from "@/app/components/ad-slot"
+import { NativeAdCard } from "@/app/components/native-ad-card"
 import { glossaryTerms as staticGlossaryTerms } from "@/app/lib/data/glossary-data"
 
 export const revalidate = 3600
@@ -118,7 +119,9 @@ export default async function GlossaryPage() {
 
         <TabsContent value="all" className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {glossaryTerms.map((item, index) => renderGlossaryCard(item, index))}
+            {glossaryTerms.map((item, index) => (
+              <>{renderGlossaryCard(item, index)}{index === 8 && <NativeAdCard key="native-ad" />}</>
+            ))}
           </div>
         </TabsContent>
 

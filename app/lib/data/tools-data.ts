@@ -1,7 +1,7 @@
 export interface AITool {
   name: string
   description: string
-  category: "chatbot" | "image" | "coding" | "productivity" | "research"
+  category: "chatbot" | "image" | "coding" | "productivity" | "research" | "writing" | "video"
   pricing: {
     free: string
     pro: string
@@ -151,6 +151,66 @@ export const aiTools: AITool[] = [
     pricing: { free: "10,000 chars/mo free", pro: "$5/mo (Starter)", enterprise: "$99/mo (Scale)" },
     bestFor: "AI voice generation and text-to-speech",
     url: "https://elevenlabs.io",
+    affiliateTag: "aibasicedu",
+  },
+  {
+    name: "Writesonic",
+    description:
+      "AI writing platform with 100+ templates for blog posts, ads, emails, and product descriptions. Includes Chatsonic for real-time web research.",
+    category: "writing",
+    pricing: { free: "10,000 words free", pro: "$16/mo (Individual)" },
+    bestFor: "SEO content and marketing copy at scale",
+    url: "https://writesonic.com",
+    affiliateTag: "aibasicedu",
+  },
+  {
+    name: "Copy.ai",
+    description:
+      "AI-powered copywriting tool for marketing teams. Generate social media posts, email campaigns, blog content, and product descriptions.",
+    category: "writing",
+    pricing: { free: "Free (2,000 words/mo)", pro: "$49/mo (Pro)" },
+    bestFor: "Marketing copy and social media content",
+    url: "https://copy.ai",
+    affiliateTag: "aibasicedu",
+  },
+  {
+    name: "Synthesia",
+    description:
+      "Create professional AI videos with realistic avatars. Generate training videos, presentations, and marketing content without cameras or actors.",
+    category: "video",
+    pricing: { free: "Free demo", pro: "$29/mo (Starter)", enterprise: "$89/mo (Creator)" },
+    bestFor: "AI avatar videos for training and marketing",
+    url: "https://synthesia.io",
+    affiliateTag: "aibasicedu",
+  },
+  {
+    name: "Descript",
+    description:
+      "AI-powered video and podcast editor. Edit media by editing text transcripts, remove filler words, and generate captions automatically.",
+    category: "video",
+    pricing: { free: "Free (1 hr/mo)", pro: "$24/mo (Hobbyist)", enterprise: "$33/mo (Pro)" },
+    bestFor: "Video and podcast editing with AI",
+    url: "https://descript.com",
+    affiliateTag: "aibasicedu",
+  },
+  {
+    name: "Canva",
+    description:
+      "Design platform with AI-powered features including Magic Write, text-to-image generation, background removal, and AI-powered design suggestions.",
+    category: "image",
+    pricing: { free: "Free (basic)", pro: "$12.99/mo (Pro)", enterprise: "$29.99/mo (Teams)" },
+    bestFor: "AI-assisted graphic design and content creation",
+    url: "https://canva.com",
+    affiliateTag: "aibasicedu",
+  },
+  {
+    name: "HubSpot AI",
+    description:
+      "AI tools integrated into HubSpot's CRM platform. AI-powered content generation, email writing, chatbots, and predictive analytics for marketing and sales.",
+    category: "productivity",
+    pricing: { free: "Free CRM", pro: "$50/mo (Starter)", enterprise: "$890/mo (Pro)" },
+    bestFor: "AI-powered marketing automation and CRM",
+    url: "https://hubspot.com",
     affiliateTag: "aibasicedu",
   },
 ]

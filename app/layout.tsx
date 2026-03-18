@@ -10,6 +10,7 @@ import { ErrorBoundary } from "@/app/components/error-boundary"
 import { OrganizationJsonLd, WebsiteJsonLd } from "@/app/components/json-ld"
 import { GoogleAnalytics } from "@/app/components/analytics"
 import { GoogleAdSense } from "@/app/components/adsense"
+import { StickyFooterCta } from "@/app/components/sticky-footer-cta"
 import "./globals.css"
 
 const inter = Inter({
@@ -77,6 +78,7 @@ export default function RootLayout({
               <SiteHeader />
               <main className="flex-1 relative">{children}</main>
               <SiteFooter />
+              <StickyFooterCta />
             </div>
             {process.env.NODE_ENV === "development" && <LinkChecker />}
           </ErrorBoundary>

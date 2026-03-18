@@ -3,6 +3,7 @@ import { FadeIn } from "@/app/components/fade-in"
 import { SectionHeading } from "@/app/components/section-heading"
 import { CompanyLogo } from "@/app/components/company-logo"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { AdSlot } from "@/app/components/ad-slot"
 
 export const metadata: Metadata = {
   title: "AI Companies",
@@ -256,6 +257,13 @@ export default function CompaniesPage() {
               </div>
             </TabsContent>
           </Tabs>
+        </div>
+      </section>
+
+      {/* Ad: After company grid */}
+      <section className="pb-12">
+        <div className="section-container">
+          <AdSlot variant="leaderboard" />
         </div>
       </section>
 

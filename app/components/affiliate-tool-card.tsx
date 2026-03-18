@@ -54,7 +54,7 @@ export function AffiliateToolCard({
         asChild
         className="w-full bg-gold hover:bg-gold-light text-black font-medium rounded-xl text-sm h-9"
       >
-        <a href={trackedUrl} target="_blank" rel="noopener noreferrer">
+        <a href={trackedUrl} target="_blank" rel="noopener noreferrer sponsored">
           Try {name} <ArrowUpRight className="ml-1.5 h-3.5 w-3.5" />
         </a>
       </Button>

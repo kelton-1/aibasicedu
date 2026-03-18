@@ -4,6 +4,7 @@ import { AffiliateToolCard } from "@/app/components/affiliate-tool-card"
 import { AdSlot } from "@/app/components/ad-slot"
 import { aiTools } from "@/app/lib/data/tools-data"
 import { NewsletterSubscription } from "@/app/components/newsletter-subscription"
+import { AffiliateDisclosure } from "@/app/components/affiliate-disclosure"
 
 export const metadata: Metadata = {
   title: "Best AI Tools 2026 — Compared & Ranked",
@@ -15,9 +16,11 @@ export default function ToolsPage() {
   const categories = [
     { key: "chatbot", label: "AI Assistants" },
     { key: "coding", label: "Coding Tools" },
-    { key: "image", label: "Image Generation" },
+    { key: "image", label: "Image & Design" },
     { key: "research", label: "Research" },
     { key: "productivity", label: "Productivity" },
+    { key: "writing", label: "AI Writing" },
+    { key: "video", label: "Video & Audio" },
   ]
 
   return (
@@ -42,6 +45,11 @@ export default function ToolsPage() {
           </div>
         </div>
       </section>
+
+      {/* Affiliate disclosure */}
+      <div className="section-container mb-8">
+        <AffiliateDisclosure />
+      </div>
 
       {/* Ad slot */}
       <div className="section-container mb-12">

@@ -12,6 +12,8 @@ import { Slider } from "@/components/ui/slider"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { ArrowLeft, ImageIcon, Lightbulb, MessageSquare, Wand2 } from "lucide-react"
+import { AdSlot } from "@/app/components/ad-slot"
+import { RelatedToolsSidebar } from "@/app/components/related-tools-sidebar"
 
 export default function ImageGenerationPlaygroundTutorial() {
   const [prompt, setPrompt] = useState("")
@@ -82,6 +84,9 @@ export default function ImageGenerationPlaygroundTutorial() {
           <Progress value={progress} className="w-[200px] h-2 [&>div]:bg-gold" />
         </div>
       </div>
+
+      {/* Ad: Leaderboard after header */}
+      <AdSlot variant="leaderboard" className="mb-8" />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Left Column - Controls */}
@@ -351,6 +356,9 @@ export default function ImageGenerationPlaygroundTutorial() {
           </div>
         </div>
       </div>
+
+      {/* Ad: Inline between content and discussion */}
+      <AdSlot variant="inline" className="mt-8" />
 
       {/* Discussion Section */}
       <div className="rounded-2xl border border-border bg-card mt-8">

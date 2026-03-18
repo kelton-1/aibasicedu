@@ -387,7 +387,7 @@ export default function Home() {
                   asChild
                   className="w-full bg-gold hover:bg-gold-light text-black font-medium rounded-xl text-sm h-9"
                 >
-                  <a href="https://chat.openai.com?utm_source=aibasicedu&utm_medium=featured&utm_campaign=homepage" target="_blank" rel="noopener noreferrer">
+                  <a href="https://chat.openai.com?utm_source=aibasicedu&utm_medium=featured&utm_campaign=homepage" target="_blank" rel="noopener noreferrer sponsored">
                     Try ChatGPT <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
                   </a>
                 </Button>
@@ -409,7 +409,7 @@ export default function Home() {
                   asChild
                   className="w-full bg-gold hover:bg-gold-light text-black font-medium rounded-xl text-sm h-9"
                 >
-                  <a href="https://claude.ai?utm_source=aibasicedu&utm_medium=featured&utm_campaign=homepage" target="_blank" rel="noopener noreferrer">
+                  <a href="https://claude.ai?utm_source=aibasicedu&utm_medium=featured&utm_campaign=homepage" target="_blank" rel="noopener noreferrer sponsored">
                     Try Claude <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
                   </a>
                 </Button>
@@ -431,7 +431,7 @@ export default function Home() {
                   asChild
                   className="w-full bg-gold hover:bg-gold-light text-black font-medium rounded-xl text-sm h-9"
                 >
-                  <a href="https://perplexity.ai?utm_source=aibasicedu&utm_medium=featured&utm_campaign=homepage" target="_blank" rel="noopener noreferrer">
+                  <a href="https://perplexity.ai?utm_source=aibasicedu&utm_medium=featured&utm_campaign=homepage" target="_blank" rel="noopener noreferrer sponsored">
                     Try Perplexity <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
                   </a>
                 </Button>

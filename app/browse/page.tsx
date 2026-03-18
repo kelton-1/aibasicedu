@@ -3,6 +3,7 @@ import { ROUTE_MAP } from "@/app/lib/route-map"
 import { FadeIn } from "@/app/components/fade-in"
 import { BookOpen, MessageSquare, Newspaper, Building2, FolderOpen, GraduationCap, ArrowRight } from "lucide-react"
 import { generatePageMetadata } from "@/app/lib/seo"
+import { AdSlot } from "@/app/components/ad-slot"
 
 export const metadata = generatePageMetadata({
   title: "Browse AI Resources",
@@ -93,6 +94,13 @@ export default function BrowsePage() {
               </FadeIn>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Ad: After resource grid */}
+      <section className="pb-12">
+        <div className="section-container">
+          <AdSlot variant="leaderboard" />
         </div>
       </section>
 

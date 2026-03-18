@@ -5,6 +5,7 @@ import { NewsletterSubscription } from "@/app/components/newsletter-subscription
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { ArrowRight, Check, Minus, Zap, BookOpen, Search } from "lucide-react"
+import { AffiliateDisclosure } from "@/app/components/affiliate-disclosure"
 import { generatePageMetadata } from "@/app/lib/seo"
 import { ROUTE_MAP } from "@/app/lib/route-map"
 
@@ -118,6 +119,11 @@ export default function ComparePage() {
           </FadeIn>
         </div>
       </section>
+
+      {/* Affiliate disclosure */}
+      <div className="section-container pb-6">
+        <AffiliateDisclosure />
+      </div>
 
       {/* Ad Banner */}
       <div className="section-container pb-12">

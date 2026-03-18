@@ -6,6 +6,7 @@ import Link from "next/link"
 import { createServerClient } from "@/lib/supabase/server"
 import { FadeIn } from "@/app/components/fade-in"
 import { AdSlot } from "@/app/components/ad-slot"
+import { NativeAdCard } from "@/app/components/native-ad-card"
 import { newsArticles as staticNewsArticles } from "@/app/lib/data/news-data"
 
 export const revalidate = 3600
@@ -151,7 +152,9 @@ export default async function NewsPage() {
 
         <TabsContent value="all" className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {articles.map((article, index) => renderArticleCard(article, index))}
+            {articles.map((article, index) => (
+              <>{renderArticleCard(article, index)}{index === 5 && <NativeAdCard key="native-ad" />}</>
+            ))}
           </div>
         </TabsContent>
 
