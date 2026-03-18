@@ -1,14 +1,180 @@
 interface JsonLdProps {
-  data: Record<string, unknown>
+  data: Record<string, unknown> | Array<Record<string, unknown>>
+}
+
+export interface BreadcrumbListItem {
+  name: string
+  url: string
+}
+
+export interface ItemListEntry {
+  name: string
+  url?: string
+  description?: string
+  position?: number
+  itemType?: string
+  additionalFields?: Record<string, unknown>
+}
+
+export interface DefinedTermEntry {
+  name: string
+  description: string
+  url?: string
+  inDefinedTermSet?: string
+  termCode?: string
+}
+
+export interface EditorialSection {
+  heading: string
+  body: string
 }
 
 export function JsonLd({ data }: JsonLdProps) {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, "\\u003c") }}
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, "\u003c") }}
     />
   )
+}
+
+function buildEditorialSections(sections: EditorialSection[], url?: string) {
+  return sections.map((section) => ({
+    "@type": "WebPageElement",
+    name: section.heading,
+    text: section.body,
+    ...(url ? { url: `${url}#${section.heading.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")}` } : {}),
+  }))
+}
+
+export function BreadcrumbListJsonLd({ items }: { items: BreadcrumbListItem[] }) {
+  return (
+    <JsonLd
+      data={{
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: items.map((item, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          name: item.name,
+          item: item.url,
+        })),
+      }}
+    />
+  )
+}
+
+export function ItemListJsonLd({
+  name,
+  description,
+  url,
+  items,
+}: {
+  name: string
+  description?: string
+  url?: string
+  items: ItemListEntry[]
+}) {
+  return (
+    <JsonLd
+      data={{
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        name,
+        ...(description ? { description } : {}),
+        ...(url ? { url } : {}),
+        itemListElement: items.map((item, index) => ({
+          "@type": "ListItem",
+          position: item.position ?? index + 1,
+          item: {
+            "@type": item.itemType ?? "Thing",
+            name: item.name,
+            ...(item.url ? { url: item.url } : {}),
+            ...(item.description ? { description: item.description } : {}),
+            ...(item.additionalFields ?? {}),
+          },
+        })),
+      }}
+    />
+  )
+}
+
+export function DefinedTermSetJsonLd({
+  name,
+  description,
+  url,
+  terms,
+}: {
+  name: string
+  description?: string
+  url?: string
+  terms: DefinedTermEntry[]
+}) {
+  return (
+    <JsonLd
+      data={{
+        "@context": "https://schema.org",
+        "@type": "DefinedTermSet",
+        name,
+        ...(description ? { description } : {}),
+        ...(url ? { url } : {}),
+        hasDefinedTerm: terms.map((term) => ({
+          "@type": "DefinedTerm",
+          name: term.name,
+          description: term.description,
+          ...(term.url ? { url: term.url } : {}),
+          ...(term.inDefinedTermSet ? { inDefinedTermSet: term.inDefinedTermSet } : {}),
+          ...(term.termCode ? { termCode: term.termCode } : {}),
+        })),
+      }}
+    />
+  )
+}
+
+export function CollectionPageJsonLd({
+  title,
+  description,
+  url,
+  breadcrumbs,
+  lastReviewed,
+  sections,
+  mainEntity,
+}: {
+  title: string
+  description: string
+  url: string
+  breadcrumbs?: BreadcrumbListItem[]
+  lastReviewed?: string
+  sections?: EditorialSection[]
+  mainEntity?: Record<string, unknown>
+}) {
+  const data: Array<Record<string, unknown>> = [
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      name: title,
+      description,
+      url,
+      ...(lastReviewed ? { dateModified: lastReviewed } : {}),
+      ...(sections?.length ? { hasPart: buildEditorialSections(sections, url) } : {}),
+      ...(mainEntity ? { mainEntity } : {}),
+    },
+  ]
+
+  if (breadcrumbs?.length) {
+    data.push({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: breadcrumbs.map((item, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: item.name,
+        item: item.url,
+      })),
+    })
+  }
+
+  return <JsonLd data={data} />
 }
 
 export function OrganizationJsonLd() {

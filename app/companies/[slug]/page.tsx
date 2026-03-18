@@ -5,6 +5,7 @@ import { Timeline } from "@/app/components/timeline"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { FadeIn } from "@/app/components/fade-in"
 import { Brain, Code, Lightbulb, Newspaper, Users } from "lucide-react"
+import { CollectionPageJsonLd } from "@/app/components/json-ld"
 
 // Company data
 const companies = {
@@ -326,6 +327,13 @@ const companies = {
   // Additional companies would be defined here
 }
 
+const companyMethodology = {
+  audience: "These company pages are for readers comparing major AI labs, tracking product strategy, and understanding how research milestones connect to real-world tools and industry influence.",
+  curation: "We summarize each company through milestones, products, research areas, and ecosystem impact so the page reflects both what the company builds and why it matters to learners and evaluators.",
+  lastReviewed: "Last reviewed on March 18, 2026. We refresh timelines and summaries when a company reaches a notable milestone, launches a flagship product, or changes its strategic focus.",
+  criteria: "Coverage emphasizes notable releases, research significance, product breadth, developer ecosystem relevance, and the company's broader effect on AI adoption and standards.",
+} as const
+
 export default async function CompanyPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
   const company = companies[slug as keyof typeof companies]
@@ -334,8 +342,37 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
     notFound()
   }
 
+  const pageUrl = `https://www.aibasicedu.com/companies/${slug}`
+  const methodologySections = [
+    { heading: "Who this company profile is for", body: companyMethodology.audience },
+    { heading: "How this profile is curated", body: companyMethodology.curation },
+    { heading: "Last reviewed", body: companyMethodology.lastReviewed },
+    { heading: "Profile criteria", body: companyMethodology.criteria },
+  ] as const
+
   return (
     <div className="bg-background">
+      <CollectionPageJsonLd
+        title={`${company.name} company profile`}
+        description={company.description}
+        url={pageUrl}
+        breadcrumbs={[
+          { name: "Home", url: "https://www.aibasicedu.com" },
+          { name: "Companies", url: "https://www.aibasicedu.com/companies" },
+          { name: company.name, url: pageUrl },
+        ]}
+        lastReviewed="2026-03-18"
+        sections={[...methodologySections]}
+        mainEntity={{
+          "@type": "ItemList",
+          name: `${company.name} products and milestones`,
+          itemListElement: company.products.map((product, index) => ({
+            "@type": "ListItem",
+            position: index + 1,
+            item: { "@type": "SoftwareApplication", name: product.name, description: product.description, url: product.link },
+          })),
+        }}
+      />
       <CompanyHeader
         name={company.name}
         logo={company.logo}
@@ -347,6 +384,28 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
       />
 
       <div className="section-container pb-24 md:pb-32">
+        <section className="py-12 md:py-16" aria-labelledby="company-methodology">
+          <div className="rounded-3xl border border-border bg-card p-8 md:p-10">
+            <FadeIn direction="up">
+              <div className="mb-8">
+                <p className="label-text mb-3">Editorial Standards</p>
+                <h2 id="company-methodology" className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground">
+                  How this company profile is evaluated
+                </h2>
+              </div>
+            </FadeIn>
+            <div className="grid gap-6 md:grid-cols-2">
+              {methodologySections.map((section, index) => (
+                <FadeIn key={section.heading} direction="up" delay={50 + index * 50}>
+                  <section id={section.heading.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")} className="rounded-2xl border border-border/80 bg-background p-6">
+                    <h3 className="text-xl font-semibold text-foreground mb-3">{section.heading}</h3>
+                    <p className="text-sm leading-7 text-muted-foreground">{section.body}</p>
+                  </section>
+                </FadeIn>
+              ))}
+            </div>
+          </div>
+        </section>
         <Tabs defaultValue="timeline" className="w-full">
           <TabsList className="w-full justify-start mb-10 bg-card border border-border rounded-xl p-1">
             <TabsTrigger
