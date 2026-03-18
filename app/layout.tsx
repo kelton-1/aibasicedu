@@ -56,6 +56,9 @@ export const metadata: Metadata = {
     description: "Personalized AI education for everyone.",
     images: ["/twitter-image"],
   },
+  other: {
+    "google-adsense-account": "ca-pub-2263668139573157",
+  },
 }
 
 export default function RootLayout({
