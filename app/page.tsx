@@ -17,6 +17,10 @@ import { NewsletterSubscription } from "@/app/components/newsletter-subscription
 import { CompanyLogo } from "@/app/components/company-logo"
 import { AdSlot } from "@/app/components/ad-slot"
 import { ROUTE_MAP } from "@/app/lib/route-map"
+import { staticTutorials } from "@/app/lib/data/tutorials-data-static"
+import { glossaryTerms } from "@/app/lib/data/glossary-data"
+import { newsArticles } from "@/app/lib/data/news-data"
+import { tutorialCategories } from "@/app/tutorials/tutorial-data"
 
 export const metadata: Metadata = {
   title: "Home",
@@ -67,31 +71,31 @@ const featuredCompanies = [
   },
 ]
 
+const publishedTutorialCount = staticTutorials.filter((tutorial) => tutorial.status === "published").length
+const publishedNewsCount = newsArticles.filter((article) => article.status === "published").length
+
 const stats = [
-  { label: "Learners", value: "10,000+" },
-  { label: "Tutorials", value: "200+" },
-  { label: "Companies", value: "50+" },
-  { label: "Completion", value: "94%" },
+  { label: "Published tutorials", value: `${publishedTutorialCount}` },
+  { label: "AI terms explained", value: `${glossaryTerms.length}` },
+  { label: "News briefs", value: `${publishedNewsCount}` },
+  { label: "Tutorial tracks", value: `${tutorialCategories.length}` },
 ]
 
-const testimonials = [
+const valueProps = [
   {
-    name: "Sarah T.",
-    role: "Marketing Professional",
-    content:
-      "I was hesitant about AI, thinking it would replace my job. This platform helped me understand how to use AI as a tool to enhance my work instead of fearing it.",
+    title: "Built for practical beginners",
+    description:
+      "Start with plain-language explanations, then move into guided tutorials and tool walkthroughs when you are ready.",
   },
   {
-    name: "Michael R.",
-    role: "Small Business Owner",
-    content:
-      "The personalized learning path helped me understand exactly what I needed to know to implement AI in my business without getting overwhelmed by technical jargon.",
+    title: "Transparent topic coverage",
+    description:
+      "Explore named coverage areas including prompt engineering, AI concepts, generative AI, practical AI, and AI ethics.",
   },
   {
-    name: "Dr. Patel",
-    role: "AI Researcher",
-    content:
-      "Even as someone working in the field, I find the curated news and advanced resources invaluable for staying on top of rapid developments.",
+    title: "Editorially clear and current",
+    description:
+      "The library mixes evergreen explainers with dated news briefs so you can separate fundamentals from fast-moving updates.",
   },
 ]
 
@@ -115,8 +119,8 @@ export default function Home() {
 
             {/* Subtitle */}
             <FadeIn direction="up" delay={250}>
-              <p className="mt-8 max-w-xl text-base md:text-lg text-muted-foreground leading-relaxed">
-                Personalized AI education for everyone — from complete beginners to seasoned experts.
+              <p className="mt-8 max-w-2xl text-base md:text-lg text-muted-foreground leading-relaxed">
+                Beginner-friendly AI education with tutorials, glossary entries, and news coverage designed to help curious learners and working professionals build confidence step by step.
               </p>
             </FadeIn>
 
@@ -148,23 +152,29 @@ export default function Home() {
 
             {/* Stat bar */}
             <FadeIn direction="up" delay={550}>
-              <div className="flex items-center justify-center mt-16 pt-10 w-full max-w-2xl">
+              <div className="flex items-center justify-center mt-16 pt-10 w-full max-w-3xl flex-wrap gap-y-6">
                 {stats.map((stat, index) => (
                   <div key={stat.label} className="flex items-center">
                     <div className="flex flex-col items-center px-6 md:px-10">
                       <span className="text-2xl md:text-3xl font-bold text-foreground tracking-tight">
                         {stat.value}
                       </span>
-                      <span className="text-xs text-muted-foreground mt-1 uppercase tracking-[0.15em]">
+                      <span className="text-xs text-muted-foreground mt-1 uppercase tracking-[0.15em] text-center">
                         {stat.label}
                       </span>
                     </div>
                     {index < stats.length - 1 && (
-                      <div className="h-10 w-px bg-border flex-shrink-0" />
+                      <div className="h-10 w-px bg-border flex-shrink-0 hidden md:block" />
                     )}
                   </div>
                 ))}
               </div>
+            </FadeIn>
+
+            <FadeIn direction="up" delay={650}>
+              <p className="mt-6 max-w-2xl text-sm text-muted-foreground leading-relaxed">
+                Metrics on this page are pulled from the site&apos;s current tutorial, glossary, news, and category data so they stay aligned with the published library.
+              </p>
             </FadeIn>
           </div>
         </div>
@@ -175,7 +185,7 @@ export default function Home() {
         <div className="section-container">
           <FadeIn direction="up" delay={100}>
             <p className="text-xs uppercase tracking-[0.2em] font-medium text-muted-foreground text-center mb-10">
-              Trusted by learners studying
+              Explore companies and labs covered across the site
             </p>
           </FadeIn>
 
@@ -453,41 +463,38 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ============ TESTIMONIALS ============ */}
+      {/* ============ VALUE PROPS ============ */}
       <section className="w-full py-24 md:py-32">
         <div className="section-container">
           <div className="text-center mb-16">
             <FadeIn direction="up" delay={50}>
               <p className="text-xs uppercase tracking-[0.2em] font-medium text-muted-foreground mb-4">
-                Testimonials
+                Why start here
               </p>
             </FadeIn>
             <FadeIn direction="up" delay={150}>
               <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-foreground">
-                Trusted by learners worldwide
+                Clear signals, not invented social proof
               </h2>
+            </FadeIn>
+            <FadeIn direction="up" delay={250}>
+              <p className="mt-4 max-w-2xl mx-auto text-sm md:text-base text-muted-foreground leading-relaxed">
+                Instead of anonymous testimonials, we highlight what you can verify directly in the content library and what kind of learning experience to expect.
+              </p>
             </FadeIn>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {testimonials.map((testimonial, index) => (
-              <FadeIn key={index} delay={100 + index * 100} direction="up">
+            {valueProps.map((item, index) => (
+              <FadeIn key={item.title} delay={100 + index * 100} direction="up">
                 <div className="premium-card h-full flex flex-col">
-                  {/* Gold quote mark */}
-                  <div className="text-4xl font-serif gold-text leading-none mb-4">&ldquo;</div>
+                  <h3 className="text-lg font-semibold text-foreground mb-3">
+                    {item.title}
+                  </h3>
 
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-8 flex-1">
-                    {testimonial.content}
+                  <p className="text-sm text-muted-foreground leading-relaxed flex-1">
+                    {item.description}
                   </p>
-
-                  <div>
-                    <p className="text-sm font-medium text-foreground">
-                      {testimonial.name}
-                    </p>
-                    <p className="text-xs text-muted-foreground mt-0.5">
-                      {testimonial.role}
-                    </p>
-                  </div>
                 </div>
               </FadeIn>
             ))}
@@ -520,22 +527,34 @@ export default function Home() {
                 Start your AI journey today
               </h2>
             </FadeIn>
-            <FadeIn direction="up" delay={200}>
-              <p className="mt-6 text-base md:text-lg text-muted-foreground leading-relaxed">
-                Join thousands of learners discovering the potential of AI. No experience required.
+            <FadeIn direction="up" delay={250}>
+              <p className="mt-6 text-muted-foreground md:text-lg leading-relaxed">
+                Explore practical tutorials, trusted tools, and curated resources designed to help you learn AI with clarity and confidence.
               </p>
             </FadeIn>
-            <FadeIn direction="up" delay={300}>
-              <Button
-                size="lg"
-                asChild
-                className="mt-10 bg-gold hover:bg-gold-light text-black font-medium rounded-xl px-8 h-12 text-base transition-all duration-300"
-              >
-                <Link href={ROUTE_MAP.getStarted}>
-                  Begin Your Learning Path
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
+            <FadeIn direction="up" delay={400}>
+              <div className="flex flex-col sm:flex-row gap-4 mt-10">
+                <Button
+                  asChild
+                  size="lg"
+                  className="bg-gold hover:bg-gold-light text-black font-medium rounded-xl px-8 h-12 text-base transition-all duration-300"
+                >
+                  <Link href={ROUTE_MAP.getStarted}>
+                    Get Started Free
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+                <Button
+                  variant="outline"
+                  asChild
+                  size="lg"
+                  className="border border-border bg-transparent hover:bg-accent text-foreground rounded-xl px-8 h-12 text-base transition-all duration-300"
+                >
+                  <Link href={ROUTE_MAP.browse}>
+                    Browse Resources
+                  </Link>
+                </Button>
+              </div>
             </FadeIn>
           </div>
         </div>
