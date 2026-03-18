@@ -2,6 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { ArrowLeft, ExternalLink } from "lucide-react"
 import { FadeIn } from "@/app/components/fade-in"
+import { ROUTE_MAP } from "@/app/lib/route-map"
 
 interface CompanyHeaderProps {
   name: string
@@ -89,7 +90,7 @@ export function CompanyHeader({
         {/* Back Button */}
         <div className="mt-6">
           <Link
-            href="/companies"
+            href={ROUTE_MAP.companies}
             className="inline-flex items-center text-sm text-muted-foreground hover:text-gold transition-colors"
           >
             <ArrowLeft className="mr-1.5 h-4 w-4" /> Back to Companies

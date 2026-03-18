@@ -22,3 +22,21 @@ export const ROUTE_MAP = {
 } as const
 
 export const INTERNAL_ROUTES = Object.values(ROUTE_MAP)
+
+/** Navigation items shared between desktop and mobile navs */
+export const NAV_ITEMS = [
+  { href: ROUTE_MAP.glossary, label: "Glossary" },
+  { href: ROUTE_MAP.tutorials, label: "Tutorials" },
+  { href: ROUTE_MAP.prompts, label: "Prompts" },
+  { href: ROUTE_MAP.news, label: "News" },
+  { href: ROUTE_MAP.tools, label: "Tools" },
+  { href: ROUTE_MAP.companies, label: "Companies" },
+  { href: ROUTE_MAP.dashboard, label: "Dashboard" },
+] as const
+
+/** Extended navigation items for mobile (includes Home + Personalize) */
+export const MOBILE_NAV_ITEMS = [
+  { href: ROUTE_MAP.home, label: "Home" },
+  ...NAV_ITEMS,
+  { href: ROUTE_MAP.personalize, label: "Personalize" },
+] as const

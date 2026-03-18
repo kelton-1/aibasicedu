@@ -1,7 +1,14 @@
 import { ROUTE_MAP } from "@/app/lib/route-map"
 import { SectionHeading } from "@/app/components/section-heading"
 import { FadeIn } from "@/app/components/fade-in"
+import { generatePageMetadata } from "@/app/lib/seo"
 import Link from "next/link"
+
+export const metadata = generatePageMetadata({
+  title: "Privacy Policy",
+  description: "How we collect, use, and protect your data while you use AI Learning Hub.",
+  path: ROUTE_MAP.privacy,
+})
 
 const sections = [
   {
