@@ -2,6 +2,7 @@ import Link from "next/link"
 import { ArrowRight, BookOpen, Lightbulb, Users, Compass, ClipboardCheck, Route, GraduationCap } from "lucide-react"
 import { ROUTE_MAP } from "@/app/lib/route-map"
 import { FadeIn } from "@/app/components/fade-in"
+import { AdSlot } from "@/app/components/ad-slot"
 import { generatePageMetadata } from "@/app/lib/seo"
 
 export const metadata = generatePageMetadata({
@@ -269,6 +270,11 @@ export default function GetStartedPage() {
           </div>
         </div>
       </section>
+
+      {/* Ad */}
+      <div className="section-container pb-12">
+        <AdSlot variant="inline" />
+      </div>
 
       {/* CTA */}
       <section className="pb-24 md:pb-32">

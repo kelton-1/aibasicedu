@@ -69,6 +69,7 @@ export default function ToolsPage() {
                       bestFor={tool.bestFor}
                       url={tool.url}
                       category={cat.label}
+                      affiliateTag={tool.affiliateTag}
                     />
                   </FadeIn>
                 ))}
