@@ -8,6 +8,7 @@ interface AffiliateToolCardProps {
   bestFor: string
   url: string
   category: string
+  affiliateTag?: string
 }
 
 export function AffiliateToolCard({
@@ -17,7 +18,10 @@ export function AffiliateToolCard({
   bestFor,
   url,
   category,
+  affiliateTag,
 }: AffiliateToolCardProps) {
+  const trackedUrl = `${url}${url.includes("?") ? "&" : "?"}utm_source=aibasicedu&utm_medium=affiliate&utm_campaign=tools${affiliateTag ? `&ref=${affiliateTag}` : ""}`
+
   return (
     <div className="rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:border-gold/20 group">
       <div className="flex items-start justify-between mb-4">
@@ -50,7 +54,7 @@ export function AffiliateToolCard({
         asChild
         className="w-full bg-gold hover:bg-gold-light text-black font-medium rounded-xl text-sm h-9"
       >
-        <a href={url} target="_blank" rel="noopener noreferrer">
+        <a href={trackedUrl} target="_blank" rel="noopener noreferrer">
           Try {name} <ArrowUpRight className="ml-1.5 h-3.5 w-3.5" />
         </a>
       </Button>

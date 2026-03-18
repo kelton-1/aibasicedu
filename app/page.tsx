@@ -15,6 +15,7 @@ import { FadeIn } from "@/app/components/fade-in"
 import { FeatureCard } from "@/app/components/feature-card"
 import { NewsletterSubscription } from "@/app/components/newsletter-subscription"
 import { CompanyLogo } from "@/app/components/company-logo"
+import { AdSlot } from "@/app/components/ad-slot"
 import { ROUTE_MAP } from "@/app/lib/route-map"
 
 export const metadata: Metadata = {
@@ -204,6 +205,13 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ============ AD: BANNER ============ */}
+      <section className="w-full py-8">
+        <div className="section-container">
+          <AdSlot variant="banner" />
+        </div>
+      </section>
+
       {/* ============ FEATURES ============ */}
       <section className="w-full py-24 md:py-32">
         <div className="section-container">
@@ -347,6 +355,104 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ============ FEATURED TOOLS ============ */}
+      <section className="w-full py-24 md:py-32 border-t border-border">
+        <div className="section-container">
+          <div className="text-center mb-16">
+            <FadeIn direction="up" delay={50}>
+              <p className="text-xs uppercase tracking-[0.2em] font-medium text-muted-foreground mb-4">
+                Recommended
+              </p>
+            </FadeIn>
+            <FadeIn direction="up" delay={150}>
+              <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-foreground">
+                Top AI tools to get started
+              </h2>
+            </FadeIn>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <FadeIn direction="up" delay={100}>
+              <div className="premium-card h-full flex flex-col">
+                <p className="label-text text-gold mb-2">Best All-Rounder</p>
+                <h3 className="text-lg font-semibold text-foreground mb-2">ChatGPT</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-4 flex-1">
+                  The most versatile AI assistant. Great for writing, coding, research, and creative tasks.
+                </p>
+                <div className="flex items-center justify-between text-sm mb-4">
+                  <span className="text-muted-foreground">Free tier available</span>
+                  <span className="text-gold">$20/mo Pro</span>
+                </div>
+                <Button
+                  asChild
+                  className="w-full bg-gold hover:bg-gold-light text-black font-medium rounded-xl text-sm h-9"
+                >
+                  <a href="https://chat.openai.com?utm_source=aibasicedu&utm_medium=featured&utm_campaign=homepage" target="_blank" rel="noopener noreferrer">
+                    Try ChatGPT <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
+                  </a>
+                </Button>
+              </div>
+            </FadeIn>
+
+            <FadeIn direction="up" delay={200}>
+              <div className="premium-card h-full flex flex-col">
+                <p className="label-text text-gold mb-2">Best for Coding</p>
+                <h3 className="text-lg font-semibold text-foreground mb-2">Claude</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-4 flex-1">
+                  Excels at long documents, nuanced writing, and coding. 200K token context window.
+                </p>
+                <div className="flex items-center justify-between text-sm mb-4">
+                  <span className="text-muted-foreground">Free tier available</span>
+                  <span className="text-gold">$20/mo Pro</span>
+                </div>
+                <Button
+                  asChild
+                  className="w-full bg-gold hover:bg-gold-light text-black font-medium rounded-xl text-sm h-9"
+                >
+                  <a href="https://claude.ai?utm_source=aibasicedu&utm_medium=featured&utm_campaign=homepage" target="_blank" rel="noopener noreferrer">
+                    Try Claude <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
+                  </a>
+                </Button>
+              </div>
+            </FadeIn>
+
+            <FadeIn direction="up" delay={300}>
+              <div className="premium-card h-full flex flex-col">
+                <p className="label-text text-gold mb-2">Best for Research</p>
+                <h3 className="text-lg font-semibold text-foreground mb-2">Perplexity</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-4 flex-1">
+                  AI-powered search with citations. Get sourced answers for any research question.
+                </p>
+                <div className="flex items-center justify-between text-sm mb-4">
+                  <span className="text-muted-foreground">Free tier available</span>
+                  <span className="text-gold">$20/mo Pro</span>
+                </div>
+                <Button
+                  asChild
+                  className="w-full bg-gold hover:bg-gold-light text-black font-medium rounded-xl text-sm h-9"
+                >
+                  <a href="https://perplexity.ai?utm_source=aibasicedu&utm_medium=featured&utm_campaign=homepage" target="_blank" rel="noopener noreferrer">
+                    Try Perplexity <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
+                  </a>
+                </Button>
+              </div>
+            </FadeIn>
+          </div>
+
+          <FadeIn direction="up" delay={400}>
+            <div className="flex justify-center mt-10">
+              <Link
+                href={ROUTE_MAP.tools}
+                className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground transition-colors duration-300"
+              >
+                Compare All AI Tools
+                <ArrowRight className="ml-2 h-3.5 w-3.5" />
+              </Link>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
       {/* ============ TESTIMONIALS ============ */}
       <section className="w-full py-24 md:py-32">
         <div className="section-container">
@@ -395,6 +501,13 @@ export default function Home() {
           <div className="max-w-2xl mx-auto">
             <NewsletterSubscription />
           </div>
+        </div>
+      </section>
+
+      {/* ============ AD: INLINE ============ */}
+      <section className="w-full py-8">
+        <div className="section-container">
+          <AdSlot variant="inline" />
         </div>
       </section>
 

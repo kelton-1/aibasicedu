@@ -4,6 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { BookOpen, Code, Brain, Lightbulb, ArrowRight, Clock, BarChart3 } from "lucide-react"
 import { FadeIn } from "@/app/components/fade-in"
 import { SectionHeading } from "@/app/components/section-heading"
+import { AdSlot } from "@/app/components/ad-slot"
 import { tutorialCategories } from "./tutorial-data"
 import { createServerClient } from "@/lib/supabase/server"
 import { staticTutorials } from "@/app/lib/data/tutorials-data-static"
@@ -177,6 +178,8 @@ export default async function TutorialsPage() {
           </div>
         </FadeIn>
       </div>
+
+      <AdSlot variant="inline" className="mb-12" />
 
       {/* Tabs */}
       <Tabs defaultValue="all" className="w-full">
