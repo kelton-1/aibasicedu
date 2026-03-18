@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next"
 import { staticCompanyDetailList } from "@/app/lib/data/company-details"
-import { buildSitemap, type StaticRouteConfig } from "@/app/lib/sitemap"
+import { buildSitemap, type StaticRouteConfig } from "@/app/lib/sitemap-builder"
 import { staticTutorials } from "@/app/lib/data/tutorials-data-static"
 
 const baseUrl = "https://www.aibasicedu.com"
