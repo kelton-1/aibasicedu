@@ -5,18 +5,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Menu, Search } from "lucide-react"
-
-const navItems = [
-  { href: "/", label: "Home" },
-  { href: "/glossary", label: "Glossary" },
-  { href: "/tutorials", label: "Tutorials" },
-  { href: "/prompts", label: "Prompts" },
-  { href: "/news", label: "News" },
-  { href: "/tools", label: "Tools" },
-  { href: "/companies", label: "Companies" },
-  { href: "/personalize", label: "Personalize" },
-  { href: "/dashboard", label: "Dashboard" },
-]
+import { MOBILE_NAV_ITEMS } from "@/app/lib/route-map"
 
 export function MobileNav() {
   const [open, setOpen] = useState(false)
@@ -41,7 +30,7 @@ export function MobileNav() {
             </span>
           </div>
           <div className="flex-1 py-4 px-3">
-            {navItems.map((item) => (
+            {MOBILE_NAV_ITEMS.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}

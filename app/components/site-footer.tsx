@@ -6,15 +6,15 @@ const footerLinks = {
     { label: "Tutorials", href: ROUTE_MAP.tutorials },
     { label: "Glossary", href: ROUTE_MAP.glossary },
     { label: "Prompt Library", href: ROUTE_MAP.prompts },
-    { label: "Quick Guides", href: "/quick-guides" },
+    { label: "Quick Guides", href: ROUTE_MAP.quickGuides },
   ],
   explore: [
     { label: "AI Companies", href: ROUTE_MAP.companies },
     { label: "AI News", href: ROUTE_MAP.news },
     { label: "AI Tools", href: ROUTE_MAP.tools },
     { label: "Compare AI", href: ROUTE_MAP.compare },
-    { label: "Projects", href: "/projects" },
-    { label: "Playgrounds", href: "/playgrounds" },
+    { label: "Projects", href: ROUTE_MAP.projects },
+    { label: "Playgrounds", href: ROUTE_MAP.playgrounds },
   ],
   company: [
     { label: "About", href: ROUTE_MAP.about },

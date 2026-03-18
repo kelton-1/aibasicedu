@@ -1,19 +1,10 @@
 import Link from "next/link"
-
-const navItems = [
-  { href: "/glossary", label: "Glossary" },
-  { href: "/tutorials", label: "Tutorials" },
-  { href: "/prompts", label: "Prompts" },
-  { href: "/news", label: "News" },
-  { href: "/tools", label: "Tools" },
-  { href: "/companies", label: "Companies" },
-  { href: "/dashboard", label: "Dashboard" },
-]
+import { NAV_ITEMS } from "@/app/lib/route-map"
 
 export function MainNav() {
   return (
     <nav className="flex items-center space-x-1">
-      {navItems.map((item) => (
+      {NAV_ITEMS.map((item) => (
         <Link
           key={item.href}
           href={item.href}

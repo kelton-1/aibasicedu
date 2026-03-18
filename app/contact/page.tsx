@@ -5,7 +5,8 @@ import Link from "next/link"
 import { ROUTE_MAP } from "@/app/lib/route-map"
 import { SectionHeading } from "@/app/components/section-heading"
 import { FadeIn } from "@/app/components/fade-in"
-import { ArrowRight, CheckCircle, ChevronDown } from "lucide-react"
+import { ArrowRight, CheckCircle } from "lucide-react"
+import { FaqItem } from "@/app/components/faq-item"
 
 const faqs = [
   {
@@ -34,33 +35,6 @@ const faqs = [
       "We welcome contributions from the AI community. Whether you want to write a tutorial, suggest a glossary term, or share feedback on existing content, use the contact form above or reach out directly. We are always looking for practitioners who want to help make AI education more accessible.",
   },
 ]
-
-function FaqItem({ question, answer }: { question: string; answer: string }) {
-  const [isOpen, setIsOpen] = useState(false)
-
-  return (
-    <div className="border-b border-border last:border-b-0">
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="flex w-full items-center justify-between py-5 text-left transition-colors hover:text-gold"
-      >
-        <span className="text-base font-medium text-foreground pr-4">{question}</span>
-        <ChevronDown
-          className={`h-5 w-5 text-muted-foreground flex-shrink-0 transition-transform duration-300 ${
-            isOpen ? "rotate-180 text-gold" : ""
-          }`}
-        />
-      </button>
-      <div
-        className={`overflow-hidden transition-all duration-300 ${
-          isOpen ? "max-h-96 pb-5" : "max-h-0"
-        }`}
-      >
-        <p className="text-sm text-muted-foreground leading-relaxed">{answer}</p>
-      </div>
-    </div>
-  )
-}
 
 export default function ContactPage() {
   const [name, setName] = useState("")

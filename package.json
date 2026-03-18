@@ -1,5 +1,5 @@
 {
-  "name": "my-v0-project",
+  "name": "aibasicedu",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "ESLINT_USE_FLAT_CONFIG=false eslint .",
     "typecheck": "tsc --noEmit",
-    "check": "pnpm lint && pnpm typecheck",
+    "check": "npm run lint && npm run typecheck",
     "seed": "npx tsx scripts/seed.ts",
     "generate-content": "npx tsx scripts/generate-content.ts"
   },

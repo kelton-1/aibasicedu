@@ -11,7 +11,6 @@ interface AdSlotProps {
 
 export function AdSlot({ variant, className, adSlotId }: AdSlotProps) {
   const adRef = useRef<HTMLDivElement>(null)
-  const adsenseId = typeof window !== "undefined" ? undefined : undefined // client-only check
 
   const sizes = {
     banner: "h-24 md:h-28",
@@ -28,10 +27,10 @@ export function AdSlot({ variant, className, adSlotId }: AdSlotProps) {
   }
 
   useEffect(() => {
-    if (adSlotId && typeof window !== "undefined" && (window as any).adsbygoogle) {
+    if (adSlotId && typeof window !== "undefined" && window.adsbygoogle) {
       try {
-        ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({})
-      } catch (e) {
+        (window.adsbygoogle = window.adsbygoogle || []).push({})
+      } catch {
         // AdSense not loaded
       }
     }
