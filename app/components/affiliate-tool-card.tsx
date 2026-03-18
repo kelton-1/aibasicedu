@@ -50,6 +50,10 @@ export function AffiliateToolCard({
         <span className="text-gold">Best for:</span> {bestFor}
       </p>
 
+      <p className="text-xs text-muted-foreground mb-3 leading-relaxed">
+        Some links may be affiliate links. Recommendations are editorially selected using our criteria for features, pricing, usability, and fit.
+      </p>
+
       <Button
         asChild
         className="w-full bg-gold hover:bg-gold-light text-black font-medium rounded-xl text-sm h-9"

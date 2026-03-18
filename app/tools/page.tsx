@@ -4,6 +4,7 @@ import { AffiliateToolCard } from "@/app/components/affiliate-tool-card"
 import { AdSlot } from "@/app/components/ad-slot"
 import { aiTools } from "@/app/lib/data/tools-data"
 import { NewsletterSubscription } from "@/app/components/newsletter-subscription"
+import { EditorialDisclosure } from "@/app/components/editorial-disclosure"
 
 export const metadata: Metadata = {
   title: "Best AI Tools 2026 — Compared & Ranked",
@@ -36,7 +37,7 @@ export default function ToolsPage() {
             </FadeIn>
             <FadeIn direction="up" delay={250}>
               <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
-                We test and compare every major AI tool so you don&apos;t have to. Honest recommendations based on real usage.
+                We review leading AI tools and highlight editorially selected picks based on hands-on evaluation criteria, pricing, usability, and best-fit use cases.
               </p>
             </FadeIn>
           </div>
@@ -59,6 +60,9 @@ export default function ToolsPage() {
                 <p className="label-text mb-3">{cat.label}</p>
                 <div className="gold-line mb-8" />
               </FadeIn>
+              <div className="mb-6">
+                <EditorialDisclosure variant="tools" />
+              </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {tools.map((tool, i) => (
                   <FadeIn key={tool.name} direction="up" delay={100 + i * 80}>

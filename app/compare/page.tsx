@@ -1,12 +1,13 @@
 import type { Metadata } from "next"
-import { FadeIn } from "@/app/components/fade-in"
-import { AdSlot } from "@/app/components/ad-slot"
-import { NewsletterSubscription } from "@/app/components/newsletter-subscription"
-import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { ArrowRight, Check, Minus, Zap, BookOpen, Search } from "lucide-react"
-import { generatePageMetadata } from "@/app/lib/seo"
+import { ArrowRight, BookOpen, Check, Minus, Search, Zap } from "lucide-react"
+import { AdSlot } from "@/app/components/ad-slot"
+import { EditorialDisclosure } from "@/app/components/editorial-disclosure"
+import { FadeIn } from "@/app/components/fade-in"
+import { NewsletterSubscription } from "@/app/components/newsletter-subscription"
 import { ROUTE_MAP } from "@/app/lib/route-map"
+import { generatePageMetadata } from "@/app/lib/seo"
+import { Button } from "@/components/ui/button"
 
 export const metadata: Metadata = generatePageMetadata({
   title: "ChatGPT vs Claude vs Gemini — AI Comparison 2026",
@@ -90,17 +91,13 @@ function CellValue({ value, isBest }: { value: boolean | string; isBest: boolean
       </div>
     )
   }
-  return (
-    <span className={`text-sm ${isBest ? "text-gold font-medium" : "text-muted-foreground"}`}>
-      {value}
-    </span>
-  )
+
+  return <span className={`text-sm ${isBest ? "text-gold font-medium" : "text-muted-foreground"}`}>{value}</span>
 }
 
 export default function ComparePage() {
   return (
     <main>
-      {/* Hero */}
       <section className="py-24 md:py-32">
         <div className="section-container text-center">
           <FadeIn direction="up" delay={50}>
@@ -113,88 +110,85 @@ export default function ComparePage() {
           </FadeIn>
           <FadeIn direction="up" delay={200}>
             <p className="mt-6 mx-auto max-w-[640px] text-muted-foreground md:text-lg leading-relaxed">
-              An honest, side-by-side comparison of ChatGPT, Claude, and Gemini. No hype, no affiliate bias — just the facts to help you choose.
+              A clear, side-by-side comparison of ChatGPT, Claude, and Gemini, with recommendations grounded in our evaluation criteria so you can choose with confidence.
             </p>
           </FadeIn>
         </div>
       </section>
 
-      {/* Ad Banner */}
       <div className="section-container pb-12">
         <AdSlot variant="banner" />
       </div>
 
-      {/* Comparison Grid */}
       <section className="pb-24 md:pb-32">
         <div className="section-container">
           <FadeIn direction="up" delay={50}>
             <div className="text-center mb-16">
               <p className="label-text mb-4">Head to Head</p>
-              <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-foreground">
-                Feature comparison
-              </h2>
+              <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-foreground">Feature comparison</h2>
             </div>
           </FadeIn>
 
           <FadeIn direction="up" delay={100}>
-            <div className="rounded-2xl border border-border bg-card overflow-hidden">
-              {/* Header row */}
-              <div className="grid grid-cols-4 border-b border-border">
-                <div className="p-4 md:p-6">
-                  <span className="text-sm font-medium text-muted-foreground">Feature</span>
+            <div className="space-y-4">
+              <EditorialDisclosure variant="comparison" />
+              <div className="rounded-2xl border border-border bg-card overflow-hidden">
+                <div className="grid grid-cols-4 border-b border-border">
+                  <div className="p-4 md:p-6">
+                    <span className="text-sm font-medium text-muted-foreground">Feature</span>
+                  </div>
+                  <div className="p-4 md:p-6 text-center border-l border-border">
+                    <span className="text-sm font-semibold text-foreground">ChatGPT</span>
+                    <p className="text-xs text-muted-foreground mt-0.5">OpenAI</p>
+                  </div>
+                  <div className="p-4 md:p-6 text-center border-l border-border">
+                    <span className="text-sm font-semibold text-foreground">Claude</span>
+                    <p className="text-xs text-muted-foreground mt-0.5">Anthropic</p>
+                  </div>
+                  <div className="p-4 md:p-6 text-center border-l border-border">
+                    <span className="text-sm font-semibold text-foreground">Gemini</span>
+                    <p className="text-xs text-muted-foreground mt-0.5">Google</p>
+                  </div>
                 </div>
-                <div className="p-4 md:p-6 text-center border-l border-border">
-                  <span className="text-sm font-semibold text-foreground">ChatGPT</span>
-                  <p className="text-xs text-muted-foreground mt-0.5">OpenAI</p>
-                </div>
-                <div className="p-4 md:p-6 text-center border-l border-border">
-                  <span className="text-sm font-semibold text-foreground">Claude</span>
-                  <p className="text-xs text-muted-foreground mt-0.5">Anthropic</p>
-                </div>
-                <div className="p-4 md:p-6 text-center border-l border-border">
-                  <span className="text-sm font-semibold text-foreground">Gemini</span>
-                  <p className="text-xs text-muted-foreground mt-0.5">Google</p>
-                </div>
-              </div>
 
-              {/* Data rows */}
-              {comparisonRows.map((row) => (
-                <div key={row.label} className="grid grid-cols-4 border-b border-border last:border-b-0 hover:bg-accent/30 transition-colors">
-                  <div className="p-4 md:p-6 flex items-center">
-                    <span className="text-sm text-foreground font-medium">{row.label}</span>
+                {comparisonRows.map((row) => (
+                  <div key={row.label} className="grid grid-cols-4 border-b border-border last:border-b-0 hover:bg-accent/30 transition-colors">
+                    <div className="p-4 md:p-6 flex items-center">
+                      <span className="text-sm text-foreground font-medium">{row.label}</span>
+                    </div>
+                    <div className="p-4 md:p-6 flex items-center justify-center border-l border-border">
+                      <CellValue value={row.chatgpt} isBest={row.best === "chatgpt"} />
+                    </div>
+                    <div className="p-4 md:p-6 flex items-center justify-center border-l border-border">
+                      <CellValue value={row.claude} isBest={row.best === "claude"} />
+                    </div>
+                    <div className="p-4 md:p-6 flex items-center justify-center border-l border-border">
+                      <CellValue value={row.gemini} isBest={row.best === "gemini"} />
+                    </div>
                   </div>
-                  <div className="p-4 md:p-6 flex items-center justify-center border-l border-border">
-                    <CellValue value={row.chatgpt} isBest={row.best === "chatgpt"} />
-                  </div>
-                  <div className="p-4 md:p-6 flex items-center justify-center border-l border-border">
-                    <CellValue value={row.claude} isBest={row.best === "claude"} />
-                  </div>
-                  <div className="p-4 md:p-6 flex items-center justify-center border-l border-border">
-                    <CellValue value={row.gemini} isBest={row.best === "gemini"} />
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </FadeIn>
         </div>
       </section>
 
-      {/* Inline Ad */}
       <div className="section-container pb-12">
         <AdSlot variant="inline" />
       </div>
 
-      {/* Individual Tool Breakdowns */}
       <section className="pb-24 md:pb-32">
         <div className="section-container">
           <FadeIn direction="up" delay={50}>
             <div className="text-center mb-16">
               <p className="label-text mb-4">Deep Dive</p>
-              <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-foreground">
-                Tool breakdowns
-              </h2>
+              <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-foreground">Tool breakdowns</h2>
             </div>
           </FadeIn>
+
+          <div className="mb-6">
+            <EditorialDisclosure variant="comparison" />
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {tools.map((tool, index) => (
@@ -205,11 +199,9 @@ export default function ComparePage() {
                     <h3 className="text-xl font-bold text-foreground mb-1">{tool.name}</h3>
                     <p className="text-xs text-gold font-medium">Best for {tool.bestFor}</p>
                   </div>
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                    {tool.description}
-                  </p>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-6">{tool.description}</p>
                   <div className="mt-auto">
-                    <p className="text-xs text-muted-foreground uppercase tracking-[0.15em] mb-3">Key Strengths</p>
+                    <p className="text-xs text-muted-foreground uppercase tracking-[0.15em] mb-3">Key strengths</p>
                     <ul className="space-y-2">
                       {tool.strengths.map((strength) => (
                         <li key={strength} className="flex items-start text-sm text-muted-foreground">
@@ -226,17 +218,18 @@ export default function ComparePage() {
         </div>
       </section>
 
-      {/* Quick Pick Recommendations */}
       <section className="pb-24 md:pb-32">
         <div className="section-container">
           <FadeIn direction="up" delay={50}>
             <div className="text-center mb-16">
               <p className="label-text mb-4">Quick Pick</p>
-              <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-foreground">
-                Our recommendations
-              </h2>
+              <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-foreground">Our recommendations</h2>
             </div>
           </FadeIn>
+
+          <div className="mb-6">
+            <EditorialDisclosure variant="comparison" />
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {quickPicks.map((pick, index) => (
@@ -247,9 +240,7 @@ export default function ComparePage() {
                   <h3 className="text-2xl font-bold text-foreground mb-3">
                     <span className="gold-text">{pick.tool}</span>
                   </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {pick.description}
-                  </p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{pick.description}</p>
                 </div>
               </FadeIn>
             ))}
@@ -257,21 +248,15 @@ export default function ComparePage() {
         </div>
       </section>
 
-      {/* CTA to Tools */}
       <section className="pb-24 md:pb-32">
         <div className="section-container">
           <FadeIn direction="up" delay={100}>
             <div className="rounded-2xl border border-border bg-card p-10 md:p-14 text-center">
-              <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-4">
-                Want the full picture?
-              </h2>
+              <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-4">Want the full picture?</h2>
               <p className="text-muted-foreground max-w-2xl mx-auto mb-8 leading-relaxed">
                 Explore our complete AI tools directory with detailed reviews, pricing breakdowns, and use-case recommendations for every major AI platform.
               </p>
-              <Button
-                asChild
-                className="bg-gold hover:bg-gold-light text-black font-medium rounded-xl px-8 py-3 transition-colors duration-300"
-              >
+              <Button asChild className="bg-gold hover:bg-gold-light text-black font-medium rounded-xl px-8 py-3 transition-colors duration-300">
                 <Link href={ROUTE_MAP.tools}>
                   Browse All AI Tools
                   <ArrowRight className="ml-2 h-4 w-4" />
@@ -282,7 +267,6 @@ export default function ComparePage() {
         </div>
       </section>
 
-      {/* Newsletter */}
       <section className="pb-24 md:pb-32">
         <div className="section-container">
           <div className="max-w-2xl mx-auto">
@@ -291,7 +275,6 @@ export default function ComparePage() {
         </div>
       </section>
 
-      {/* Bottom Ad */}
       <div className="section-container pb-12">
         <AdSlot variant="footer" />
       </div>
