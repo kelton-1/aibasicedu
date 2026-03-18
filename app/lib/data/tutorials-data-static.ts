@@ -8,6 +8,8 @@ export interface StaticTutorial {
   modules_count: number
   exercises_count: number
   status: "published" | "draft"
+  created_at: string
+  updated_at: string
 }
 
 export const staticTutorials: StaticTutorial[] = [
@@ -21,6 +23,8 @@ export const staticTutorials: StaticTutorial[] = [
     modules_count: 5,
     exercises_count: 3,
     status: "published",
+    created_at: "2024-01-15T00:00:00.000Z",
+    updated_at: "2024-10-01T00:00:00.000Z",
   },
   {
     id: "understanding-llms",
@@ -32,6 +36,8 @@ export const staticTutorials: StaticTutorial[] = [
     modules_count: 7,
     exercises_count: 2,
     status: "published",
+    created_at: "2024-02-05T00:00:00.000Z",
+    updated_at: "2024-11-08T00:00:00.000Z",
   },
   {
     id: "image-generation-playground",
@@ -43,6 +49,8 @@ export const staticTutorials: StaticTutorial[] = [
     modules_count: 4,
     exercises_count: 5,
     status: "published",
+    created_at: "2024-03-12T00:00:00.000Z",
+    updated_at: "2024-09-18T00:00:00.000Z",
   },
   {
     id: "rag-fundamentals",
@@ -54,6 +62,8 @@ export const staticTutorials: StaticTutorial[] = [
     modules_count: 6,
     exercises_count: 4,
     status: "draft",
+    created_at: "2024-04-03T00:00:00.000Z",
+    updated_at: "2024-04-03T00:00:00.000Z",
   },
   {
     id: "ai-ethics-101",
@@ -65,6 +75,8 @@ export const staticTutorials: StaticTutorial[] = [
     modules_count: 5,
     exercises_count: 2,
     status: "draft",
+    created_at: "2024-04-15T00:00:00.000Z",
+    updated_at: "2024-04-15T00:00:00.000Z",
   },
   {
     id: "ai-for-business",
@@ -76,6 +88,8 @@ export const staticTutorials: StaticTutorial[] = [
     modules_count: 6,
     exercises_count: 3,
     status: "draft",
+    created_at: "2024-05-06T00:00:00.000Z",
+    updated_at: "2024-05-06T00:00:00.000Z",
   },
   {
     id: "fine-tuning-guide",
@@ -87,6 +101,8 @@ export const staticTutorials: StaticTutorial[] = [
     modules_count: 8,
     exercises_count: 4,
     status: "draft",
+    created_at: "2024-06-10T00:00:00.000Z",
+    updated_at: "2024-06-10T00:00:00.000Z",
   },
   {
     id: "ai-agents-workshop",
@@ -98,5 +114,7 @@ export const staticTutorials: StaticTutorial[] = [
     modules_count: 7,
     exercises_count: 5,
     status: "draft",
+    created_at: "2024-07-08T00:00:00.000Z",
+    updated_at: "2024-07-08T00:00:00.000Z",
   },
 ]

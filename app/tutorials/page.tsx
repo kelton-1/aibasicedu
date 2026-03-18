@@ -42,8 +42,8 @@ export default async function TutorialsPage() {
         available: t.status === "published",
         content: null as string | null,
         status: t.status,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
+        created_at: t.created_at,
+        updated_at: t.updated_at,
       }))
 
   const getLevelBadge = (level: string) => {
