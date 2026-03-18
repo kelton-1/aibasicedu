@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { generatePageMetadata } from "@/app/lib/seo"
 import { Input } from "@/components/ui/input"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Search } from "lucide-react"
@@ -9,19 +10,12 @@ import { glossaryTerms as staticGlossaryTerms } from "@/app/lib/data/glossary-da
 
 export const revalidate = 3600
 
-export const metadata: Metadata = {
+export const metadata: Metadata = generatePageMetadata({
   title: "AI Glossary",
-  description: "Comprehensive dictionary of AI terms and concepts explained in plain language.",
-  openGraph: {
-    title: "AI Glossary | AI Learning Hub",
-    description: "Comprehensive dictionary of AI terms and concepts explained in plain language.",
-    url: "/glossary",
-  },
-  twitter: {
-    title: "AI Glossary | AI Learning Hub",
-    description: "Comprehensive dictionary of AI terms and concepts explained in plain language.",
-  },
-}
+  description:
+    "Comprehensive dictionary of AI terms and concepts explained in plain language.",
+  path: "/glossary",
+})
 
 export default async function GlossaryPage() {
   const supabase = createServerClient()

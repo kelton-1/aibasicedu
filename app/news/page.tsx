@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { generatePageMetadata } from "@/app/lib/seo"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Clock, ArrowUpRight, BookmarkPlus } from "lucide-react"
@@ -10,21 +11,12 @@ import { newsArticles as staticNewsArticles } from "@/app/lib/data/news-data"
 
 export const revalidate = 3600
 
-export const metadata: Metadata = {
+export const metadata: Metadata = generatePageMetadata({
   title: "AI News",
   description:
     "Stay current with AI breakthroughs, policy updates, product launches, and research highlights from across the industry.",
-  openGraph: {
-    title: "AI News & Trends | AI Learning Hub",
-    description:
-      "Stay current with AI breakthroughs, policy updates, product launches, and research highlights from across the industry.",
-    url: "/news",
-  },
-  twitter: {
-    title: "AI News & Trends | AI Learning Hub",
-    description: "Read the latest AI news, trends, and research highlights.",
-  },
-}
+  path: "/news",
+})
 
 export default async function NewsPage() {
   const supabase = createServerClient()

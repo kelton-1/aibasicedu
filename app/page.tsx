@@ -17,22 +17,14 @@ import { NewsletterSubscription } from "@/app/components/newsletter-subscription
 import { CompanyLogo } from "@/app/components/company-logo"
 import { AdSlot } from "@/app/components/ad-slot"
 import { ROUTE_MAP } from "@/app/lib/route-map"
+import { generatePageMetadata } from "@/app/lib/seo"
 
-export const metadata: Metadata = {
+export const metadata: Metadata = generatePageMetadata({
   title: "Home",
   description:
     "Start your AI journey with curated learning paths, interactive resources, and practical guidance for every skill level.",
-  openGraph: {
-    title: "AI Learning Hub | Home",
-    description:
-      "Start your AI journey with curated learning paths, interactive resources, and practical guidance for every skill level.",
-    url: "/",
-  },
-  twitter: {
-    title: "AI Learning Hub | Home",
-    description: "Start your AI journey with curated learning paths and practical AI resources.",
-  },
-}
+  path: "/",
+})
 
 const featuredCompanies = [
   {

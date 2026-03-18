@@ -1,3 +1,4 @@
+import type { Metadata } from "next"
 import type React from "react"
 import { notFound } from "next/navigation"
 import { CompanyHeader } from "@/app/components/company-header"
@@ -5,6 +6,40 @@ import { Timeline } from "@/app/components/timeline"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { FadeIn } from "@/app/components/fade-in"
 import { Brain, Code, Lightbulb, Newspaper, Users } from "lucide-react"
+import { getCanonicalUrl } from "@/app/lib/seo"
+
+type CompanyRouteParams = {
+  slug: string
+}
+
+export async function generateMetadata({ params }: { params: Promise<CompanyRouteParams> }): Promise<Metadata> {
+  const { slug } = await params
+  const company = companies[slug as keyof typeof companies]
+
+  if (!company) {
+    return {}
+  }
+
+  const title = `${company.name} Company Profile`
+  const description = company.description
+  const url = getCanonicalUrl(`/companies/${slug}`)
+
+  return {
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      title,
+      description,
+      url,
+      type: "website",
+    },
+    twitter: {
+      title,
+      description,
+    },
+  }
+}
 
 // Company data
 const companies = {

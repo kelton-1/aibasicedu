@@ -1,15 +1,18 @@
 import type { Metadata } from "next"
+import { generatePageMetadata } from "@/app/lib/seo"
 import { FadeIn } from "@/app/components/fade-in"
 import { AffiliateToolCard } from "@/app/components/affiliate-tool-card"
 import { AdSlot } from "@/app/components/ad-slot"
 import { aiTools } from "@/app/lib/data/tools-data"
 import { NewsletterSubscription } from "@/app/components/newsletter-subscription"
 
-export const metadata: Metadata = {
+export const metadata: Metadata = generatePageMetadata({
   title: "Best AI Tools 2026 — Compared & Ranked",
-  description: "Compare the best AI tools in 2026. ChatGPT vs Claude vs Gemini vs Copilot — pricing, features, and which one is right for you.",
+  description:
+    "Compare the best AI tools in 2026. ChatGPT vs Claude vs Gemini vs Copilot — pricing, features, and which one is right for you.",
+  path: "/tools",
   keywords: ["best AI tools", "ChatGPT vs Claude", "AI tools comparison", "AI tools pricing 2026"],
-}
+})
 
 export default function ToolsPage() {
   const categories = [
