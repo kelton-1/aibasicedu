@@ -1,4 +1,6 @@
 import { ImageResponse } from "next/og"
+import { readFile } from "node:fs/promises"
+import { join } from "node:path"
 
 export const size = {
   width: 1200,
@@ -7,7 +9,10 @@ export const size = {
 
 export const contentType = "image/png"
 
-export default function TwitterImage() {
+export default async function TwitterImage() {
+  const logoData = await readFile(join(process.cwd(), "public/logo-square.png"))
+  const logoSrc = `data:image/png;base64,${logoData.toString("base64")}`
+
   return new ImageResponse(
     (
       <div
@@ -16,19 +21,32 @@ export default function TwitterImage() {
           width: "100%",
           display: "flex",
           flexDirection: "column",
+          alignItems: "center",
           justifyContent: "center",
-          background: "linear-gradient(135deg, #4f46e5 0%, #7c3aed 45%, #2563eb 100%)",
+          background: "linear-gradient(145deg, #000000 0%, #0a0a0a 50%, #111111 100%)",
           color: "white",
-          padding: "72px",
           fontFamily: "Inter, sans-serif",
         }}
       >
-        <div style={{ fontSize: 34, opacity: 0.9, marginBottom: 20 }}>AI Learning Hub</div>
-        <div style={{ fontSize: 72, fontWeight: 700, lineHeight: 1.1, maxWidth: 900 }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={logoSrc} alt="" width={140} height={140} style={{ marginBottom: 32 }} />
+        <div
+          style={{
+            fontSize: 52,
+            fontWeight: 700,
+            background: "linear-gradient(135deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C)",
+            backgroundClip: "text",
+            color: "transparent",
+            marginBottom: 16,
+          }}
+        >
+          AI Learning Hub
+        </div>
+        <div style={{ fontSize: 26, color: "#a3a3a3", maxWidth: 700, textAlign: "center" }}>
           Learn AI with clarity, structure, and confidence.
         </div>
-        <div style={{ fontSize: 30, marginTop: 24, opacity: 0.9 }}>
-          Tutorials · Companies · News · Prompting
+        <div style={{ fontSize: 18, color: "#737373", marginTop: 24, letterSpacing: "0.15em" }}>
+          TUTORIALS · COMPANIES · NEWS · PROMPTING
         </div>
       </div>
     ),

@@ -1,3 +1,4 @@
+import Image from "next/image"
 import Link from "next/link"
 import { ROUTE_MAP } from "@/app/lib/route-map"
 
@@ -34,7 +35,14 @@ export function SiteFooter() {
         <div className="grid grid-cols-2 gap-8 py-16 md:grid-cols-4">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
-            <Link href="/" className="inline-block mb-4">
+            <Link href="/" className="inline-flex items-center space-x-2 mb-4">
+              <Image
+                src="/logo-header.png"
+                alt="AI Learning Hub"
+                width={40}
+                height={22}
+                className="h-6 w-auto"
+              />
               <span className="text-lg font-semibold tracking-tight gold-text">
                 AI Learning Hub
               </span>

@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
@@ -24,7 +25,14 @@ export function MobileNav() {
       </SheetTrigger>
       <SheetContent side="left" className="w-[280px] bg-background border-border p-0">
         <div className="flex flex-col h-full">
-          <div className="p-6 border-b border-border">
+          <div className="p-6 border-b border-border flex items-center space-x-2">
+            <Image
+              src="/logo-header.png"
+              alt="AI Learning Hub"
+              width={40}
+              height={22}
+              className="h-6 w-auto"
+            />
             <span className="text-lg font-semibold tracking-tight gold-text">
               AI Learning Hub
             </span>

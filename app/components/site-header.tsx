@@ -1,3 +1,4 @@
+import Image from "next/image"
 import Link from "next/link"
 import { MainNav } from "@/app/components/main-nav"
 import { MobileNav } from "@/app/components/mobile-nav"
@@ -9,6 +10,14 @@ export function SiteHeader() {
     <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur-lg">
       <div className="section-container flex h-14 items-center">
         <Link href="/" className="mr-8 flex items-center space-x-2 group">
+          <Image
+            src="/logo-header.png"
+            alt="AI Learning Hub"
+            width={40}
+            height={22}
+            className="h-6 w-auto"
+            priority
+          />
           <span className="text-lg font-semibold tracking-tight gold-text">
             AI Learning Hub
           </span>
